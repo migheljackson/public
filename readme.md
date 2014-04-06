@@ -1,4 +1,2 @@
-My Package...
-=============
-
-...has not been documented yet...
+col_public
+==========

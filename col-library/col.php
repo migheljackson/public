@@ -9,7 +9,7 @@ require_once $core_path.'vendor/autoload.php';
 
 class COL {
 
-  CONST SEARCH_INDEX = "dev";
+  CONST SEARCH_INDEX = "chicago";
   
   /*
    *  @name search
@@ -91,7 +91,7 @@ class COL {
     $params['hosts'] = $searchServers;
 
     // TODO Drop LOGGING down to WARN
-    //$params['logging'] = true;
+    //  $params['logging'] = true;
     //$params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
     //$params['logLevel'] = Psr\Log\LogLevel::INFO;
 

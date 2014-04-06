@@ -23,8 +23,8 @@ class COL {
    *  @param $iPerPage - default to 12 - number or responses per page
    *
    */
-  public static function search($sQuery = "", $aTopics = [], $iMinAge = 0, 
-      $iMaxAge = 100, $bPrice = null, $aLocations=[], $iPage = 0, $iPerPage = 12) {
+  public static function search($sQuery = "", $aTopics = array() , $iMinAge = 0, 
+      $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 12) {
     $client = self::connect();
 
     $searchParams['index'] = self::SEARCH_INDEX;
@@ -92,7 +92,8 @@ class COL {
 
     // TODO Drop LOGGING down to WARN
     $params['logging'] = true;
-    $params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
+    //$params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
+    $params['logPath'] = '/var/www/beta.explorechi.com/public_html/core/cache/logs/error.log';
     $params['logLevel'] = Psr\Log\LogLevel::INFO;
 
     $client = new Elasticsearch\Client($params);

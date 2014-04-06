@@ -76,11 +76,19 @@ class COL {
     $aQueryString["query_string"]["query"] = $sQS;
     
     $searchParams['body']['query']['bool']['must'] = array($aQueryString, $aHiddenTermQuery);
-    $searchParams
+
+    $searchParams["from"] = $iPage * $iPerPage;
+    $searchParams["size"] = $iPerPage;
     $queryResponse = $client->search($searchParams);
 
     return $queryResponse;
   }
+
+public static function document_get($iDocumentId, $sDocumentType) {
+  $client = self::connect();
+  $aGetParams =  array('id' => $iDocumentId, 'index' => self::SEARCH_INDEX, 'type' => $sDocumentType,'_source' => true);
+  return $client->get($aGetParams);
+}  
 
   private static function connect() {
     $params = array();
@@ -106,6 +114,9 @@ class COL {
 // clean the index
 curl -XDELETE 'http://localhost:9200/dev'
 curl -XPUT 'http://localhost:9200/dev'
+
+curl -XDELETE 'http://localhost:9200/chicago'
+curl -XPUT 'http://localhost:9200/chicago'
 
 
 // setting up the geo point for location

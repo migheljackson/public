@@ -1,0 +1,34 @@
+{
+    "name": "vendorname/col_public",
+    "description": "Public Site Scripts for Exploring",
+    "type": "library",
+    "keywords": ["modx","repoman"],
+    "homepage": "https://github.com/craftsmancoding/repoman",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Mark E",
+            "email": "mark.ellul@gmail.com",
+            "homepage" : "http://remixlearning.com"        }        
+    ],
+    "support": {
+        "email": "mark.ellul@gmail.com",
+        "issues": "http://xkcd.com/258/",
+        "forum": "http://forums.modx.com/",
+        "wiki": "https://raw2.github.com/craftsmancoding/repoman/master/screenshots/lack_of_docs.jpg",
+        "source": "http://xkcd.com/1296/"
+    },    
+    "require": {
+        "php": ">=5.3",
+        "elasticsearch/elasticsearch": "1.0.*@dev"
+    },
+    "extra": {
+        "package_name": "col_public",
+        "namespace": "col_public",
+        "version": "0.0.0",
+        "release": "dev",
+        "category": "City of Learning Public Site",
+        "core_path": "",
+        "assets_path" : "assets/"
+    }
+}

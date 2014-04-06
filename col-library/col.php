@@ -85,15 +85,15 @@ class COL {
   private static function connect() {
     $params = array();
     
-    //$searchServers = array("gopher.col-engine.c66.me:9200");
-    $searchServers = array("dragon.staging-col-engine.staging.c66.me:9200");
+    $searchServers = array("gopher.col-engine.c66.me:9200");
+    //$searchServers = array("dragon.staging-col-engine.staging.c66.me:9200");
     //$searchServers = array("localhost:9200");
     $params['hosts'] = $searchServers;
 
     // TODO Drop LOGGING down to WARN
-    $params['logging'] = true;
-    $params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
-    $params['logLevel'] = Psr\Log\LogLevel::INFO;
+    //$params['logging'] = true;
+    //$params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
+    //$params['logLevel'] = Psr\Log\LogLevel::INFO;
 
     $client = new Elasticsearch\Client($params);
 

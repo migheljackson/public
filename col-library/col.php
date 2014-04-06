@@ -84,6 +84,12 @@ class COL {
     return $queryResponse;
   }
 
+public static function document_get($iDocumentId, $sDocumentType) {
+  $client = self::connect();
+  $aGetParams =  array('id' => $iDocumentId, 'index' => self::SEARCH_INDEX, 'type' => $sDocumentType,'_source' => true);
+  return $client->get($aGetParams);
+}  
+
   private static function connect() {
     $params = array();
     //$searchServers = array("dragon.staging-col-engine.staging.c66.me:9200");

@@ -1,0 +1,1 @@
+<li><p><a href="#" data-page="[[+page_num]]" class="paging_page">[[+page_num_title]]</a></p></li>

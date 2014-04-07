@@ -94,7 +94,7 @@ class COL {
     $searchParams["from"] = $iPage * $iPerPage;
     $searchParams["size"] = $iPerPage;
     $queryResponse = $client->search( $searchParams );
-    
+   
     return $queryResponse;
   }
 

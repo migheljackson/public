@@ -7,7 +7,7 @@ require_once $core_path.'col-library/col.php';
 // price (s_price for the search p_price for whats passed in)
 $s_price = null;
 $p_price = $_REQUEST["price"];
-if ( isset( $p_price )  && strlen( $p_price )) {
+if ( isset( $p_price )  && strlen( $p_price ) > 0) {
   if ( $p_price == "paid" ) {
     $s_price = true;
   } else {
@@ -53,7 +53,7 @@ $searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_p
 
 // check for total
 
-if ( $searchResults['hits'][['total'] >  $pageSize ) {
+if ( $searchResults['hits']['total'] >  $pageSize ) {
   // show laod more button
   
 }

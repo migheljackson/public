@@ -53,7 +53,7 @@ $searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_p
 
 // check for total
 
-if ( $searchResults['hits'][['total'] >  $pageSize ) {
+if ( $searchResults['hits']['total'] >  $pageSize ) {
   // show laod more button
   
 }

@@ -1,0 +1,1 @@
+<a href="#" class="reset_filter" data-filter-type="age_range" data-filter-value=[[+age_range]]>[[+school]]</a>

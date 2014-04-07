@@ -1,7 +1,9 @@
 <?php
 /**
+ *
+ *
  * @name fe_dosearch
- * @description 
+ * @description
  *
  */
 
@@ -14,7 +16,7 @@ require_once $core_path.'col-library/col.php';
 // price (s_price for the search p_price for whats passed in)
 $s_price = null;
 $p_price = $_REQUEST["price"];
-if ( isset( $p_price )  && strlen( $p_price ) > 0) {
+if ( isset( $p_price )  && strlen( $p_price ) > 0 ) {
   if ( $p_price == "paid" ) {
     $s_price = true;
   } else {
@@ -59,16 +61,75 @@ $pageSize = 15;
 $searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_price, array(), $s_page, $pageSize );
 
 // check for total
-
+$paging = '';
 if ( $searchResults['hits']['total'] >  $pageSize ) {
-  // show laod more button
-  
+  $aPageLinks = array();
+
+  $iCurrentPage = intval( $p_page );
+  $plChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultsPagingLink' );
+  $cplChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultsPagingCurrent' );
+  $plsChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultsPaging' );
+
+
+  $iTotalPages = intval( ceil( $searchResults['hits']['total'] / $pageSize ) );
+
+  // if we are on the first page do not show previous
+  if ( $iCurrentPage == 0 ) {
+
+  } else {
+    // subtract 1 from the page number and create link and add to pagelinks
+    $iBackPage = $iCurrentPage - 1;
+    $l =  $modx->getChunk( $plChunk, array( 'page_num' => $iBackPage, 'page_num_title' => "Prev" ) );
+    array_push( $aPageLinks , $l );
+  }
+
+  $initialPageNum = 0;
+  // if page number is greater than 6
+  if ( $iCurrentPage > 5 ) {
+    // set first page num to page - 5
+    $initialPageNum = $iCurrentPage - 5;
+  }
+
+  $iFinalPageNum = $initialPageNum + 10;
+  // for 10 links
+  for ( $i = $initialPageNum; $i < $iFinalPageNum; ++$i ) {
+    // if we are on the current page
+    if ( $iCurrentPage==$i ) {
+      // create a current page link
+      $l = $modx->getChunk( $cplChunk, array( 'page_num' => $i, 'page_num_title' => strval( $i+1 ) ) );
+      array_push( $aPageLinks , $l );
+    } else {
+      // if the page is less than the total pages
+      // create page link
+      // add to links array
+      if ( $i < $iTotalPages ) {
+        $l =  $modx->getChunk( $plChunk, array( 'page_num' => $i, 'page_num_title' => strval( $i+1 ) ) );
+        array_push( $aPageLinks , $l );
+      } else {
+        break;
+      }
+    }
+
+
+  }
+   // if we are not on the last page
+    // add next page link
+    
+
+  if ( $iCurrentPage != ( $iTotalPages-1 ) ) {
+      $l =  $modx->getChunk( $plChunk, array( 'page_num' => $iCurrentPage+1, 'page_num_title' => "Next" ) );
+      array_push( $aPageLinks , $l );
+    }
+
+
+$paging = $modx->getChunk( $plsChunk, array( "paging_link_items" => implode( "", $aPageLinks ) ) );
+
 }
 
 
 
 if (  $searchResults['hits']['total'] > 0 ) {
-  $modx->setPlaceholder("hit_count", strval($searchResults['hits']['total']));
+  $modx->setPlaceholder( "hit_count", strval( $searchResults['hits']['total'] ) );
   $items = '';
   $srItemChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultItem' );
   $srSchoolsChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultSchoolItem' );
@@ -141,7 +202,7 @@ if (  $searchResults['hits']['total'] > 0 ) {
 
 
   $srChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResults' );
-  $results = $modx->getChunk( $srChunk, array( 'search_result_items'=>$items ) );
+  $results = $modx->getChunk( $srChunk, array( 'search_result_items'=>$items, 'paging' => $paging ) );
 
   //print_r($results);
   return $results;

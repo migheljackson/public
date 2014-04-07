@@ -31,69 +31,7 @@ class COL {
     $searchParams['type']  = 'ScheduledProgram';
     //$searchParams['body']['query']['filter']['hide'] = 'false';
 
-    /*
-    {
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "query_string": {
-            "query": " crafty*"
-          }
-        }
-      ]
-    },
-    "filtered": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "hidden": false
-              }
-            },
-            {
-              "or": {
-                "filters": [
-                  {
-                    "term": {
-                      "categories.id": 7
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "range": {
-                "min_age": {
-                  "from": 0,
-                  "to": 7
-                }
-              }
-            },
-            {
-              "range": {
-                "max_age": {
-                  "from": 7,
-                  "to": 8
-                }
-              }
-            },
-            {
-              "range": {
-                "price": {
-                  "from": 0
-                }
-              }
-            }
-          ]
-        }
-      }
-    }
-  },
-  "from": 0,
-  "size": 10
-}*/
+
 
     $aQueryStringParameters = array();
 
@@ -153,8 +91,8 @@ class COL {
 
     $searchParams['body']['query']['filtered']['filter']['bool']['must'] = $aFiltersParameters;
 
-    $searchParams['body']["from"] = $iPage * $iPerPage;
-    $searchParams['body']["size"] = $iPerPage;
+    $searchParams["from"] = $iPage * $iPerPage;
+    $searchParams["size"] = $iPerPage;
     $queryResponse = $client->search( $searchParams );
     var_dump($queryResponse);
     return $queryResponse;

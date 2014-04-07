@@ -1,16 +1,16 @@
 <?php
 /*
  * @name addActivityManagerButton
- * @description 
+ * @description
 */
 
-$core_path = $modx->getOption('col_public.core_path','',MODX_CORE_PATH.'components/col_public/');
+$core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'components/col_public/' );
 require_once $core_path.'vendor/autoload.php';
 
 class COL {
 
-  CONST SEARCH_INDEX = "dev";
-  
+  const SEARCH_INDEX = "dev";
+
   /*
    *  @name search
    *  @param $sQuery - String of test to search for
@@ -23,77 +23,153 @@ class COL {
    *  @param $iPerPage - default to 12 - number or responses per page
    *
    */
-  public static function search($sQuery = "", $aTopics = array() , $iMinAge = 0, 
-      $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 12) {
+  public static function search( $sQuery = "", $aTopics = array() , $iMinAge = 0,
+    $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 12 ) {
     $client = self::connect();
 
     $searchParams['index'] = self::SEARCH_INDEX;
     $searchParams['type']  = 'ScheduledProgram';
     //$searchParams['body']['query']['filter']['hide'] = 'false';
 
+    /*
+    {
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "query": " crafty*"
+          }
+        }
+      ]
+    },
+    "filtered": {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "hidden": false
+              }
+            },
+            {
+              "or": {
+                "filters": [
+                  {
+                    "term": {
+                      "categories.id": 7
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "range": {
+                "min_age": {
+                  "from": 0,
+                  "to": 7
+                }
+              }
+            },
+            {
+              "range": {
+                "max_age": {
+                  "from": 7,
+                  "to": 8
+                }
+              }
+            },
+            {
+              "range": {
+                "price": {
+                  "from": 0
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "from": 0,
+  "size": 10
+}*/
+
     $aQueryStringParameters = array();
 
-    
+    $aFiltersParameters = array();
 
-    if (isset($sQuery) && strlen($sQuery) > 0) {
-      array_push($aQueryStringParameters, $sQuery."*"); // not sure if we should add this
+    if ( isset( $sQuery ) && strlen( $sQuery ) > 0 ) {
+      array_push( $aQueryStringParameters, $sQuery."*" ); // not sure if we should add this
+    } else {
+      array_push( $aQueryStringParameters, "*" );
     }
 
-    if (isset($aTopics) && count($aTopics) > 0) {
+    if ( isset( $aTopics ) && count( $aTopics ) > 0 ) {
       // (categories.id:2 OR categories.id:4)
       $aInnerCats = array();
-      for($i = 0; $i < count($aTopics); ++$i) {
-        array_push($aInnerCats, "categories.id:".strval($aTopics[$i]));
+      $catFilter = array();
+      $catFilter['or'] =  array( 'filters' =>array() );
+      for ( $i = 0; $i < count( $aTopics ); ++$i ) {
+        $term = array( 'term' => array( '"categories.id:"' => $aTopics[$i] ) );
+        array_push( $catFilter['or']['filters'], $term );
       }
-      array_push($aQueryStringParameters, implode(" OR ", $aInnerCats));
+
+      array_push( $aFiltersParameters, $catFilter );
     }
 
-    if (isset($iMinAge) && $iMinAge > 0) {
-      array_push($aQueryStringParameters, "min_age:>=".strval($iMinAge));
+    if ( isset( $iMinAge ) && $iMinAge > 0 ) {
+      $range = array( 'range'=>array( 'min_age' => array( 'from' => strval( $iMinAge ) ) ) );
+      array_push( $aFiltersParameters, $range );
     }
-    if (isset($iMaxAge) && $iMaxAge > 0) {
-      array_push($aQueryStringParameters, "max_age:<=".strval($iMaxAge));
+    if ( isset( $iMaxAge ) && $iMaxAge > 0 ) {
+      $range = array( 'range'=>array( 'max_age' => array( 'to' => strval( $iMaxAge ) ) ) );
+      array_push( $aFiltersParameters, $range );
     }
 
-    if (isset($bPrice) && !is_null($bPrice) ) {
-      if ($bPrice == true) {
-        $sQp = "price:>0";
+    if ( isset( $bPrice ) && !is_null( $bPrice ) ) {
+      if ( $bPrice == true ) {
+        $range = array( 'range'=>array( 'price' => array( 'from' => "1" ) ) );
+
       } else {
-        $sQp = "price:0";
+        $range = array( 'range'=>array( 'price' => array( 'to' => "0" ) ) );
+
       }
-      array_push($aQueryStringParameters, $sQp);
+      array_push( $aFiltersParameters, $range );
     }
- 
+
     // set hide to true
     $aHiddenTermQuery = array();
     $aHiddenTermQuery["term"]["hidden"] = false;
+    array_push( $aFiltersParameters, $aHiddenTermQuery );
 
     $aQueryString = array();
     $sQS = "";
-    foreach ($aQueryStringParameters as $qs) {
+    foreach ( $aQueryStringParameters as $qs ) {
       $sQS .= "(".$qs.")";
     }
     $aQueryString["query_string"]["query"] = $sQS;
-    
-    $searchParams['body']['query']['bool']['must'] = array($aQueryString, $aHiddenTermQuery);
 
-    $searchParams["from"] = $iPage * $iPerPage;
-    $searchParams["size"] = $iPerPage;
-    $queryResponse = $client->search($searchParams);
+    $searchParams['body']['query']['bool']['must'] = array( $aQueryString );
+    $searchParams['body']['query']['filtered']['filter']['bool']['must'] = $aFiltersParameters;
 
+    $searchParams['body']["from"] = $iPage * $iPerPage;
+    $searchParams['body']["size"] = $iPerPage;
+    $queryResponse = $client->search( $searchParams );
+    var_dump($queryResponse);
     return $queryResponse;
   }
 
-public static function document_get($iDocumentId, $sDocumentType) {
-  $client = self::connect();
-  $aGetParams =  array('id' => $iDocumentId, 'index' => self::SEARCH_INDEX, 'type' => $sDocumentType,'_source' => true);
-  return $client->get($aGetParams);
-}  
+  public static function document_get( $iDocumentId, $sDocumentType ) {
+    $client = self::connect();
+    $aGetParams =  array( 'id' => $iDocumentId, 'index' => self::SEARCH_INDEX, 'type' => $sDocumentType, '_source' => true );
+    return $client->get( $aGetParams );
+  }
 
   private static function connect() {
     $params = array();
     //$searchServers = array("dragon.staging-col-engine.staging.c66.me:9200");
-    $searchServers = array("localhost:9200");
+    $searchServers = array( "localhost:9200" );
     $params['hosts'] = $searchServers;
 
     // TODO Drop LOGGING down to WARN
@@ -102,7 +178,7 @@ public static function document_get($iDocumentId, $sDocumentType) {
     $params['logPath'] = '/var/www/beta.explorechi.com/public_html/core/cache/logs/error.log';
     $params['logLevel'] = Psr\Log\LogLevel::INFO;
 
-    $client = new Elasticsearch\Client($params);
+    $client = new Elasticsearch\Client( $params );
 
     return $client;
   }
@@ -121,7 +197,7 @@ curl -XPUT 'http://localhost:9200/chicago'
 // setting up the geo point for location
 curl -XPUT 'http://localhost:9200/dev/ScheduledProgram/_mapping' -d '
 {
-  
+
   "properties": {
 
          "location": {
@@ -139,13 +215,13 @@ curl -XPUT 'http://localhost:9200/dev/ScheduledProgram/_mapping' -d '
             "type": "boolean"
          }
     }
-  
-    
+
+
 }'
 
 curl -XPUT 'http://localhost:9200/chicago/ScheduledProgram/_mapping' -d '
 {
-  
+
   "properties": {
          "location": {
              "type": "geo_point",
@@ -162,8 +238,8 @@ curl -XPUT 'http://localhost:9200/chicago/ScheduledProgram/_mapping' -d '
             "type": "boolean"
          }
     }
-  
-    
+
+
 }'
 
 
@@ -172,29 +248,29 @@ http://loadimpact.com/load-test/chicagocityoflearning.org-faa2d0acc5401cdc4cda72
 
 // attempting location based search
 localhost:9200/dev/ScheduledProgram/
-GET _search 
+GET _search
 {
    "query": {
        "query_string": {
           "query": "springfield*"
-       }, 
-       
+       },
+
        "geo_shape": {
           "location": {
              "shape": {
-                "type": "polygon", 
+                "type": "polygon",
                 "coordinates": [[-87.6363976, 41.8772528], [-87.6363976, 41.8902152],[ -87.62131840000001, 41.8902152], [-87.62131840000001, 41.8772528], [-87.6363976, 41.8772528]]
              }
           }
-          
-       
+
+
        }
-        
-   
+
+
    }
 }
 
-POST _search 
+POST _search
 {
    "query": {
        "bool": {
@@ -202,21 +278,21 @@ POST _search
           "query_string": {
           "query": " price:0 AND (categories.id:2 OR categories.id:4) and program_type:\"workshop\" AND springfield* AND min_age:<8"
        }
-       }, 
+       },
        {
        "term": {
            "hidden": true
        }
        }
        ]
-       }, 
+       },
 
     "from": 0,
     "size": 2
-      
-      
-        
-   
+
+
+
+
    }
 }
 
@@ -231,7 +307,7 @@ values program_type:\"workshop\"
 use AND for filtering
 
 
-GET _search 
+GET _search
 {
    "query": {
        "query_string": {
@@ -239,16 +315,16 @@ GET _search
        }
     ,
     "size": 2
-      
-      
-        
-   
+
+
+
+
    }
 }
 
 // search with categories
 
-GET _search 
+GET _search
 {
    "query": {
        "query_string": {
@@ -257,11 +333,68 @@ GET _search
     ,
     "from": 0,
     "size": 2
-      
-      
-        
-   
+
+
+
+
    }
+}
+
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "query_string": {
+            "query": " price:0 AND (categories.id:2 OR categories.id:4) and program_type:\"workshop\""
+          }
+        },
+        {
+          "term": {
+            "hidden": false
+          }
+        }
+      ]
+    },
+    "filtered": {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "categories.id": 2
+              }
+            },
+            {
+              "range": {
+                "min_age": {
+                  "from": 0,
+                  "to": 7
+                }
+              }
+            },
+            {
+              "range": {
+                "max_age": {
+                  "from": 7,
+                  "to": 8
+                }
+              }
+            },{
+              "range": {
+                "price": {
+                  "from": 1
+
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "from": 0,
+  "size": 10
 }
 
 */

@@ -1,4 +1,11 @@
 <?php
+/**
+ * @name fe_dosearch
+ * @description 
+ *
+ */
+
+
 // parameters from form
 $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'components/col_public/' );
 require_once $core_path.'col-library/col.php';

@@ -24,7 +24,7 @@ class COL {
    *
    */
   public static function search( $sQuery = "", $aTopics = array() , $iMinAge = 0,
-    $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 12 ) {
+    $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 15 ) {
     $client = self::connect();
 
     $searchParams['index'] = self::SEARCH_INDEX;
@@ -102,7 +102,7 @@ class COL {
     if ( isset( $sQuery ) && strlen( $sQuery ) > 0 ) {
       array_push( $aQueryStringParameters, $sQuery."*" ); // not sure if we should add this
     } else {
-      array_push( $aQueryStringParameters, "*" );
+      //array_push( $aQueryStringParameters, "*" );
     }
 
     if ( isset( $aTopics ) && count( $aTopics ) > 0 ) {
@@ -111,7 +111,7 @@ class COL {
       $catFilter = array();
       $catFilter['or'] =  array( 'filters' =>array() );
       for ( $i = 0; $i < count( $aTopics ); ++$i ) {
-        $term = array( 'term' => array( '"categories.id:"' => $aTopics[$i] ) );
+        $term = array( 'term' => array( "categories.id" => intval($aTopics[$i]) ) );
         array_push( $catFilter['or']['filters'], $term );
       }
 
@@ -119,20 +119,20 @@ class COL {
     }
 
     if ( isset( $iMinAge ) && $iMinAge > 0 ) {
-      $range = array( 'range'=>array( 'min_age' => array( 'from' => strval( $iMinAge ) ) ) );
+      $range = array( 'range'=>array( 'min_age' => array( 'from' => $iMinAge  ) ) );
       array_push( $aFiltersParameters, $range );
     }
     if ( isset( $iMaxAge ) && $iMaxAge > 0 ) {
-      $range = array( 'range'=>array( 'max_age' => array( 'to' => strval( $iMaxAge ) ) ) );
+      $range = array( 'range'=>array( 'max_age' => array( 'to' =>  $iMaxAge  ) ) );
       array_push( $aFiltersParameters, $range );
     }
 
     if ( isset( $bPrice ) && !is_null( $bPrice ) ) {
       if ( $bPrice == true ) {
-        $range = array( 'range'=>array( 'price' => array( 'from' => "1" ) ) );
+        $range = array( 'range'=>array( 'price' => array( 'from' => 1 ) ) );
 
       } else {
-        $range = array( 'range'=>array( 'price' => array( 'to' => "0" ) ) );
+        $range = array( 'term'=>array( 'price' => 0 ) );
 
       }
       array_push( $aFiltersParameters, $range );
@@ -142,15 +142,15 @@ class COL {
     $aHiddenTermQuery = array();
     $aHiddenTermQuery["term"]["hidden"] = false;
     array_push( $aFiltersParameters, $aHiddenTermQuery );
+    if(count($aQueryStringParameters) > 0) {
+          $aQueryString["query_string"]["query"] = $sQuery."*" ;
 
-    $aQueryString = array();
-    $sQS = "";
-    foreach ( $aQueryStringParameters as $qs ) {
-      $sQS .= "(".$qs.")";
+      $searchParams['body']['query']['bool']['must'] = array( $aQueryString );
+    } else {
+       $searchParams['body']['query']["match_all"] = array("boost"=>1);
     }
-    $aQueryString["query_string"]["query"] = $sQS;
+   
 
-    $searchParams['body']['query']['bool']['must'] = array( $aQueryString );
     $searchParams['body']['query']['filtered']['filter']['bool']['must'] = $aFiltersParameters;
 
     $searchParams['body']["from"] = $iPage * $iPerPage;
@@ -174,8 +174,8 @@ class COL {
 
     // TODO Drop LOGGING down to WARN
     $params['logging'] = true;
-    //$params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
-    $params['logPath'] = '/var/www/beta.explorechi.com/public_html/core/cache/logs/error.log';
+    $params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
+    //$params['logPath'] = '/var/www/beta.explorechi.com/public_html/core/cache/logs/error.log';
     $params['logLevel'] = Psr\Log\LogLevel::INFO;
 
     $client = new Elasticsearch\Client( $params );

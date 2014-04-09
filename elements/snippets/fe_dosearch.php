@@ -155,7 +155,7 @@ if (  $searchResults['hits']['total'] > 0 ) {
     $iMinAge = $sp['min_age'];
     $iMaxAge = $sp['max_age'];
 
-    if ( $sp['price']>0 ) {
+    if ( $sp['price']>0  || $sp['price']==null) {
       $sp['price'] = '$';
     } else {
       $sp['price'] = 'Free';

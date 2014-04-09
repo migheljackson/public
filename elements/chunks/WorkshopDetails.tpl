@@ -84,8 +84,8 @@
         <div class="large-12 columns" >
           <div class="events related-item clearfix" style="background-color:#E9E9E9;">
             <h5 class="item-title" style="text-align:center;">Did you find what you were looking for? If not, then keep exploring!</h5>
-              <a href="explore" class="large button radius left" style="text-align:center;">KEEP EXPLORING</a>
-              <br/>
+            <div style="width:100%;text-align: center;"><a href="explore" class="large button radius center" style="text-align:center;">KEEP EXPLORING</a></div>
+            <br/>
           </div>
         </div>  
     </div>    

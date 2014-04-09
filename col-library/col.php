@@ -139,8 +139,11 @@ curl -XPUT 'http://localhost:9200/dev/ScheduledProgram/_mapping' -d '
   "properties": {
 
          "location": {
-             "type": "geo_point",
+             "type": "geo_shape",
              "precision": "10m"
+         },
+         "location_point": {
+             "type": "geo_point"
          },
          "categories": {
             "properties": {
@@ -162,8 +165,11 @@ curl -XPUT 'http://localhost:9200/chicago/ScheduledProgram/_mapping' -d '
 
   "properties": {
          "location": {
-             "type": "geo_point",
+             "type": "geo_shape",
              "precision": "10m"
+         },
+         "location_point": {
+             "type": "geo_point"
          },
          "categories": {
             "properties": {
@@ -334,7 +340,39 @@ GET _search
   "from": 0,
   "size": 10
 }
-
+// distance search
+{
+  "query": {
+    "match_all": {
+      
+    },
+    "filtered": {
+      "filter": {
+        "bool": {
+          "must": [
+              {
+                  "geo_distance" : {
+                "distance" : "1km",
+                "location_point" : {
+                    "lat" :  41.8,
+                    "lon" : -87.63
+                }
+            }
+              },
+            {
+              "term": {
+                "hidden": false
+              }
+            }
+            
+          ]
+        }
+      }
+    }
+  },
+  "from": 0,
+  "size": 10
+}
 */
 
 

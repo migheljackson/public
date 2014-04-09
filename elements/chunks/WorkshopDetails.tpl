@@ -21,7 +21,7 @@
         <div class="row">
           <div class="small-8 small-offset-2 large-8 large-offset-2" style="text-align:center">
               <h2 class="item-title">[[+name]]</h2>
-              <p id="workshop-desc" style="text-align:left;text-overflow: ellipsis;height:100px; overflow: hidden; padding-bottom: 15px;position:relative;">[[+description]]</p>
+              <p id="workshop-desc" style="text-align:justify;">[[+description]]</p>
               [[+reg_button]] [[+prog_button]]
           </div>
         </div>
@@ -122,14 +122,5 @@
         });
       }
       google.maps.event.addDomListener(window, 'load', initialize);
-      $(document).ready(function() {
-        var element = document.querySelector('#workshop-desc');
-        if(element.offsetHeight < element.scrollHeight){
-            $("#workshop-desc").append("<a id='expand-btn' style='position:absolute; bottom:0; right:0;' onclick='expandDesc();'>show more</a>");
-            orgHeight = element.offsetHeight;
-        }
-        else{
-          //your element don't have overflow
-        }
-      });
+      
     </script>

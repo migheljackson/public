@@ -1,11 +1,11 @@
-  <div class="row explore">
-    <div class="large-12 columns" id="filter_flyout">
+ <div class="row">
+    <div class="large-12 columns">
       <div class="row">
-        <div class="small-centered large-12 columns">
-          <ul class="filter-block">
+        <div class="small-centered small-12 large-6 columns">
+          <ul class="pagination">
           [[+paging_link_items]]
           </ul>
         </div>
       </div>
     </div>
-  <div>  
+  <div>

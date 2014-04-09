@@ -1,5 +1,5 @@
   <div class="row explore">
-    <div class="large-12 columns" id="filter_flyout">
+    <div class="large-12 columns fixed" id="filter_flyout">
       <div class="row">
         <div class="small-centered large-12 columns">
           <ul class="filter-block">
@@ -42,7 +42,7 @@
       <div class="row" style="background-color: #E9E9E9;margin-left:0;margin-right:0">
         <div class="small-10 large-10 large-offset-1 columns end">
           <div class="items">
-            <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+            <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
             [[+search_result_items]]                           
             </ul>
           </div>

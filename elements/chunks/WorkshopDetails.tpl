@@ -12,7 +12,7 @@
   </div>
 
   <div class="row">
-      <div class="small-2 large-2 columns" style="padding-top:.75em;height:1.5em;"><a href="#" onclick="history.go(-1); return false;">< Go Back</a></div>
+      <div class="small-6 medium-3 large-3 columns" style="padding-top:.75em;height:1.5em;"><a href="#" onclick="history.go(-1); return false;">< Go Back</a></div>
   </div>
 
   <div class="row workshop">

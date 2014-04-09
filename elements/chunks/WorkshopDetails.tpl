@@ -19,7 +19,7 @@
     <div class="large-12 columns">
       <div class="items small-spacer-top">
         <div class="row">
-          <div class="small-7 small-offset-2 large-7 large-offset-2" style="text-align:center">
+          <div class="small-8 small-offset-2 large-8 large-offset-2" style="text-align:center">
               <h2 class="item-title">[[+name]]</h2>
               <p id="workshop-desc" style="text-align:left;text-overflow: ellipsis;height:100px; overflow: hidden; padding-bottom: 15px;position:relative;">[[+description]]</p>
               [[+reg_button]] [[+prog_button]]

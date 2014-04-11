@@ -84,8 +84,13 @@
         <div class="large-12 columns" >
           <div class="events related-item clearfix" style="background-color:#E9E9E9;">
             <h5 class="item-title" style="text-align:center;">Did you find what you were looking for? If not, then keep exploring!</h5>
+<<<<<<< HEAD
               <a href="explore" class="large button radius left" style="text-align:center;">KEEP EXPLORING</a>
               <br/>
+=======
+            <div style="width:100%;text-align: center;"><a href="explore" class="large button radius center" style="text-align:center;">KEEP EXPLORING</a></div>
+            <br/>
+>>>>>>> f38482536df1d4fe3817e943762d90a648f31b6c
           </div>
         </div>  
     </div>    
@@ -122,5 +127,18 @@
         });
       }
       google.maps.event.addDomListener(window, 'load', initialize);
+<<<<<<< HEAD
       
+=======
+      $(document).ready(function() {
+        var element = document.querySelector('#workshop-desc');
+        if(element.offsetHeight < element.scrollHeight){
+            $("#workshop-desc").append("<a id='expand-btn' style='position:absolute; bottom:0; right:0;' onclick='expandDesc();'>show more</a>");
+            orgHeight = element.offsetHeight;
+        }
+        else{
+          //your element don't have overflow
+        }
+      });
+>>>>>>> f38482536df1d4fe3817e943762d90a648f31b6c
     </script>

@@ -55,6 +55,38 @@ foreach($workshop['categories'] as $category) {
 
 $workshop["categoryHtml"] = $categoryText;
 
+// weekday logic
+// [scheduled_fri] => [scheduled_mon] => 1 [scheduled_sat] => [scheduled_sun] => [scheduled_thurs] => 1 [scheduled_tues] => 1 [scheduled_wed] => 1
+
+ $weekdayList = "";
+
+  if($workshop["scheduled_sun"]) {
+  	$weekdayList .= "Sun, ";
+  }
+  if($workshop["scheduled_mon"]) {
+  	$weekdayList .= "Mon, ";
+  }
+  if($workshop["scheduled_tues"]) {
+  	$weekdayList .= "Tue, ";
+  }
+  if($workshop["scheduled_wed"]) {
+  	$weekdayList .= "Wed, ";
+  }
+  if($workshop["scheduled_thurs"]) {
+  	$weekdayList .= "Thu, ";
+  }
+  if($workshop["scheduled_fri"]) {
+  	$weekdayList .= "Fri, ";
+  }
+  if($workshop["scheduled_sat"]) {
+  	$weekdayList .= "Sat, ";
+  }
+  
+  if($weekdayList!="") {
+  	$weekdayList = rtrim($weekdayList, ", ");
+  	$workshop["weekdays"] = "Days: " . $weekdayList;
+  }
+
 // contact chunk
 if($workshop['contact_name']!=null || $workshop['contact_email']!=null || $workshop['contact_phone']!=null || $workshop['program_url']!=null) {
 	$workshopContact = '<li><h4 class="event-block-title center">workshop contact</h4><div class="event-block clearfix">';

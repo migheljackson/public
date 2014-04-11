@@ -9,8 +9,8 @@ require_once $core_path.'vendor/autoload.php';
 
 class COL {
 
-  const SEARCH_INDEX = "dev";
-
+  CONST SEARCH_INDEX = "chicago";
+  
   /*
    *  @name search
    *  @param $sQuery - String of test to search for
@@ -106,15 +106,16 @@ class COL {
 
   private static function connect() {
     $params = array();
+    
+    $searchServers = array("gopher.col-engine.c66.me:9200");
     //$searchServers = array("dragon.staging-col-engine.staging.c66.me:9200");
-    $searchServers = array( "localhost:9200" );
+    //$searchServers = array("localhost:9200");
     $params['hosts'] = $searchServers;
 
     // TODO Drop LOGGING down to WARN
-    $params['logging'] = true;
-    $params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
-    //$params['logPath'] = '/var/www/beta.explorechi.com/public_html/core/cache/logs/error.log';
-    $params['logLevel'] = Psr\Log\LogLevel::INFO;
+    //  $params['logging'] = true;
+    //$params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
+    //$params['logLevel'] = Psr\Log\LogLevel::INFO;
 
     $client = new Elasticsearch\Client( $params );
 

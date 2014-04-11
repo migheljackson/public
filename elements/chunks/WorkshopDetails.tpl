@@ -92,7 +92,7 @@
     </div>    
     <br/>
     
-    <script type="text/javascript"
+    <script type="text/javascript" data-cfasync="false"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b_ROG8eqS9bogFLE1A7R8T3fBbc6Sw&sensor=false">
     </script>
     <script type="text/javascript">
@@ -124,22 +124,4 @@
       }
       google.maps.event.addDomListener(window, 'load', initialize);
       
-    </script>n_name]] - [[+address]]"
-        });
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-<<<<<<< HEAD
-      
-=======
-      $(document).ready(function() {
-        var element = document.querySelector('#workshop-desc');
-        if(element.offsetHeight < element.scrollHeight){
-            $("#workshop-desc").append("<a id='expand-btn' style='position:absolute; bottom:0; right:0;' onclick='expandDesc();'>show more</a>");
-            orgHeight = element.offsetHeight;
-        }
-        else{
-          //your element don't have overflow
-        }
-      });
->>>>>>> f38482536df1d4fe3817e943762d90a648f31b6c
     </script>

@@ -56,7 +56,6 @@ foreach($workshop['categories'] as $category) {
 $workshop["categoryHtml"] = $categoryText;
 
 // weekday logic
-// [scheduled_fri] => [scheduled_mon] => 1 [scheduled_sat] => [scheduled_sun] => [scheduled_thurs] => 1 [scheduled_tues] => 1 [scheduled_wed] => 1
 
  $weekdayList = "";
 

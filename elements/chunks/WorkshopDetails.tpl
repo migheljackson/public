@@ -92,7 +92,7 @@
     <br/>
     
     <script type="text/javascript"
-      src="//maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b_ROG8eqS9bogFLE1A7R8T3fBbc6Sw&sensor=false">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b_ROG8eqS9bogFLE1A7R8T3fBbc6Sw&sensor=false">
     </script>
     <script type="text/javascript">
       var orgHeight;

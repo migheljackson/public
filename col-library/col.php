@@ -24,7 +24,7 @@ class COL {
    *
    */
   public static function search( $sQuery = "", $aTopics = array() , $iMinAge = 0,
-    $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 15, $zipcode = "", $latitude = null, $longitude = null, $distance = null ) {
+    $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 15, $latitude = null, $longitude = null, $distance = null ) {
     $client = self::connect();
 
     $searchParams['index'] = self::SEARCH_INDEX;
@@ -79,6 +79,25 @@ class COL {
         array_push( $aFiltersParameters, $locationOrFilter );
       }
 
+    }
+
+    /*"geo_distance" : {
+                "distance" : "1km",
+                "location_point" : {
+                    "lat" :  41.8,
+                    "lon" : -87.63
+                } 
+                var_dump($latitude);var_dump($distance);var_dump($longitude);
+*/
+    if(isset($latitude) && isset($longitude) && isset($distance)) {
+      
+      $geo_distance = array();
+      $geo_distance["geo_distance"] = array();
+      $geo_distance["geo_distance"]["distance"] = $distance;
+      $geo_distance["geo_distance"]["location_point"]["lat"] = floatval($latitude);
+      $geo_distance["geo_distance"]["location_point"]["lon"] = floatval($longitude);
+      //var_dump($geo_distance);
+      array_push( $aFiltersParameters, $geo_distance );
     }
 
     if ( isset( $iMinAge ) && $iMinAge > 0 ) {

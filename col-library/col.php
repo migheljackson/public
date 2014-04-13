@@ -49,11 +49,36 @@ class COL {
       $catFilter = array();
       $catFilter['or'] =  array( 'filters' =>array() );
       for ( $i = 0; $i < count( $aTopics ); ++$i ) {
-        $term = array( 'term' => array( "categories.id" => intval($aTopics[$i]) ) );
+        $term = array( 'term' => array( "categories.id" => intval( $aTopics[$i] ) ) );
         array_push( $catFilter['or']['filters'], $term );
       }
 
       array_push( $aFiltersParameters, $catFilter );
+    }
+
+    if ( isset( $aLocations )  && count( $aLocations )>0 ) {
+      $location_shapes = array();
+      foreach($aLocations as $locationSlug) {
+        $l = self::get_location($locationSlug);
+        if (isset($l)) {
+          array_push($location_shapes, $l);
+        }
+      }
+
+      if (count($location_shapes)>0) {
+        $locationOrFilter = array();
+        $locationOrFilter['or'] = array('filters' => array());
+
+        foreach ($location_shapes as $shape ) {
+          $locationShape = array();
+          $locationShape["geo_shape"]["location"]["shape"]["type"]="polygon";
+          $locationShape["geo_shape"]["location"]["shape"]["coordinates"] = array( $shape );
+          array_push( $locationOrFilter["or"]["filters"], $locationShape );
+        }
+
+        array_push( $aFiltersParameters, $locationOrFilter );
+      }
+
     }
 
     if ( isset( $iMinAge ) && $iMinAge > 0 ) {
@@ -80,21 +105,23 @@ class COL {
     $aHiddenTermQuery = array();
     $aHiddenTermQuery["term"]["hidden"] = false;
     array_push( $aFiltersParameters, $aHiddenTermQuery );
-    if(count($aQueryStringParameters) > 0) {
-          $aQueryString["query_string"]["query"] = $sQuery."*" ;
+    if ( count( $aQueryStringParameters ) > 0 ) {
+      $aQueryString["query_string"]["query"] = $sQuery."*" ;
 
       $searchParams['body']['query']['bool']['must'] = array( $aQueryString );
     } else {
-       $searchParams['body']['query']["match_all"] = array("boost"=>1);
+      $searchParams['body']['query']["match_all"] = array( "boost"=>1 );
     }
-   
+
 
     $searchParams['body']['query']['filtered']['filter']['bool']['must'] = $aFiltersParameters;
 
     $searchParams["from"] = $iPage * $iPerPage;
     $searchParams["size"] = $iPerPage;
+
+
     $queryResponse = $client->search( $searchParams );
-   
+
     return $queryResponse;
   }
 
@@ -119,6 +146,19 @@ class COL {
     $client = new Elasticsearch\Client( $params );
 
     return $client;
+  }
+
+  private static function get_location( $slug ) {
+    $locations = array();
+
+    $locations["south_side"] = array( [-87.60223388671875, 41.859844975978454], [-87.74505615234375, 41.81533774847465], [-87.74162292480469, 41.76926321969369], [-87.79792785644531, 41.76772683171353], [-87.79449462890625, 41.63135419009182], [-87.3468017578125, 41.62930126680881], [-87.60223388671875, 41.859844975978454] );
+    $locations["southwest_side"] = array( [-87.74059295654297, 41.81636125072051], [-87.82024383544922, 41.792816561051815], [-87.89474487304688, 41.71828672552955], [-87.83500671386719, 41.63084096540012], [-87.73612976074219, 41.631867410697474], [-87.74059295654297, 41.81636125072051] );
+    $locations["downtown"] = array( [-87.61991500854492, 41.90419348703419], [-87.66231536865234, 41.90355467806868], [-87.65853881835938, 41.895760694064755], [-87.64566421508789, 41.88630442013054], [-87.64463424682617, 41.846291455009165], [-87.55331039428711, 41.875312937595815], [-87.61991500854492, 41.90419348703419] );
+    $locations["west_side"] = array( [-87.64463424682617, 41.846291455009165], [-87.64566421508789, 41.88630442013054], [-87.66059875488281, 41.8999772297506], [-87.80548095703125, 41.897932883580076], [-87.80410766601562, 41.79665595947719], [-87.64463424682617, 41.846291455009165] );
+    $locations["north_side"] = array( [-87.6544189453125, 41.899721690058364], [-87.61322021484375, 41.90534332706592], [-87.66609191894531, 42.06101883271296], [-87.77458190917969, 42.067135987500116], [-87.74986267089844, 41.96459591213679], [-87.68840789794922, 41.9282080659345], [-87.68754959106445, 41.8998494600323], [-87.6544189453125, 41.899721690058364] );
+    $locations["north_west_side"] = array( [-87.68051147460938, 41.899721690058364], [-87.68840789794922, 41.9282080659345], [-87.74986267089844, 41.96459591213679], [-87.76668548583984, 42.04138898243176], [-87.8683090209961, 42.040624060291336], [-87.94452667236328, 42.021753065991184], [ -87.9510498046875, 41.95949009892467], [-87.83672332763672, 41.93804121581888], [-87.8360366821289, 41.89716623689334], [-87.68051147460938, 41.899721690058364] );
+
+    return $locations[$slug];
   }
 }
 
@@ -344,7 +384,7 @@ GET _search
 {
   "query": {
     "match_all": {
-      
+
     },
     "filtered": {
       "filter": {
@@ -364,7 +404,7 @@ GET _search
                 "hidden": false
               }
             }
-            
+
           ]
         }
       }

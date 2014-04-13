@@ -107,6 +107,7 @@
           $("#expand-btn").attr("onclick","expandDesc();").text('show more');
       }
       function initialize() {
+        $('.small-map').height($($('.event-block')[0]).height() + 16);
         var curLatLng = new google.maps.LatLng([[+latitude]], [[+longitude]]);
         var mapOptions = {
           center: curLatLng,

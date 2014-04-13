@@ -9,7 +9,7 @@ require_once $core_path.'vendor/autoload.php';
 
 class COL {
 
-  const SEARCH_INDEX = "dev";
+  const SEARCH_INDEX = "chicago";
 
   /*
    *  @name search

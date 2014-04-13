@@ -92,7 +92,7 @@
     <br/>
     
     <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b_ROG8eqS9bogFLE1A7R8T3fBbc6Sw&sensor=false">
+      src="//maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b_ROG8eqS9bogFLE1A7R8T3fBbc6Sw&sensor=false">
     </script>
     <script type="text/javascript">
       var orgHeight;
@@ -122,8 +122,9 @@
             title:"[[+location_name]] - [[+address]]"
         });
       }
-      google.maps.event.addDomListener(window, 'load', initialize);
+    
       $(document).ready(function() {
+        initialize();
         var element = document.querySelector('#workshop-desc');
         if(element.offsetHeight < element.scrollHeight){
             $("#workshop-desc").append("<a id='expand-btn' style='position:absolute; bottom:0; right:0;' onclick='expandDesc();'>show more</a>");

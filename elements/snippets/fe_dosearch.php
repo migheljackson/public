@@ -58,7 +58,7 @@ if ( isset( $p_age_range ) ) {
 
 $pageSize = 15;
 
-$searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_price, array("north_side", "south_side"), $s_page, $pageSize );
+$searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_price, array(), $s_page, $pageSize );
 
 // check for total
 $paging = '';

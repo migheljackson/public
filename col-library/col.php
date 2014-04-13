@@ -24,7 +24,7 @@ class COL {
    *
    */
   public static function search( $sQuery = "", $aTopics = array() , $iMinAge = 0,
-    $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 15 ) {
+    $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 15, $zipcode = "", $latitude = null, $longitude = null, $distance = null ) {
     $client = self::connect();
 
     $searchParams['index'] = self::SEARCH_INDEX;

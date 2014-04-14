@@ -126,6 +126,7 @@ class COL {
     array_push( $aFiltersParameters, $aHiddenTermQuery );
     if ( count( $aQueryStringParameters ) > 0 ) {
       $aQueryString["query_string"]["query"] = $sQuery."*" ;
+      $aQueryString["query_string"]["fields"] = array("description", "name^5");
 
       $searchParams['body']['query']['bool']['must'] = array( $aQueryString );
     } else {
@@ -196,7 +197,14 @@ curl -XPUT 'http://localhost:9200/dev/ScheduledProgram/_mapping' -d '
 {
 
   "properties": {
-
+         "name": {
+            "type": "string",
+            "boost": 5.0
+         },
+        "description": {
+            "type": "string",
+            "boost": 1.5
+         },
          "location": {
              "type": "geo_shape",
              "precision": "10m"
@@ -207,8 +215,8 @@ curl -XPUT 'http://localhost:9200/dev/ScheduledProgram/_mapping' -d '
          "categories": {
             "properties": {
                 "id": {"type": "long"},
-                "name": {"type": "string"},
-                "description": {"type": "string"}
+                "name": {"type": "string", "index": "not_analyzed", store: false, "boost": 0.1},
+                "description": {"type": "string", "index": "not_analyzed", store: false, "boost": 0.1}
             }
          },
          "hidden": {
@@ -223,6 +231,21 @@ curl -XPUT 'http://localhost:9200/chicago/ScheduledProgram/_mapping' -d '
 {
 
   "properties": {
+         "name": {
+            "type": "string",
+            "index": "analyzed",
+            "boost": 10.0
+         },
+        "description": {
+            "type": "string",
+            "index": "analyzed",
+            "boost": 1.0
+         },
+         "location_name": {
+            "type": "string",
+            "index": "analyzed",
+            "boost": 0.5
+         },
          "location": {
              "type": "geo_shape",
              "precision": "10m"
@@ -233,8 +256,8 @@ curl -XPUT 'http://localhost:9200/chicago/ScheduledProgram/_mapping' -d '
          "categories": {
             "properties": {
                 "id": {"type": "long"},
-                "name": {"type": "string"},
-                "description": {"type": "string"}
+                "name": {"type": "string", "index": "no", store: false, "boost": 0.1},
+                "description": {"type": "string", "index": "no", store: false, "boost": 0.1}
             }
          },
          "hidden": {

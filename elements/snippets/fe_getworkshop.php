@@ -95,7 +95,7 @@ if($workshop['registration_url']!=null) {
 	} else {
 		$url_to_use = "http://".$url_to_use;
 	}
-	$workshop['reg_button'] = "<a class='btn' href='".$url_to_use."'>Register</a>";
+	$workshop['reg_button'] = "<a class='small button radius' href='".$url_to_use."'>Register</a>";
 }
 
 if($workshop['program_url']!=null) {
@@ -104,7 +104,7 @@ if($workshop['program_url']!=null) {
 	} else {
 		$url_to_use = "http://".$url_to_use;
 	}
-	$workshop['prog_button'] = "<a class='btn' href='".$url_to_use."'>Learn more</a>";
+	$workshop['prog_button'] = "<a class='small button radius' href='".$url_to_use."'>Learn more</a>";
 }
 
 // $workshop['end_date'] = $endDateTime->format("g:i A");

@@ -90,11 +90,21 @@ if($workshop['registration_deadline']!=null) {
 
 // display button for reg url
 if($workshop['registration_url']!=null) {
-	$workshop['reg_button'] = "<a class='btn' href='#'>Register</a>";
+	$url_to_use = $workshop['registration_url'];
+	if (strpos($url_to_use, "http")===0) {
+	} else {
+		$url_to_use = "http://".$url_to_use;
+	}
+	$workshop['reg_button'] = "<a class='btn' href='".$url_to_use."'>Register</a>";
 }
 
 if($workshop['program_url']!=null) {
-	$workshop['prog_button'] = "<a class='btn' href='#'>Learn more</a>";
+	$url_to_use = $workshop['program_url'];
+	if (strpos($url_to_use, "http")===0) {
+	} else {
+		$url_to_use = "http://".$url_to_use;
+	}
+	$workshop['prog_button'] = "<a class='btn' href='".$url_to_use."'>Learn more</a>";
 }
 
 // $workshop['end_date'] = $endDateTime->format("g:i A");

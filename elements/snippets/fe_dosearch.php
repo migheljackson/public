@@ -32,6 +32,14 @@ if(isset($_REQUEST["zipcode"])) {
 
 }
     
+// cat_ids
+$s_locations = array();
+$p_locations = $_REQUEST["locationss"];
+
+
+if ( !is_null( $p_locations ) && is_array( $p_locations ) ) {
+  $s_locations = $p_locations;
+}
     
 
 
@@ -80,7 +88,7 @@ if ( isset( $p_age_range ) ) {
 
 $pageSize = 15;
 
-$searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_price, array(), $s_page, $pageSize, $latitude, $longitude, $range );
+$searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_price, $s_locations, $s_page, $pageSize, $latitude, $longitude, $range );
 
 // check for total
 $paging = '';

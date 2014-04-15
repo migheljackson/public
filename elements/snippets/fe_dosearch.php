@@ -34,7 +34,7 @@ if(isset($_REQUEST["zipcode"])) {
     
 // cat_ids
 $s_locations = array();
-$p_locations = $_REQUEST["locationss"];
+$p_locations = $_REQUEST["locations"];
 
 
 if ( !is_null( $p_locations ) && is_array( $p_locations ) ) {

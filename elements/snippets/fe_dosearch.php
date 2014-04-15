@@ -86,7 +86,7 @@ if ( isset( $p_age_range ) ) {
   $s_max_age = intval( $parts[1] );
 }
 
-$pageSize = 15;
+$pageSize = 24;
 
 $searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_price, $s_locations, $s_page, $pageSize, $latitude, $longitude, $range );
 

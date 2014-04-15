@@ -11,6 +11,36 @@
 $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'components/col_public/' );
 require_once $core_path.'col-library/col.php';
 
+if(isset($_REQUEST["zipcode"])) {
+  $sql = "SELECT * FROM `col_zip` WHERE `zip` = ".$_REQUEST["zipcode"]." limit 1";
+
+    $zip_info = $modx->query($sql);
+    if($zip_info) {
+      while ($row = $zip_info->fetch(PDO::FETCH_ASSOC)) {
+        $latitude = $row["latitude"];
+        $longitude = $row["longitude"];
+        $range = "8km";
+
+      }
+
+    } else {
+      $latitude = null;
+      $longitude = null;
+      $range = null;
+    }
+
+}
+    
+// cat_ids
+$s_locations = array();
+$p_locations = $_REQUEST["locations"];
+
+
+if ( !is_null( $p_locations ) && is_array( $p_locations ) ) {
+  $s_locations = $p_locations;
+}
+    
+
 
 // price (s_price for the search p_price for whats passed in)
 $s_price = null;
@@ -55,9 +85,9 @@ if ( isset( $p_age_range ) ) {
   $s_max_age = intval( $parts[1] );
 }
 
-$pageSize = 15;
+$pageSize = 24;
 
-$searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_price, array(), $s_page, $pageSize );
+$searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_price, $s_locations, $s_page, $pageSize, $latitude, $longitude, $range );
 
 // check for total
 $paging = '';

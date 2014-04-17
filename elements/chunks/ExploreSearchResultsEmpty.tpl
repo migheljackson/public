@@ -4,7 +4,7 @@
         <div class="small-12 large-10 columns end">
           <div class="items">
             
-            <div class="small-centered text-center"><strong>No results were found for this query, why don't you try a different one</strong></div>
+            <div class="small-centered text-center"><strong>No items were found that fit your search criteria. Edit your search to keep trying to find opportunities that interest you.</strong></div>
           
         </div>
       </div>

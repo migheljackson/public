@@ -4,7 +4,7 @@
         <div class="small-12 large-10 columns end">
           <div class="items">
             
-            <div class="clearfix"><strong>No results were found for this query, why don't you try another</strong></div>
+            <div class="small-centered text-center"><strong>No results were found for this query, why don't you try a different one</strong></div>
           
         </div>
       </div>

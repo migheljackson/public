@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="row details" style="max-height:13em;overflow:hidden;padding-bottom:3px;">
-    <div class="small-12 large-12 columns"><h5><a href="/workshops?id=[[+id]]">[[+name]]</a></h5></div>
+    <div class="small-12 large-12 columns"><h5><a href="[[+program_type]]-detail?id=[[+id]]">[[+name]]</a></h5></div>
     <div class="large-12 columns">
       <p style="margin-bottom:.5rem">[[+description]]&nbsp;<a href="/workshops?id=[[+id]]&ref=search-more"><span style="font-weight:bold">read more</span></a></p>
     </div>

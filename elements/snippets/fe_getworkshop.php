@@ -151,8 +151,9 @@ if ( isset( $workshop["latitude"] ) && isset( $workshop["longitude"] ) ) {
 				} else {
 					$logo_url .= 'f2f.png';
 				}
+				$sp['logo_url'] = $logo_url;
 			}
-			$sp['logo_url'] = $logo_url;
+			
 
 
 			if ( $sp["id"] != $workshop["id"] ) {
@@ -200,8 +201,9 @@ foreach ( $workshop['categories'] as $category ) {
 				} else {
 					$logo_url .= 'f2f.png';
 				}
+				$sp['logo_url'] = $logo_url;
 			}
-			$sp['logo_url'] = $logo_url;
+			
 
 			if ( $sp["id"] != $workshop["id"] ) {
 				$items .= $modx->getChunk( $relatedItemTpl, $sp );

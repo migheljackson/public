@@ -139,6 +139,21 @@ $searchResults = COL::search("", null, null, null, null, null, 0, $relatedItemCo
 			}
     	$sp = $hit['_source'];
 
+    	 if ( !isset( $sp['logo_url'] ) || strlen( $sp['logo_url'] )==0 ) {
+      $logo_url = 'http://cityoflearning-uploads.s3.amazonaws.com/default_logos/';
+      if ( $sp['program_type']=='workshop' ) {
+        $logo_url .= 'ws_';
+      } else {
+        $logo_url .= 'ev_';
+      }
+      if ( $sp["meeting_type"]=='online' ) {
+        $logo_url .= 'on.png';
+      } else {
+        $logo_url .= 'f2f.png';
+      }
+      $sp['logo_url'] = $logo_url;
+    
+
     	if ($sp["id"] != $workshop["id"]) {
     		$items .= $modx->getChunk($relatedItemTpl, $sp);
     		$count += 1;
@@ -171,6 +186,21 @@ foreach($workshop['categories'] as $category) {
 				break;
 			}
     	$sp = $hit['_source'];
+
+    	 if ( !isset( $sp['logo_url'] ) || strlen( $sp['logo_url'] )==0 ) {
+      $logo_url = 'http://cityoflearning-uploads.s3.amazonaws.com/default_logos/';
+      if ( $sp['program_type']=='workshop' ) {
+        $logo_url .= 'ws_';
+      } else {
+        $logo_url .= 'ev_';
+      }
+      if ( $sp["meeting_type"]=='online' ) {
+        $logo_url .= 'on.png';
+      } else {
+        $logo_url .= 'f2f.png';
+      }
+      $sp['logo_url'] = $logo_url;
+    
     	if ($sp["id"] != $workshop["id"]) {
     		$items .= $modx->getChunk($relatedItemTpl, $sp);
     		$count += 1;

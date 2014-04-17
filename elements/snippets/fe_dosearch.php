@@ -238,5 +238,5 @@ if (  $searchResults['hits']['total'] > 0 ) {
   return $results;
 
 } else {
-  return "No items found";
+  return $modx->getChunk('ExploreSearchResultsEmpty');
 }

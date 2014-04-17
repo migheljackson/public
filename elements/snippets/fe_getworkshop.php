@@ -119,6 +119,70 @@ $scheduled_program_id = 143;
 // $searchResults = COL::search("yoga", null , 2, 22, null, null, 1, 15);
 */
 
+$relatedItemCountMax = 5;
+$relatedTpl = $modx->getOption( 'tpl', $scriptProperties, 'WorkshopRelatedWorkshops' );
+$relatedItemTpl = $modx->getOption( 'tpl', $scriptProperties, 'WorkshopRelatedItem' );
+
+if (isset($workshop["latitude"]) && isset($workshop["longitude"])) {
+	//$searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_price, $s_locations, $s_page, $pageSize, $latitude, $longitude, "5km" );
+
+$searchResults = COL::search("", null, null, null, null, null, 0, $relatedItemCountMax+1, $workshop["latitude"], $workshop["longitude"], "3km" );
+
+	if ( $searchResults['hits']['total'] >  0 ) {
+
+		$items = "";
+		$count = 0;
+		foreach ( $searchResults['hits']['hits'] as $hit ) {
+
+			if ($count ==  $relatedItemCountMax) {
+				break;
+			}
+    	$sp = $hit['_source'];
+
+    	if ($sp["id"] != $workshop["id"]) {
+    		$items .= $modx->getChunk($relatedItemTpl, $sp);
+    		$count += 1;
+    	}
+
+    	
+    }
+
+    $nearbyWorkshops = $modx->getChunk($relatedTpl, array('title' => "nearby",  'related_workshop_items' => $items));
+    $modx->setPlaceholder('nearbyHtml', $nearbyWorkshops);
+	}
+	
+}
+
+$relatedItemCountMax = 5;
+$categoriesHtml = "";
+// get related workshops by category
+foreach($workshop['categories'] as $category) {
+
+	$categoryText .= "<li>" . $category["name"] . "</li>";
+	$searchResults = COL::search("", array($category["id"]), null, null, null, null, 0, $relatedItemCountMax+1, $workshop["latitude"], $workshop["longitude"], "30km" );
+
+	if ( $searchResults['hits']['total'] >  0 ) {
+
+		$items = "";
+		$count = 0;
+		foreach ( $searchResults['hits']['hits'] as $hit ) {
+
+			if ($count == $relatedItemCountMax) {
+				break;
+			}
+    	$sp = $hit['_source'];
+    	if ($sp["id"] != $workshop["id"]) {
+    		$items .= $modx->getChunk($relatedItemTpl, $sp);
+    		$count += 1;
+    	}
+    	
+    }
+
+    $categoriesHtml .= $modx->getChunk($relatedTpl, array('title' => "More in ".$category["name"]." Category",  'related_workshop_items' => $items));
+    
+	}
+}
+$modx->setPlaceholder('relatedCategoryHtml', $categoriesHtml);
 
 // print_r($searchResults);
 return;

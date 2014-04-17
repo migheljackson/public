@@ -55,6 +55,7 @@
             <h4 class="event-block-title center">map</h4>
             <div id="map-canvas" class="event-block small-map clearfix"></div>
           </li>
+          [[+nearbyHtml]]
           <li>
             <h4 class="event-block-title center">workshop info</h4>
             <div class="event-block clearfix">
@@ -76,6 +77,7 @@
                 </div>
             </li>
             [[+contactHtml]]
+            [[+relatedCategoryHtml]]
           </ul>
         </div>
       </div>

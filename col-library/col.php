@@ -97,7 +97,10 @@ class COL {
       $geo_distance["geo_distance"]["location_point"]["lat"] = floatval($latitude);
       $geo_distance["geo_distance"]["location_point"]["lon"] = floatval($longitude);
       //var_dump($geo_distance);
+
       array_push( $aFiltersParameters, $geo_distance );
+
+      $searchParams["sort"] = array( array('_geo_distance' => array('location_point' => array(floatval($longitude),  floatval($latitude)), "order" => "asc", "unit" => "km") , ));
     }
 
     if ( isset( $iMinAge ) && $iMinAge > 0 ) {

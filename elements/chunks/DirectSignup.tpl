@@ -10,6 +10,13 @@
     width: 100%;
     display: none;
 }
+
+.selected_answer {
+  border: 5px solid; 
+  border-radius: 27px; 
+  border-color: yellow; 
+  background-color: yellow;
+}
 </style>
 <form id="direct_signup" type="post" action="process-signup" class="form-horizontal" style="position:relative;min-height:600px;">
   <section class="step active" data-step-title="step-1" style="display:block;">
@@ -257,8 +264,8 @@
           <hr>
           <h4 class="text-center">Password reminder</h4>
           <div class="small-12 large-centered large-6 columns">
-            <span style="display:none" id="error_security_answers" class="error_message"></span>
-            <input type="hidden" name="security_answers" id="security_answers" value="" />
+            <span style="display:none" id="error_answers" class="error_message"></span>
+            <input type="hidden" name="answers" id="answers" value="" />
             [[+security_questions]]
             <div class="row">
               <div class="small-12 large-12 columns">
@@ -409,7 +416,7 @@ function scorePassword(pass) {
 function generate_password()
 {
     var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?()#-";
 
     for( var i=0; i < 8; i++ )
         text += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -469,9 +476,17 @@ $(document).on("click", "#skip_guardian_info", function(e){
 $(document).on("click", "#save_guardian_info", function(e){
   e.preventDefault();
   $.validity.start();
-  $('#guardian_email_address').match("email", "Oops! The email address is not complete.");
+  $('#guardian_email_address').match("email", "Oops! The email address does not look correct.");
   $('#guardian_phone').match("phone", "Oops! Enter the number in this format. 111-111-1111.");
-  $('#guardian_email_address').assert(function(){}, "")
+  $('#guardian_email_address').assert(function(){
+    if ($('#guardian_email_address').val().length == 0 && $('#guardian_phone').val().length==0) {
+      return false;
+    } else {
+      return true;
+    }
+      
+
+  }, "If you don't know either your guardian's phone number or email click the 'I don't have either' button!")
   var result = $.validity.end();
   if (result.valid) {
     go_to_step( 3);
@@ -500,35 +515,58 @@ $.validity.start();
 $('#username').require("You need to create your username to continue.");
 $('#password').require("You need to create a password for your account.");
 if (over_13) {
-  $('#email_address').require("You need to enter your email! Enter your email address below.")
+  $('#email_address').require("You need to enter your email! Enter your email address below.").match("email", "Oops! The email address is not complete.");
 }
-var result = $.validity.end();
+  var result = $.validity.end();
   if (result.valid) {
-  // post form via ajax
-  $.ajax({
-        type: "POST",
-        data: $("#direct_signup").serialize(),
-        url: "fe-dosignup",
-        success: function(data) {
-            var json = JSON.parse(data);
+    // post form via ajax
+    $.ajax({
+      type: "POST",
+      data: $("#direct_signup").serialize(),
+      url: "fe-dosignup",
+      success: function(data) {
+        var json = JSON.parse(data);
 
-            // console.log(json.status);
+        // console.log(json.status);
 
-            if (json.status == 200 || json.status == 201) {
-               
-            } else {
-                alert("There was a problem scheduling your workshop");
+        if (json.status == 200 || json.status == 201) {
+          window.location = 'choose-avatar';
+        } else {
+          if (json.status == 400) {
+            if (json.errors['guardian_email_address']) {
+              go_to_step(2);
+              $("#error_guardian_email_address").text("Oops, it doesn't look like we can send email to the below address.Please make sure its right!").show();
+              return
             }
-        },
-        error: function(data) {
-            var json = JSON.parse(data);
-            console.log(json.error + " " + json.result);
-            alert("There was a problem saving your scheduled workshop");
+
+            if (json.errors['email_address']) {
+              $("#error_email_address").text("Oops, it doesn't look like we can send email to the below address.Please make sure its right!").show();
+              return
+            }
+
+            if (json.errors['username'] && json.errors['username'][0].indexOf("unique") > 0) {
+              var current_username = $('#username').val();
+              var error_message = 'Darn! "'+current_username+'" is already taken. How about you give it another try or use "' + current_username + '1", "' + current_username + '2" , or "' + current_username + '3".';
+              $("#error_username").text(error_message).show();
+              return;
+            }
+
+          } else {
+            console.log(json.errors + " " + json.result);
+            alert("There was an error trying to create your account. Please try again in a moment.");
+          }
         }
+      },
+      error: function(data) {
+        var json = JSON.parse(data);
+        console.log(json.errors + " " + json.result);
+        alert("There was an error trying to create your account. Please try again in a moment.");
+
+      }
     });
   }
 
-return false;
+  return false;
 });
 
 $(document).on("click", "#generate_password", function(e){
@@ -536,6 +574,7 @@ $(document).on("click", "#generate_password", function(e){
   $('input[name="switch-z"]').removeAttr("checked");
   $('#z1').prop("checked", true);
   $('#password').val(generate_password()).trigger("change");
+  $('input[name="switch-z"]').trigger("change");
   return false;
 });
 
@@ -547,17 +586,17 @@ $(document).on("click", ".back_to_step", function(e) {
 
 $(document).on('click', '.security_answer', function(e){
   $(this).parent().children('li').children('input').removeAttr("checked");
-  $(this).parent().children('li').attr("style", "");
+  $(this).parent().children('li').removeClass("selected_answer");
   $(this).find("input").prop("checked", true);
-  $(this).attr("style", "border:5px solid; border-radius:27px; border-color:yellow");
+  $(this).addClass("selected_answer");
 });
 
 $(document).on("click", "#save_security_answers", function(e){
   e.preventDefault();
   if($('li.security_answer input:checked').length == 2) {
-     $('#security_answers').val("answered");
+     $('#answers').val("answered");
     } else {
-      $('#security_answers').val("");
+      $('#answers').val("");
     }
   
 

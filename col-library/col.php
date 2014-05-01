@@ -212,6 +212,74 @@ class COL {
     return $client->get( $aGetParams );
   }
 
+  public static function post( $endpoint, $payload ) {
+    $aResponse = array();
+
+    $token = array(
+      //'token' => $_COOKIE[self::COOKIE_NAME],
+      "payload" => $payload,
+      "exp" => time() + 60,
+    );
+    $jwt = JWT::encode( $token, self::KEY );
+    $data = array( "jwt" => $jwt );
+
+    $url =  self::BASE_URL.$endpoint;
+
+    $response = WWW::post( $url, $data );
+
+    try {
+      $aResponse = JWT::jsonDecode( $response );
+    } catch ( Exception $ex ) {
+      error_log( "COL::post():" . $ex . " resp: ". print_r( $response ) );
+    }
+    return $aResponse;
+  }
+
+  public static function post_encrypted($endpoint, $payload) 
+  {
+    $aResponse = array();
+
+    $token = array(
+      "payload" => $payload,
+      "exp" => time() + 60,
+      );
+    $jwt = JWT::encode($token, self::KEY);
+    $data = array("jwt" => $jwt);
+
+    $url =  self::BASE_URL.$endpoint;
+     
+    $response = WWW::post($url, $data);
+    try {
+        $aResponse = JWT::jsonDecode(JWT::decode($response, self::KEY));
+    } catch (Exception $ex){
+        error_log("COL::post_encrypted():" . $ex . " resp: ". print_r($response));
+    }
+    return $aResponse;
+  }
+
+  public static function post_encrypted_json($endpoint, $payload) 
+  {
+    $aResponse = array();
+
+    $token = array(
+      "payload" => $payload,
+      "exp" => time() + 60,
+      );
+    $jwt = JWT::encode($token, self::KEY);
+    $data = array("jwt" => $jwt);
+
+    $url =  self::BASE_URL.$endpoint;
+     
+    $response = WWW::post($url, $data);
+    try {
+        $aResponse = JWT::decode($response, self::KEY);
+    } catch (Exception $ex){
+        error_log("COL::post_encrypted():" . $ex . " resp: ". print_r($response));
+    }
+    return $aResponse;
+  }
+
+
   public static function system_get( $endpoint ) {
     $aResponse = array();
 

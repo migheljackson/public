@@ -64,6 +64,7 @@ $(document).on('click', '.avatar_item', function(e){
         if (json.status == 200 || json.status == 201) {
           $('#page_header').text("Your Avatar has been set!")
           $('#next_steps').show();
+          window.location = 'my-profile';
 
         } else {
           $('#next_steps').show();

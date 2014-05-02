@@ -619,42 +619,10 @@ $(document).on("click", "#save_security_answers", function(e){
 
 $(function() {
 
-  // We'll decide to install our custom output mode under the name 'custom':
-  $.validity.outputs.field_fill = {
-
-    // In this case, the start function will just reset the inputs:
-    start: function() {
-      $('.fail').removeClass('fail');
-      $('.error_message').hide();
-    },
-
-    end: function(results) {
-
-    },
-
-    // Our raise function will display the error and animate the text-box:
-    raise: function($obj, msg) {
-
-      $('#error_' + $obj.attr("id")).text(msg).show();
-
-      // Animate the border of the text box:
-      $obj.addClass('fail');
-
-    },
-
-    // Our aggregate raise will just raise the error on the last input:
-    raiseAggregate: function($obj, msg) {
-
-      this.raise($($obj.get($obj.length - 1)), msg);
-
-    }
-  };
   $.extend($.validity.patterns, {
     month_day: /^((0?\d)|(1[012]))[\/-]([012]?\d|30|31)$/
   });
-  $.validity.setup({
-    outputMode: "field_fill"
-  });
+
   $('#birthday').mask('00/00');
  /* $('#direct_signup').easyWizard({
     showSteps: false,

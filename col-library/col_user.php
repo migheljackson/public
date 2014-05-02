@@ -26,7 +26,7 @@ class COL_User {
   // email won't work for now
   public static function signin($username, $password) {
     $endpoint = '/user_session/create.json';
-    $user = array( 'user' => array('username' => $username, 'password' => $password) );
+    $user = array('username' => $username, 'password' => $password) ;
 
     $response = COL::post_encrypted_json( $endpoint , $user );
 

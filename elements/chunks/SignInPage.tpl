@@ -23,7 +23,7 @@
             <div class="small-12 large-12 columns">
                 <input type="submit" class="button small expand radius next-step" value="Log in" /><br><br>
                 <div class="small-6 columns">
-                    <a href="#" class="link text-center">forgot your password?</a>
+                    <a href="forgotten-password" class="link text-center">forgot your password?</a>
                 </div>
                 <div class="small-6 columns">
                     <a href="#" class="link text-center">forgot your username?</a>

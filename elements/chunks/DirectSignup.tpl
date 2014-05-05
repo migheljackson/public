@@ -37,7 +37,7 @@
           <div class="small-12 large-centered large-6 columns">
             <span style="display:none" id="error_name" class="error_message"></span>
             <label for="name">
-              <input name="name" id="name" type="text" placeholder="First & last name" >
+              <input name="full_name" id="name" type="text" placeholder="First & last name" >
             </label>
             <div class="row">
               <span style="display:none" id="error_birthday" class="error_message"></span>

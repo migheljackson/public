@@ -1,8 +1,8 @@
 $(document).on('submit', '#form_signin', function(e) {
     e.preventDefault();
     $.validity.start();
-    $('#username').require("Please enter in your username");
-    $('#password').require("Please enter in your password");
+    $('#signin_username').require("Please enter in your username");
+    $('#signin_password').require("Please enter in your password");
     var result = $.validity.end();
 
     if (result.valid) {
@@ -18,7 +18,7 @@ $(document).on('submit', '#form_signin', function(e) {
                 if (json.status == 200 || json.status == 201) {
                     window.location = 'my-profile';
                 } else {
-                    $('#error_username').text(json.errors).show();
+                    $('#error_signin_username').text(json.errors).show();
                 }
             }
         });

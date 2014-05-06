@@ -20,7 +20,7 @@
 </style>
 [[!fe_set_password_reset_parameters]]
 <form id="reset_password_form" type="post" action="process-signup" class="form-horizontal" style="position:relative;min-height:600px;">
-   <section class="step" data-step-title="step-4" style="">
+   <section class="step active" data-step-title="step-4" style="display:block;">
     <div class="sign-up-page">
       <div class="row">
         <div class="small-12 large-centered large-9 columns">

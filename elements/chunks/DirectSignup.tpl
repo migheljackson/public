@@ -40,16 +40,69 @@
               <input name="full_name" id="name" type="text" placeholder="First & last name" >
             </label>
             <div class="row">
-              <span style="display:none" id="error_birthday" class="error_message"></span>
+              <span style="display:none" id="error_birthdate" class="error_message"></span>
+              <span style="display:none" id="error_birthmonth" class="error_message"></span>
               <span style="display:none" id="error_birthyear" class="error_message"></span>
               <span style="display:none" id="error_dob" class="error_message"></span>
-              <div class="small-12 large-6 columns">
-                <label for="birthday">
-                  <input id="birthday" type="text" placeholder="Birthday month / year" >
+              <div class="small-12 large-4 columns">
+                <label for="birthmonth">
+                  <select id="birthmonth" name="birthmonth" >
+                    <option value=""> Select Month </option>
+                     <option value="01">January</option>
+                     <option value="02">February</option>
+                     <option value="03">March</option>
+                     <option value="04">April</option>
+                     <option value="05">May</option>
+                     <option value="06">June</option>
+                     <option value="07">July</option>
+                     <option value="08">August</option>
+                     <option value="09">September</option>
+                     <option value="10">October</option>
+                     <option value="11">November</option>
+                     <option value="12">Decemeber</option>
+                  </select>
+                </label>
+              </div>
+              <div class="small-12 large-4 columns">
+                <label for="birthdate">
+                  <select id="birthdate" name="birthdate">
+                    <option value=""> Select Day </option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>                     
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option> 
+                    <option value="20">20</option>                   
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                  </select>
                   <input type="hidden" name="dob" id="dob" />
                 </label>
               </div>
-              <div class="small-12 large-6 columns">
+              <div class="small-12 large-4 columns">
                 <label for="year">
                   <select id="birthyear" name="birthyear" >
                     <option value=""> Select Year </option>
@@ -299,7 +352,7 @@
             <label class="over_13" for="email">
               <input name="email_address" id="email_address" type="text" placeholder="E-mail address">
             </label>
-              
+            <span style="display:none" id="error_zipcode" class="error_message"></span>
             <label for="zip">
               <input name="zipcode" type="text" placeholder="Zip code">
             </label>
@@ -352,7 +405,7 @@
   </section>
   
 </form>
-<script type="text/javascript" src="assets/js/jquery.easyWizard.js"></script>
+
 <script type="text/javascript" src="assets/js/jquery.mask.js"></script>
 <script type="text/javascript" src="assets/js/jquery.validity.js"></script>
 <script type="text/javascript" src="assets/js/moment.js"></script>
@@ -438,16 +491,21 @@ $(document).on('click', '#btn_step1', function(e) {
     return result;
 
   }, "You only entered your first name. Enter your last name to continue.");
-  var day_set = $('#birthday').require("We need to know when were born. Enter your birthdate.").match("month_day", "Opps! Please review your birthdate and re-enter.");
-  if (!day_set.hasClass("fail")) {
+  
+  var month_set = $('#birthmonth').require("We need to know when were born. Please select the month.");
+  if (!month_set.hasClass("fail")) {
+    var day_set = $('#birthdate').require("We need to know when were born. Please select the day.");
+    if (!day_set.hasClass("fail")) {
     var year_set = $('#birthyear').require("We need to know when were born. Please select the year");
     if (!year_set.hasClass("fail")) {
 
-      $('#dob').val($('#birthday').val() + '/' + $('#birthyear').val()).match("date", "Oops! Please review your birthdate and re-enter.").assert(function(el) {
+      $('#dob').val($('#birthmonth').val() + "/" + $('#birthdate').val() + '/' + $('#birthyear').val()).match("date", "Oops! Please review your birthdate and re-enter.").assert(function(el) {
         return moment($(el).val(), "MM/DD/YYYY").isValid();
       }, "Oops! Please review your birthdate and re-enter.");
     }
   }
+  }
+  
 
   var result = $.validity.end();
 
@@ -514,6 +572,7 @@ e.preventDefault();
 $.validity.start();
 $('#username').require("You need to create your username to continue.");
 $('#password').require("You need to create a password for your account.");
+$('#zipcode').match("zip", "Zip code needs to be in 5 digits");
 if (over_13) {
   $('#email_address').require("You need to enter your email! Enter your email address below.").match("email", "Oops! The email address is not complete.");
 }
@@ -546,7 +605,7 @@ if (over_13) {
 
             if (json.errors['username'] && json.errors['username'][0].indexOf("unique") > 0) {
               var current_username = $('#username').val();
-              var error_message = 'Darn! "'+current_username+'" is already taken. How about you give it another try or use "' + current_username + '1", "' + current_username + '2" , or "' + current_username + '3".';
+              var error_message = '"'+current_username+'" is already taken. How about you give it another try or use "' + current_username + '1", "' + current_username + '2" , or "' + current_username + '3".';
               $("#error_username").text(error_message).show();
               return;
             }

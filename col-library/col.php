@@ -21,6 +21,8 @@ class COL {
   const COOKIE_NAME_NAME = "_user_name";
   const COOKIE_NAME_AU = "_us__";
 
+
+
   public static function _get_token() {
     $au_cookie = JWT::decode( $_COOKIE[self::COOKIE_NAME_AU], self::KEY );
     if ( isset( $au_cookie ) && $au_cookie != null ) {
@@ -29,6 +31,13 @@ class COL {
       return "";
     }
 
+  }
+
+
+
+  public static function _get_avatar_image() {
+    $au_cookie = JWT::decode( $_COOKIE[self::COOKIE_NAME_AU], self::KEY );
+    return $au_cookie->user->preset_avatar_url;
   }
 
   public static function _get_name() {
@@ -56,6 +65,10 @@ class COL {
       error_log( "COL::get():" . $ex . " resp: ". print_r( $response ) );
     }
     return $aResponse;
+  }
+
+  public static function is_signed_in() {
+    return isset( $_COOKIE[self::COOKIE_NAME_AU]) ; 
   }
 
   public static function login( $username, $password ) {

@@ -18,7 +18,7 @@ class COL_User {
     $parsed_response = JWT::jsonDecode($response);
 
     if($parsed_response->status == 200 || $parsed_response->status == 201) {
-      setcookie(COL::COOKIE_NAME_AU, JWT::encode($response->result, COL::KEY), time()+COL::SESSION_TIME );
+      setcookie(COL::COOKIE_NAME_AU, JWT::encode($parsed_response->result, COL::KEY), time()+COL::SESSION_TIME );
     }
     return $response;
   }

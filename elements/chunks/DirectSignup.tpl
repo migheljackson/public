@@ -40,6 +40,9 @@
               <input name="full_name" id="name" type="text" placeholder="First & last name" >
             </label>
             <div class="row">
+              <div class="small-12 large-12 columns">
+                <span >Your Birthdate</span>
+              </div>
               <span style="display:none" id="error_birthdate" class="error_message"></span>
               <span style="display:none" id="error_birthmonth" class="error_message"></span>
               <span style="display:none" id="error_birthyear" class="error_message"></span>

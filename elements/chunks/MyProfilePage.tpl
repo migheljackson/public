@@ -15,7 +15,10 @@
 </div>
 <div class="profile-badges">
 <div class="small-12 columns">
+<div class="title-line small-centered small-12 large-8 columns">
     <h3 class="text-center">My Badges</h3>
+    <hr class="line">
+</div>
     <div class="row">
     <div class="small-centered small-12 large-5 columns stats">
         <div class="small-6 columns">

@@ -264,7 +264,7 @@
             </ul>
           </div>
           <hr>
-          <h4 class="text-center">Legal guardian info</h4>
+          <h4 class="text-center">Parent/Legal guardian info</h4>
           <div class="small-12 large-centered large-6 columns">
             <span style="display:none" id="error_guardian_email_address" class="error_message"></span>
             <label for="email">
@@ -290,12 +290,12 @@
         </div>
         <div id="why_parent_info" class="reveal-modal tiny" data-reveal>
         <p>Why do we ask for this info?</p>
-         <p>We ask for your parent info so that we can:</p>
+         <p>We ask for your parent/guardian info so that we can:</p>
         <ul><li>
-        Contact your parent if you have issues accessing your account
+        Contact your parent/guardian if you have issues accessing your account
       </li>
       <li>
-        Let your parent know about your learning experience
+        Let your parent/guardian know about your learning experience
       </li>
 </ul>
 

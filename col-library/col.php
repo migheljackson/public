@@ -292,6 +292,24 @@ class COL {
     return $aResponse;
   }
 
+  public static function post_json( $endpoint, $payload ) {
+    $aResponse = array();
+
+    $token = array(
+      //'token' => $_COOKIE[self::COOKIE_NAME],
+      "payload" => $payload,
+      "exp" => time() + 60,
+    );
+    $jwt = JWT::encode( $token, self::KEY );
+    $data = array( "jwt" => $jwt );
+
+    $url =  self::BASE_URL.$endpoint;
+
+    $response = WWW::post( $url, $data );
+
+    return $response;
+  }
+
 
   public static function system_get( $endpoint ) {
     $aResponse = array();

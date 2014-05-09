@@ -37,12 +37,12 @@ class COL {
 
   public static function _get_avatar_image() {
     $au_cookie = JWT::decode( $_COOKIE[self::COOKIE_NAME_AU], self::KEY );
-    return $au_cookie->user->preset_avatar_url;
+    return $au_cookie->preset_avatar_url;
   }
 
   public static function _get_name() {
     $au_cookie = JWT::decode( $_COOKIE[self::COOKIE_NAME_AU], self::KEY );
-    return $au_cookie->user->username;
+    return $au_cookie->username;
   }
 
   public static function get( $endpoint ) {

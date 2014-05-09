@@ -32,6 +32,7 @@ $response = COL::post_encrypted_json( '/users/signup.json', $user );
 $parsed_response = JWT::jsonDecode($response);
 
 if($parsed_response->status == 200 || $parsed_response->status == 201) {
+  
   setcookie(COL::COOKIE_NAME_AU, JWT::encode($parsed_response->result, COL::KEY), time()+COL::SESSION_TIME );
 }
 

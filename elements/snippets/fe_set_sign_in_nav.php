@@ -20,7 +20,9 @@ if ( COL::is_signed_in() ) {
     $sChunk = $modx->getOption( 'tpl', $scriptProperties, 'SignedInNavBar' );
   }
   
-  return $modx->getChunk( $sChunk, array( 'user_avatar_image_url' => COL::_get_avatar_image(), 'user_username' => COL::_get_name() ) );
+  $params = array( 'user_avatar_image_url' => COL::_get_avatar_image(), 'user_username' => COL::_get_name() ) ;
+
+  return $modx->getChunk( $sChunk, $params);
 
 } else {
   if ( isset( $small ) ) {

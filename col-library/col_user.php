@@ -36,7 +36,7 @@ class COL_User {
 
     if ( $parsed_response->status == 200 || $parsed_response->status == 201 ) {
 
-      setcookie( COL::COOKIE_NAME_AU, JWT::encode( $parsed_response->result, COL::KEY ), time()+COL::SESSION_TIME );
+      setcookie( COL::COOKIE_NAME_AU, JWT::encode( $parsed_response->result->user, COL::KEY ), time()+COL::SESSION_TIME );
     }
     return $response;
   }

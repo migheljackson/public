@@ -227,7 +227,7 @@
                 </label>
               </div>
             </div>
-            
+            <div id="code_entered" class="small-12 " style="display:none">Code: <span id="claim_code_entered"></span></div>
             <div class="small-12 link"><a href="#" data-reveal-id="code">Do you have a claim code?</a></div>
             <div class="row">
               <div class="small-12 large-12 columns">
@@ -241,10 +241,11 @@
       <!-- Claim code modal -->
       <div id="code" class="reveal-modal tiny" data-reveal>
         <p>Enter your claim code</p>
+          <span id="error_claim_code" class="error_message" style="display:none;"></span>
           <label for="code">
             <input type="text" name="claim_code" id="claim_code" placeholder="Claim code">
           </label>
-          <input type="submit" value="Continue" class="button small expand radius next-step">
+          <input id="claim_code_continue" type="submit" value="Continue" class="button small expand radius next-step">
         
         <a class="close-reveal-modal">&#215;</a>
       </div>
@@ -409,9 +410,8 @@
   
 </form>
 
-<script type="text/javascript" src="assets/js/jquery.mask.js"></script>
-<script type="text/javascript" src="assets/js/jquery.validity.js"></script>
-<script type="text/javascript" src="assets/js/moment.js"></script>
+<script type="text/javascript" src="[[++col_public.assets_url]]js/jquery.mask.js"></script>
+<script type="text/javascript" src="[[++col_public.assets_url]]js/moment.js"></script>
 <script type="text/javascript">
 var over_13 = false;
 var current_step = 1;
@@ -525,6 +525,26 @@ $(document).on('click', '#btn_step1', function(e) {
     }
   }
 });
+
+$(document).on('open', '[data-reveal]', function () {
+  var modal = $(this);
+  if(modal.attr("id")=="code") {
+    // add mask
+    $('#claim_code').mask("AAAAA");
+  }
+});
+
+$(document).on('click', '#claim_code_continue', function(){
+  $.validity.start();
+  $('#claim_code').minLength(5, 'Code is not valid. Please review and enter the correct code. If you don\'t have it now, or are not sure about the correct code, you can add them later on your account page');
+  var result = $.validity.end();
+  if (result.valid) {
+    $('#claim_code_entered').text($("#claim_code").val());
+    $('#code_entered').show();
+    $('#code').find('a.close-reveal-modal').trigger("click");
+  }
+});
+
 
 $(document).on("click", "#skip_guardian_info", function(e){
   e.preventDefault();

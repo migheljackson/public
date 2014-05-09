@@ -15,9 +15,7 @@ require_once $core_path.'col-library/col_user.php';
 
 if (COL::is_signed_in()) {
   $response = COL_User::get_profile();
-
-  //var_dump($response);
-
+ 
 
   $badge_count = count($response->result->issued_badges);
   $badge_items = "";

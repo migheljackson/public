@@ -539,8 +539,13 @@ $(document).on('click', '#claim_code_continue', function(){
   $('#claim_code').minLength(5, 'Code is not valid. Please review and enter the correct code. If you don\'t have it now, or are not sure about the correct code, you can add them later on your account page');
   var result = $.validity.end();
   if (result.valid) {
-    $('#claim_code_entered').text($("#claim_code").val());
-    $('#code_entered').show();
+    if ($("#claim_code").val().length > 0) {
+      $('#claim_code_entered').text($("#claim_code").val());
+      $('#code_entered').show();
+    } else {
+      $('#code_entered').hide();
+    }
+    
     $('#code').find('a.close-reveal-modal').trigger("click");
   }
 });

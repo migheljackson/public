@@ -13,6 +13,7 @@ require_once $core_path.'col-library/col_user.php';
 if (COL::is_signed_in()) {
   $params = array('token' => COL::_get_token(), 'user' => array('claim_codes' => $_REQUEST["claim_codes"] ) );
   $response = COL::post_json('/users/claim_codes.json', $params);
+  COL::log_action('claim_codes' , array('search_query' => $_REQUEST["claim_codes"] ,'extra_params' => array( 'response' => $response) ));
   return $response;
 } 
 

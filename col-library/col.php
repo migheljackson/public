@@ -71,6 +71,20 @@ class COL {
     return isset( $_COOKIE[self::COOKIE_NAME_AU]) ; 
   }
 
+  public static function log_action($action, $other_params) {
+    try {
+      if (self::is_signed_in()) {
+        $response = self::post_json('/user_logs/log.json', array('token' => self::_get_token(), 'action' => $action, 'other_params' => $other_params ));
+      } else {
+        $response = self::post_json('/user_logs/anon_log.json', array( 'action' => $action, 'other_params' => $other_params ));
+      }
+      
+    } catch (Exception $e) {
+      
+    }
+    
+  }
+
   public static function login( $username, $password ) {
     $payload = array(
       "username" => $username,

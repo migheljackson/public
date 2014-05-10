@@ -18,5 +18,5 @@ if(isset($_REQUEST["reasons"])) {
 }
 
 $params['account_veto'] = array('reason' => $all_reasons, 'origin' => $_REQUEST["origin"]);
-
+COL::log_action('delete_account', array());
 return COL::post_json('/account_vetos/confirm.json', $params);

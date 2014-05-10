@@ -12,5 +12,5 @@ require_once $core_path.'col-library/col.php';
 require_once $core_path.'col-library/col_user.php';
 
 $response = COL_User::signin($_REQUEST["username"], $_REQUEST["password"]);
-
+COL::log_action('signin', array());
 return $response;

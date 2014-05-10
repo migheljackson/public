@@ -30,11 +30,12 @@ $user['user']['security_answers'] = $user_security_answers;
 $response = COL::post_encrypted_json( '/users/signup.json', $user );
 
 $parsed_response = JWT::jsonDecode($response);
-
+$success = false;
 if($parsed_response->status == 200 || $parsed_response->status == 201) {
   
   setcookie(COL::COOKIE_NAME_AU, JWT::encode($parsed_response->result, COL::KEY), time()+COL::SESSION_TIME );
+  $success = true;
 }
 
-
+COL::log_action('signup', array('extra_params' => array('status' => $parsed_response->status, 'success' => $success)));
 return $response;

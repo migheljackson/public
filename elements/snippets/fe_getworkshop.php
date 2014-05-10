@@ -17,6 +17,8 @@ $scheduled_program_id = $_REQUEST['id'];
 
 $searchResults = COL_Scheduled_Program::getScheduledProgram( $scheduled_program_id );
 
+COL::log_action('read', array('object_id' => $scheduled_program_id , 'object_type' => 'ScheduledProgram'));
+
 $workshop = $searchResults["_source"];
 // print_r($workshop);
 // extract results and build the page elements

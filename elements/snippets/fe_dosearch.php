@@ -156,7 +156,8 @@ $paging = $modx->getChunk( $plsChunk, array( "paging_link_items" => implode( "",
 
 }
 
-
+COL::log_action("search", array('search_query' =>  $s_query, 'locations' => $s_locations, 'categories' => $s_cat_ids,  
+    'extra_params' => array('zipcode' =>$_REQUEST["zipcode"], 'price' => $s_price, 'page' => $s_page, 'hits' => $searchResults['hits']['total'], 'age_range' => $p_age_range) ));
 
 if (  $searchResults['hits']['total'] > 0 ) {
   $modx->setPlaceholder( "hit_count", strval( $searchResults['hits']['total'] ) );

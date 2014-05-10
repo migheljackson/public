@@ -14,6 +14,8 @@ $username = $_REQUEST["username"];
 
 // take the username or password and post to engine
 $response = COL::post_encrypted( "/users/request_password_reset.json", array( 'user' => array( 'username' => $username ) ) );
+
+COL::log_action('request_reset_password', array('extra_params' => array( 'status' => $parsed_response->status) ));
 //var_dump($response);
 $mChunk = $modx->getOption( 'tpl', $scriptProperties, 'RequestPasswordResetMessage' );
 // if 404

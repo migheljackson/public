@@ -16,7 +16,7 @@ require_once $core_path.'col-library/col_user.php';
 if (COL::is_signed_in()) {
   $response = COL_User::get_profile();
  
-
+  COL::log_action('read_profile', array( 'extra_params' => array('status' =>  $response->status)));
   $badge_count = count($response->result->issued_badges);
   $badge_items = "";
   $activities_count = count($response->result->scheduled_programs);

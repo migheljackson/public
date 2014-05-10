@@ -14,6 +14,7 @@ require_once $core_path.'col-library/col_user.php';
 
 if (COL::is_signed_in()) {
   $response = COL_User::set_avatar($_REQUEST["preset_avatar_id"]);
+  COL::log_action('set_avatar', array());
 }
 
 

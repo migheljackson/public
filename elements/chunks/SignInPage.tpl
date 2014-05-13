@@ -2,6 +2,7 @@
 @name SignInPage
 @description Page for the Direct Sign up into COL
 -->
+[[!fe_get_username_parameter]]
 <section class="step" data-step-title="step-1">
 <div class="sign-up-page">
     <div class="row">
@@ -13,7 +14,7 @@
             <form action="[[fe_get_signin_url]]" id="direct_signin">
             <label for="name">
             <span id="error_dsignin_username"  class="error_message"  style="display:none;"></span>
-                <input type="text" id="dsignin_username" name="username" placeholder="username">
+                <input type="text" id="dsignin_username" name="username" placeholder="username" value="[[+username]]">
             </label>
             <label for="password">
             <span id="error_dsignin_password" class="error_message" style="display:none;"></span>
@@ -26,7 +27,7 @@
                     <a href="forgotten-password" class="link text-center">forgot your password?</a>
                 </div>
                 <div class="small-6 columns">
-                    <a href="#" class="link text-center">forgot your username?</a>
+                    <a href="forgotten-username" class="link text-center">forgot your username?</a>
                 </div>
      
             </div>

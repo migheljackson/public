@@ -27,16 +27,17 @@
                     <p class="text-center">[[+badge_count]] Badges</p>
                 </div>
                 <div class="small-6 columns">
-                    <select name="badge-sort">
+                    <select name="badge-sort" id="badge_sort">
                         <option value="">Sort by</option>
                         <option value="date">date</option>
+                        <option value="name">name</option>
                     </select>
                 </div>
             </div>
         </div>
         <br>
         <div class="small-centered small-12 large-4 columns">
-            <ul class="small-block-grid-2 large-block-grid-3 text-center">
+            <ul id="badge_items" class="small-block-grid-2 large-block-grid-3 text-center">
                 [[+badge_items]]
             </ul>
         </div>
@@ -53,16 +54,63 @@
                 <p class="text-center">[[+activities_count]] Activities</p>
             </div>
             <div class="small-6 columns">
-                <select name="badge-sort">
+                <select name="activity-sort" id="activity_sort">
                     <option value="">Sort by</option>
                     <option value="date">date</option>
+                    <option value="name">name</option>
                 </select>
             </div>
         </div>
     </div>
     <br>
-    <div class="small-centered small-12 large-4 columns">
+    <div id="activity_items" class="small-centered small-12 large-4 columns">
         [[+activities_items]]
     </div>
     <div class="clearfix"></div>
 </div>
+
+<script type="text/javascript">
+function compare_by_date(a, b) {
+  return a.date.localeCompare(b.date);
+}
+
+function compare_by_name(a, b) {
+   return a.name.localeCompare(b.name);
+}
+
+$(document).on("change", "#badge_sort", function(e){
+ var arr = [];
+ $('#badge_items li').each(function(){
+    var meta = {date: $(this).attr("data-date"), name: $(this).attr("data-name"), elem: $(this)};
+    arr.push(meta);
+ });
+ var sort_type = $(this).find('option:selected').val();
+ if (sort_type == "date") {
+    arr.sort(compare_by_date);
+    } else {
+        arr.sort(compare_by_name);
+    }
+ $.each(arr, function(index, item){
+    item.elem.appendTo(item.elem.parent());
+});
+});
+
+$(document).on("change", "#activity_sort", function(e){
+ var arr = [];
+ $('#activity_items .activity_item').each(function(){
+    var meta = {date: $(this).attr("data-date"), name: $(this).attr("data-name"), elem: $(this)};
+    arr.push(meta);
+ });
+ var sort_type = $(this).find('option:selected').val();
+ if (sort_type == "date") {
+    arr.sort(compare_by_date);
+    } else {
+        arr.sort(compare_by_name);
+    }
+ $.each(arr, function(index, item){
+    item.elem.appendTo(item.elem.parent());
+});
+});
+
+
+</script>

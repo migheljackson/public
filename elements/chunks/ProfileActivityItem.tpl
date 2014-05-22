@@ -2,7 +2,7 @@
 @name ProfileActivityItem
 @description Item to list badge
 -->
-<div class="row">
+<div class="row activity_item" data-date="[[+sort_start_date]]" data-name="[[+name]]">
 <div class="small-6 large-5 columns">
 <img src="[[+image_url]]" class="th right">
 </div>

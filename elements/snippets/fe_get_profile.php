@@ -31,7 +31,8 @@ if (COL::is_signed_in()) {
       $badge = $response->result->issued_badges[$i];
       $badgeAwarded = new DateTime( $badge->issued_badge->awarded_at );
       $badge_awarded_at = $badgeAwarded->format( "m/d/Y g:i A" );
-      $badge_items .= $modx->getChunk($bChunk, array('awarded_at' => $badge_awarded_at, 'badge_name' => $badge->issued_badge->badge_name, 'badge_image_url' => $badge->issued_badge->badge_image_url ));
+      $badge_sort = $badgeAwarded->format( "Y/m/d A g:i " );
+      $badge_items .= $modx->getChunk($bChunk, array('sort_awarded_at' =>  $badge_sort, 'awarded_at' => $badge_awarded_at, 'badge_name' => $badge->issued_badge->badge_name, 'badge_image_url' => $badge->issued_badge->badge_image_url ));
     }
 
     //var_dump($badge_items);
@@ -40,10 +41,11 @@ if (COL::is_signed_in()) {
       $workshop = $response->result->scheduled_programs[$i]->scheduled_program;
       $startDateTime = new DateTime( $workshop->start_date);
       $workshop_start_date = $startDateTime->format( "m/d/Y" );
+      $workshop_sort_sd = $startDateTime->format( "Y/m/d" );
       $endDateTime = new DateTime( $workshop->end_date);
       $workshop_end_date = $endDateTime->format( "m/d/Y" );
 
-      $params = array('start_date' => $workshop_start_date, 'end_date' => $workshop_end_date,
+      $params = array('sort_start_date' => $workshop_sort_sd, 'start_date' => $workshop_start_date, 'end_date' => $workshop_end_date,
         'id' => strval($workshop->id), 'name' => $workshop->name, 'image_url' => $workshop->logo_url
         );
 

@@ -3,4 +3,4 @@
 @description Item to list badge
 -->
 
- <li data-awarded="[[+awarded_at]]"><img src="[[+badge_image_url]]" alt="[[+badge_name]]"></li>
+ <li data-date="[[+sort_awarded_at]]" data-name="[[+badge_name]]"><img src="[[+badge_image_url]]" alt="[[+badge_name]]"></li>

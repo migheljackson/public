@@ -324,6 +324,29 @@ class COL {
     return $response;
   }
 
+  public static function put($endpoint, $payload) 
+  {
+    $aResponse = array();
+    $payload['token'] = self::_get_token();
+    $token = array(
+      "payload" => $payload,
+      "exp" => time() + 60,
+      
+      );
+    $jwt = JWT::encode($token, self::KEY);
+    $data = array("jwt" => $jwt, "_method" => "put");
+
+    $url =  self::BASE_URL.$endpoint;
+     
+    $response = WWW::post($url, $data);
+    try {
+        $aResponse = JWT::jsonDecode($response);
+    } catch (Exception $ex){
+        error_log("COL::put():" . $ex . " resp: ". print_r($response));
+    }
+    return $aResponse;
+  }
+
 
   public static function system_get( $endpoint ) {
     $aResponse = array();

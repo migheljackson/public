@@ -58,4 +58,35 @@ class COL_User {
     return $response;
   }
 
+  public static function update_account( $id, $username, $full_name, $dob, $password, $email_address,
+    $guardian_email_address, $guardian_name, $guardian_phone ) {
+    $params = array( 'user' => array( 'id' => $id ,
+        'username' =>  $username,
+        'full_name' => $full_name,
+        'dob' => $dob,
+        'password' => $password,
+        'guardian_email_address' => $guardian_email_address,
+        'email_address' => $email_address,
+        'guardian_name' => $guardian_name,
+        'guardian_phone' => $guardian_phone
+
+      ) );
+
+    $response = COL::put( '/users/'.strval( $id ).'.json', $params );
+    $success = false;
+    if ( $response->status==200 ) {
+      $success = true;
+      $response->result->full_name = null;
+      $response->result->guardian_name = null;
+      $response->result->guardian_phone = null;
+      $response->result->guardian_email_address = null;
+      $response->result->dob = null;
+
+      setcookie( COL::COOKIE_NAME_AU, JWT::encode( $response->result, COL::KEY ), time()+COL::SESSION_TIME );
+    }
+    COL::log_action( 'update_account', array( 'extra_params' => array( 'status' => $response->status, 'success' => $success ) ) );
+
+
+    return $response;
+  }
 }

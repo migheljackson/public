@@ -23,6 +23,8 @@ if(!isset($scheduled_id)) {
 $searchResults = COL_Scheduled_Program::getScheduledProgram( $scheduled_program_id );
 
 $workshop = $searchResults["_source"];
+
+
 // print_r($workshop);
 // extract results and build the page elements
 
@@ -184,6 +186,15 @@ if ( $workshop['program_url']!=null ) {
 		$url_to_use = "http://".$url_to_use;
 	}
 	$workshop['prog_button'] = "<a class='small button radius' href='".$url_to_use."'>Learn more</a>";
+}
+$badgeChunk = $modx->getOption('tpl', $scriptProperties, 'ScheduledProgramBadgeItem');
+if($workshop['badges']!=null) {
+	$badgeHtml = "<h6>You can earn these badges</h6><div class='row' style='margin-bottom:12px'>";
+	foreach ($workshop['badges'] as $badge) {
+		$badgeHtml .= $modx->getChunk($badgeChunk, $badge);
+	}
+	$badgeHtml .="</div>";
+	$workshop['badgesHtml'] = $badgeHtml;
 }
 
 $modx->setPlaceholders($workshop);

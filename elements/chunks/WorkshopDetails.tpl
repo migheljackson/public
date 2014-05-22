@@ -23,7 +23,7 @@
           <div class="small-8 small-offset-2 large-8 large-offset-2" style="text-align:center">
               <h2 class="item-title">[[+name]]</h2>
               <img src="[[+logo_url]]"/>
-              <p id="workshop-desc" style="text-align:center;">[[+description]]</p>
+              <p id="workshop-desc" style="text-align:center;font-weight:bold">[[+description]]</p>
               [[+badgesHtml]]
               [[+reg_button]] [[+prog_button]]
           </div>

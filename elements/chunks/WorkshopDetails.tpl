@@ -24,7 +24,7 @@
               <h2 class="item-title">[[+name]]</h2>
               <img src="[[+logo_url]]"/>
               <p id="workshop-desc" style="text-align:center;">[[+description]]</p>
-              test - [[+badgesHtml]]
+              [[+badgesHtml]]
               [[+reg_button]] [[+prog_button]]
           </div>
         </div>
@@ -43,7 +43,6 @@
                 <div class="small-10 small-offset-1 large-offset-1 large-10 column">
                   <img src="/assets/images/clock-icon.png" class="left" style="padding-top:10px">
                   <p style="margin-left:33px">Starts [[+start_time]]</p><p style="margin-left:33px">Ends [[+end_time]]</p>
-                  <p style="margin-left:33px">[[+weekdays]]</p>
                 </div>
               </div>
               <div class="row">              

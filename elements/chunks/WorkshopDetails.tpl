@@ -5,7 +5,10 @@
 
 [[!setSelectedPageClass? &page=`explore-body`]]
 [[!fe_getworkshop]]
-<style>.badge-mini {height:75px;}</style>
+<style>
+.badge-mini {height:75px;}
+.program-logo {max-height:120px}
+</style>
 <div class="large-12 columns exp mini-wrapper" id="workshop-pg">
   <h3 class="pg-title">EXPLORE</h3>
 </div>
@@ -22,7 +25,7 @@
         <div class="row">
           <div class="small-8 small-offset-2 large-8 large-offset-2" style="text-align:center">
               <h2 class="item-title">[[+name]]</h2>
-              <img src="[[+logo_url]]"/>
+              <img src="[[+logo_url]]" class="program-logo"/>
               <p id="workshop-desc" style="text-align:center;font-weight:bold">[[+description]]</p>
               [[+badgesHtml]]
               [[+reg_button]] [[+prog_button]]

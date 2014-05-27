@@ -155,7 +155,7 @@
         <p>Enter your claim code</p>
           <span id="error_claim_code" class="error_message" style="display:none;"></span>
           <label for="code">
-            <input type="text" name="claim_code" id="claim_code" placeholder="Claim code">
+            <input type="text" name="claim_code" id="claim_code" placeholder="Claim code" value="[[+claim_code]]">
           </label>
           <input id="claim_code_continue" type="submit" value="Continue" class="button small expand radius next-step">
         

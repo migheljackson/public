@@ -17,6 +17,10 @@ $qChunk = $modx->getOption( 'tpl', $scriptProperties, 'SecurityQuestion' );
 $aiChunk = $modx->getOption( 'tpl', $scriptProperties, 'SecurityAnswerImage' );
 $atChunk = $modx->getOption( 'tpl', $scriptProperties, 'SecurityAnswerText' );
 
+if (isset($_REQUEST['claim_code']) == TRUE) {
+  $modx->setPlaceholder('claim_code', $_REQUEST["claim_code"]);
+}
+
 $question_output = "";
 for ($i = 0; $i < count($response->result); $i++) {
   $question = $response->result[$i];

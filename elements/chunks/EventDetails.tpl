@@ -1,22 +1,18 @@
 <!--
-@name workshopDetails
-@description source for workshop details view
+@name eventDetails
+@description source for event details view
 -->
 
 [[!setSelectedPageClass? &page=`explore-body`]]
-[[!fe_getworkshop]]
-<style>
-.badge-mini {height:75px;}
-.program-logo {max-height:120px}
-</style>
-<div class="large-12 columns exp mini-wrapper" id="workshop-pg">
-  <h3 class="pg-title">EXPLORE</h3>
-</div>
+[[!fe_getevent]]
+  <div class="row banner" id="workshop-pg" style="max-width:100%">
+    <div class="large-12 columns mini-wrapper" style="">
+      <h3 class="pg-title">EXPLORE</h3>
+    </div>
+  </div>
 
   <div class="row">
-      <div class="small-12 columns" style="padding-top:.75em;height:3.5em;">
-        <a href="#" class="link tiny secondary button" onclick="history.go(-1); return false;">Go Back</a>
-      </div>
+      <div class="small-6 medium-3 large-3 columns" style="padding-top:.75em;height:1.5em;"><a href="#" onclick="history.go(-1); return false;">< Go Back</a></div>
   </div>
 
   <div class="row workshop">
@@ -25,9 +21,7 @@
         <div class="row">
           <div class="small-8 small-offset-2 large-8 large-offset-2" style="text-align:center">
               <h2 class="item-title">[[+name]]</h2>
-              <img src="[[+logo_url]]" class="program-logo"/>
-              <p id="workshop-desc" style="text-align:center;font-weight:bold">[[+description]]</p>
-              [[+badgesHtml]]
+              <p id="workshop-desc" style="text-align:justify;">[[+description]]</p>
               [[+reg_button]] [[+prog_button]]
           </div>
         </div>
@@ -39,13 +33,13 @@
                 <div class="small-10 small-offset-1 large-offset-1 large-10 column">
                   <img src="/assets/images/cal-icon.png" class="left" style="padding-top:10px">
                   <p style="margin-left:33px">Starts [[+start_date]]</p><p style="margin-left:33px">Ends [[+end_date]]</p>
-                  <p style="margin-left:33px">[[+weekdays]]</p>
                 </div>
               </div>
               <div class="row">
                 <div class="small-10 small-offset-1 large-offset-1 large-10 column">
                   <img src="/assets/images/clock-icon.png" class="left" style="padding-top:10px">
                   <p style="margin-left:33px">Starts [[+start_time]]</p><p style="margin-left:33px">Ends [[+end_time]]</p>
+                  <p style="margin-left:33px">[[+weekdays]]</p>
                 </div>
               </div>
               <div class="row">              
@@ -58,11 +52,6 @@
               </div>
             </div>
           </li>
-          <li>
-            <h4 class="event-block-title center">map</h4>
-            <div id="map-canvas" class="event-block small-map clearfix"></div>
-          </li>
-          [[+nearbyHtml]]
           <li>
             <h4 class="event-block-title center">workshop info</h4>
             <div class="event-block clearfix">
@@ -84,8 +73,12 @@
                 </div>
             </li>
             [[+contactHtml]]
-            [[+relatedCategoryHtml]]
           </ul>
+          <div class="row">
+          	<div class="small-6 large-12 columns">
+            	<div id="map-canvas" class="event-block small-map clearfix"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -100,10 +93,10 @@
     </div>    
     <br/>
     
-    <script type="text/javascript"
+    <script type="text/javascript" data-cfasync="false"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b_ROG8eqS9bogFLE1A7R8T3fBbc6Sw&sensor=false">
     </script>
-    <script type="text/javascript" data-cfasync="false">
+    <script type="text/javascript">
       var orgHeight;
       function expandDesc() {
           var element = document.querySelector('#workshop-desc');
@@ -131,6 +124,5 @@
             title:"[[+location_name]] - [[+address]]"
         });
       }
-
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>

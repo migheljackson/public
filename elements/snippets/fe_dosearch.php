@@ -7,7 +7,6 @@
  *
  */
 
-
 // parameters from form
 $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'components/col_public/' );
 require_once $core_path.'col-library/col.php';
@@ -187,7 +186,7 @@ if (  $searchResults['hits']['total'] > 0 ) {
     $iMinAge = $sp['min_age'];
     $iMaxAge = $sp['max_age'];
 
-    if ( $sp['price']>0 ) {
+    if ( $sp['price']>0  || $sp['price']==null) {
       $sp['price'] = '$';
     } else {
       $sp['price'] = 'Free';
@@ -205,19 +204,16 @@ if (  $searchResults['hits']['total'] > 0 ) {
           array_push( $schoolLinks, $modx->getChunk( $srSchoolsChunk, array( 'age_range' => '12-18', 'school' => 'Middle & High School' ) ) );
         }
 
-
         if ( $iMaxAge > 18 ) {
 
           array_push( $schoolLinks, $modx->getChunk( $srSchoolsChunk, array( 'age_range' => '18-24', 'school' => 'Young Adults' ) ) );
         }
-
-
       }
     }
 
+    $sp['description']  = substr($sp['description'],0,134) . "...";
 
-
-    $sp["schools"] = implode( ",&nbsp;", $schoolLinks );
+    // $sp["schools"] = implode( ",&nbsp;", $schoolLinks );
 
     $cats = array();
     foreach ( $sp['categories'] as $cat ) {
@@ -229,8 +225,6 @@ if (  $searchResults['hits']['total'] > 0 ) {
 
     $items .= $modx->getChunk( $srItemChunk, $sp );
   }
-
-
 
   $srChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResults' );
   $results = $modx->getChunk( $srChunk, array( 'search_result_items'=>$items, 'paging' => $paging ) );

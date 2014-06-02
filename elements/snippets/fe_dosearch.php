@@ -221,7 +221,7 @@ if (  $searchResults['hits']['total'] > 0 ) {
       // code...
       array_push( $cats, $modx->getChunk( $srCategoriesChunk, $cat ) );
     }
-    var_dump($sp);
+    //var_dump($sp);
     $sp["categories_links"] = implode( ",&nbsp;", $cats );
     if ( isset($sp["pathway_type"])){
       $sp["id"] = substr($sp["id"], 8);

@@ -157,11 +157,12 @@ $paging = $modx->getChunk( $plsChunk, array( "paging_link_items" => implode( "",
 
 COL::log_action("search", array('search_query' =>  $s_query, 'locations' => $s_locations, 'categories' => $s_cat_ids,  
     'extra_params' => array('zipcode' =>$_REQUEST["zipcode"], 'price' => $s_price, 'page' => $s_page, 'hits' => $searchResults['hits']['total'], 'age_range' => $p_age_range) ));
-
+//var_dump($searchResults);
 if (  $searchResults['hits']['total'] > 0 ) {
   $modx->setPlaceholder( "hit_count", strval( $searchResults['hits']['total'] ) );
   $items = '';
   $srItemChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultItem' );
+  $srItemPathwayChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultItemPathway' );
   $srSchoolsChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultSchoolItem' );
   $srCategoriesChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultCategoryItem' );
   foreach ( $searchResults['hits']['hits'] as $hit ) {
@@ -212,7 +213,7 @@ if (  $searchResults['hits']['total'] > 0 ) {
     }
 
     $sp['description']  = substr($sp['description'],0,134) . "...";
-
+    
     // $sp["schools"] = implode( ",&nbsp;", $schoolLinks );
 
     $cats = array();
@@ -220,10 +221,15 @@ if (  $searchResults['hits']['total'] > 0 ) {
       // code...
       array_push( $cats, $modx->getChunk( $srCategoriesChunk, $cat ) );
     }
-
+    var_dump($sp);
     $sp["categories_links"] = implode( ",&nbsp;", $cats );
-
-    $items .= $modx->getChunk( $srItemChunk, $sp );
+    if ( isset($sp["pathway_type"])){
+      $sp["id"] = substr($sp["id"], 8);
+      $items .= $modx->getChunk( $srItemPathwayChunk, $sp);
+    } else {
+      $items .= $modx->getChunk( $srItemChunk, $sp );
+    }
+    
   }
 
   $srChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResults' );

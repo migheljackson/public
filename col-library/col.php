@@ -106,16 +106,17 @@ class COL {
    *  @param $bPrice - true for nonfree, false for free, null for both
    *  @param $iPage - default to 0 - page number of the results 0 is the first
    *  @param $iPerPage - default to 12 - number or responses per page
+   *  @param $types - "ScheduledProgram,Pathway"  or one of either
    *
    */
   public static function search( $sQuery = "", $aTopics = array() , $iMinAge = 0,
-    $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 15, $latitude = null, $longitude = null, $distance = null ) {
+    $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 15, $latitude = null, $longitude = null, $distance = null, $types="ScheduledProgram,Pathway" ) {
     $client = self::connect();
 
     $searchParams['index'] = self::SEARCH_INDEX;
-    $searchParams['type']  = 'ScheduledProgram';
+    $searchParams['type']  = $types;
     //$searchParams['body']['query']['filter']['hide'] = 'false';
-
+    //var_dump($types);
 
 
     $aQueryStringParameters = array();
@@ -227,7 +228,7 @@ class COL {
     $searchParams["from"] = $iPage * $iPerPage;
     $searchParams["size"] = $iPerPage;
 
-
+    //var_dump(JWT::jsonEncode($searchParams));
     $queryResponse = $client->search( $searchParams );
 
     return $queryResponse;
@@ -373,15 +374,15 @@ class COL {
   private static function connect() {
     $params = array();
     
-    $searchServers = array("gopher.col-engine.c66.me:9200");
+    //$searchServers = array("gopher.col-engine.c66.me:9200");
     // $searchServers = array("dragon.staging-col-engine.staging.c66.me:9200");
-    //$searchServers = array("localhost:9200");
+    $searchServers = array("localhost:9200");
     $params['hosts'] = $searchServers;
 
     // TODO Drop LOGGING down to WARN
-    //  $params['logging'] = true;
-    //$params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
-    //$params['logLevel'] = Psr\Log\LogLevel::INFO;
+    $params['logging'] = true;
+    $params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
+    $params['logLevel'] = Psr\Log\LogLevel::INFO;
 
     $client = new Elasticsearch\Client( $params );
 
@@ -408,12 +409,12 @@ class COL {
 curl -XDELETE 'http://localhost:9200/dev'
 curl -XPUT 'http://localhost:9200/dev'
 
-curl -XDELETE 'http://localhost:9200/chicago'
-curl -XPUT 'http://localhost:9200/chicago'
+curl -XDELETE 'http://localhost:9200/pitt'
+curl -XPUT 'http://localhost:9200/pitt'
 
 
 // setting up the geo point for location
-curl -XPUT 'http://localhost:9200/dev/ScheduledProgram/_mapping' -d '
+curl -XPUT 'http://localhost:9200/pitt/ScheduledProgram/_mapping' -d '
 {
 
   "properties": {

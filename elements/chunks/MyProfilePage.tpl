@@ -3,6 +3,7 @@
 @description Page for the Direct Sign up into COL
 -->
 [[!fe_get_profile]]
+[[!fe_do_iremix_login]]
 <div class="profile">
     <div class="small-12 columns">
         <h2 class="text-center">My profile</h2>

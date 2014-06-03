@@ -24,15 +24,30 @@ class COL {
 
 
   public static function _get_token() {
-    $au_cookie = JWT::decode( $_COOKIE[self::COOKIE_NAME_AU], self::KEY );
-    if ( isset( $au_cookie ) && $au_cookie != null ) {
-      return $au_cookie->token;
-    } else {
-      return "";
+    if (isset($_COOKIE[self::COOKIE_NAME_AU])) {
+       $au_cookie = JWT::decode( $_COOKIE[self::COOKIE_NAME_AU], self::KEY );
+      if ( isset( $au_cookie ) && $au_cookie != null ) {
+        return $au_cookie->token;
+      } else {
+        return "";
+      }
     }
+    return "";
 
   }
 
+  public static function _get_jwt_token() {
+    if (isset($_COOKIE[self::COOKIE_NAME_AU])) {
+
+      $au_cookie = JWT::decode( $_COOKIE[self::COOKIE_NAME_AU], self::KEY );
+      if ( isset( $au_cookie ) && $au_cookie != null ) {
+        return $au_cookie->jwt_token;
+      } else {
+        return "";
+      }
+    }
+
+  }
 
 
   public static function _get_avatar_image() {

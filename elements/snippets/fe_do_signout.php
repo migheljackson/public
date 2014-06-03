@@ -15,6 +15,6 @@ COL::log_action('signout', array());
 $response = COL_User::signout();
 
 
-$redirect_to = '/';
+$redirect_to = '/sign-in';
 
 $modx->sendRedirect($redirect_to);

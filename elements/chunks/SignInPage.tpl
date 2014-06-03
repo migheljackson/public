@@ -3,6 +3,7 @@
 @description Page for the Direct Sign up into COL
 -->
 [[!fe_get_username_parameter]]
+[[!fe_do_iremix_signout]]
 <section class="step" data-step-title="step-1">
 <div class="sign-up-page">
     <div class="row">

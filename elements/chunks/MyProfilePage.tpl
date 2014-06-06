@@ -43,6 +43,9 @@
             </ul>
         </div>
     </div>
+</div>
+<iframe id="main_iframe" style="border: 0px;" src="[[++iremix_base_url]]/col/pathways/profile_widget" width="100%" height="0"></iframe>
+<div class="profile-badges">
     <div class="small-12 columns">
         <div class="title-line small-centered small-12 large-8 columns">
             <h3 class="text-center">My Learning Activities</h3>
@@ -113,5 +116,20 @@ $(document).on("change", "#activity_sort", function(e){
 });
 });
 
+function alertsize(pixels){
+    pixels+=32;
+    document.getElementById('main_iframe').style.height=pixels+"px";
+}
+
+window.addEventListener('message',function(event) {
+  
+  console.log('message received:  ' + event.data,event);
+  //event.source.postMessage('holla back youngin!',event.origin);
+        var msg_data = event.data;
+        if (msg_data.type == 'resize') {
+
+        alertsize(msg_data.data);
+        }
+},false);
 
 </script>

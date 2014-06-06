@@ -116,6 +116,9 @@ $(document).on("change", "#activity_sort", function(e){
 });
 });
 
+
+
+
 function alertsize(pixels){
     pixels+=32;
     document.getElementById('main_iframe').style.height=pixels+"px";
@@ -129,6 +132,9 @@ window.addEventListener('message',function(event) {
         if (msg_data.type == 'resize') {
 
         alertsize(msg_data.data);
+        }
+        if (msg_data.type == "redirect") {
+            window.location = msg_data.data;
         }
 },false);
 

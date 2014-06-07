@@ -22,5 +22,8 @@ window.addEventListener('message',function(event) {
 
         alertsize(msg_data.data);
         }
+        if (msg_data.type == "scroll") {
+          window.scrollTo(0,0);
+        }
 },false);
 </script>

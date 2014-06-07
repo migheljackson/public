@@ -44,7 +44,8 @@
         </div>
     </div>
 </div>
-<iframe id="main_iframe" style="border: 0px;" src="[[++iremix_base_url]]/col/pathways/profile_widget" width="100%" height="0"></iframe>
+<script src="[[++iremix_base_url]]/col/pathways/profile_widget?js=true"></script>
+<!--<iframe id="main_iframe" style="border: 0px;" src="[[++iremix_base_url]]/col/pathways/profile_widget" width="100%" height="0"></iframe>-->
 <div class="profile-badges">
     <div class="small-12 columns">
         <div class="title-line small-centered small-12 large-8 columns">

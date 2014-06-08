@@ -113,10 +113,27 @@ $(document).on("change", "#activity_sort", function(e){
         arr.sort(compare_by_name);
     }
  $.each(arr, function(index, item){
-    item.elem.appendTo(item.elem.parent());
+   item.elem.parent().appendTo(item.elem.parent().parent());
 });
 });
 
+$(document).on("change", "#do_sort, #doing_sort, #done_sort", function(e){
+         var arr = [];
+         var t_id = '#' + $(this).attr("id");
+         $(t_id + '_items .pw_item').each(function(){
+            var meta = {date: $(this).attr("data-date"), name: $(this).attr("data-name"), elem: $(this)};
+            arr.push(meta);
+         });
+         var sort_type = $(this).find('option:selected').val();
+         if (sort_type == "date") {
+            arr.sort(compare_by_date);
+            } else {
+                arr.sort(compare_by_name);
+            }
+         $.each(arr, function(index, item){
+            item.elem.parent().appendTo(item.elem.parent().parent());
+        });
+        }); 
 
 
 

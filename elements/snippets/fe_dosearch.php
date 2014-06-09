@@ -85,9 +85,16 @@ if ( isset( $p_age_range ) ) {
   $s_max_age = intval( $parts[1] );
 }
 
+$s_result_type = "ScheduledProgram,Pathway";
+$p_result_type = $_REQUEST["result_type"];
+if (isset($p_result_type) && strlen( $p_result_type )) {
+  $s_result_type = $p_result_type; 
+}
+
+
 $pageSize = 24;
 
-$searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_price, $s_locations, $s_page, $pageSize, $latitude, $longitude, $range );
+$searchResults = COL::search( $s_query, $s_cat_ids, $s_min_age, $s_max_age, $s_price, $s_locations, $s_page, $pageSize, $latitude, $longitude, $range, $s_result_type );
 
 // check for total
 $paging = '';

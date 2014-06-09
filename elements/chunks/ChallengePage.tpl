@@ -25,5 +25,8 @@ window.addEventListener('message',function(event) {
         if (msg_data.type == "scroll") {
           window.scrollTo(0,0);
         }
+        if (msg_data.type == "redirect") {
+            window.location = msg_data.data;
+        }
 },false);
 </script>

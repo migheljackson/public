@@ -310,7 +310,9 @@
             </div>
             <div class="row">
               <div class="small-12 columns">
-                <a href="#" id="create_account" class="button small expand radius next-step">Continue Sign up</a>
+              <span style="display:none" id="error_permission" class="error_message"></span>
+              	<label><input id="permission" type="checkbox" class="roadblock" name="permission" value="true" style="visibility: visible"/> Agree to <a href="tos" onclick='window.open("tos", "tos", "height=400,width=400"); return false;'>Terms of Service</a></label>
+                <a href="#" id="create_account" class="button small expand radius next-step" disabled>Continue Sign up</a>
               </div>
             </div>
             
@@ -509,6 +511,7 @@ $(document).on("change", 'input[name="switch-z"]', function(e){
 
 $(document).on("click", "#create_account", function(e){
 e.preventDefault();
+
 $.validity.start();
 $('#username').require("You need to create your username to continue.");
 $('#password').require("You need to create a password for your account.");
@@ -516,6 +519,8 @@ $('#zipcode').match("zip", "Zip code needs to be in 5 digits");
 if (over_13) {
   $('#email_address').require("You need to enter your email! Enter your email address below.").match("email", "Oops! The email address is not complete.");
 }
+$('#permission').assert($("#permission:checked").length != 0, 
+        "Please agree with the terms of service.");
   var result = $.validity.end();
   if (result.valid) {
     // post form via ajax
@@ -629,5 +634,16 @@ $(function() {
     showButtons: false
   }); */
 });
+$(document).ready(function() {
+  $('.roadblock').click(function(){
+    if ($(this).is(':checked') ) {
+      $("#create_account").removeAttr("disabled");
+    } else {
+      $("#create_account").attr("disabled","disabled");
+    }
+  });
+});
+
+
 </script>
 <div class="clearfix"></div>

@@ -22,6 +22,7 @@
           <div class="small-8 small-offset-2 large-8 large-offset-2" style="text-align:center">
               <h2 class="item-title">[[+name]]</h2>
               <p id="workshop-desc" style="text-align:justify;">[[+description]]</p>
+              [[+badgesHtml]]
               [[+reg_button]] [[+prog_button]]
           </div>
         </div>
@@ -74,11 +75,15 @@
             </li>
             [[+contactHtml]]
           </ul>
-          <div class="row">
+          <div class="row" style="margin-bottom:15px;">
           	<div class="small-6 large-12 columns">
             	<div id="map-canvas" class="event-block small-map clearfix"></div>
             </div>
           </div>
+          <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+          [[+relatedCategoryHtml]]
+          [[+nearbyHtml]]
+          </ul>
         </div>
       </div>
     </div>

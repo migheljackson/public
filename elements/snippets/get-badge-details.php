@@ -24,13 +24,15 @@ $modx->setPlaceholders($badge);
 //get user if available
 if (COL::is_signed_in()) {
 	$response = COL_User::get_profile();
-	if ($response->status == 200) {
-		$issuedBadges = count($response->result->issued_badges);
+    if ($response->status == 200) {
+		$userData = json_decode(json_encode($response->result), true);
+		$issuedBadges = $userData["issued_badges"];
 		foreach ($issuedBadges as $ibadge) {
-			if($ibadge["id"] == $badge["id"]) {
-				$issueDateHtml='<h5 class="text-center"><strong>Date issued:</strong></h5><p class="text-center">'.$ibadge["awarded_at"].'</p>';
+			if($ibadge["issued_badge"]["badge_id"] == $badge["id"]) {
+				$date = new DateTime($ibadge["issued_badge"]["awarded_at"]);
+				$issueDateHtml='<h5 class="text-center"><strong>Date issued:</strong></h5><p class="text-center">'.$date->format('m/d/Y').'</p>';
 				$modx->setPlaceholder("issuedate",$issueDateHtml);
-				break;
+            	break;
 			}
 		}
 	}
@@ -40,7 +42,6 @@ $orgEndpoint = "/orgs/".strval($badge['org_id']).".json";
 
 $org = COL::get($orgEndpoint);
 $org = json_decode(json_encode($org), true);
-// print_r($org["result"]);
 $modx->setPlaceholders($org["result"],"org.");
 
 $criteria = $badge["badge_criteria"];

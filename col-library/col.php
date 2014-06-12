@@ -416,6 +416,12 @@ class COL {
 
     return $locations[$slug];
   }
+ 
+  public static function get_badge($badge_id) {
+     $endpoint = '/badges/' . $badge_id . '.json';
+     $response = COL::get( $endpoint  );
+     return $response;
+  }
 }
 
 

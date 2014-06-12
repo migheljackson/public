@@ -224,6 +224,8 @@ class COL {
       array_push( $aFiltersParameters, $range );
     }
 
+    $date_range = array( 'range'=>array( 'end_date' => array( 'gte' => date("Y-m-d") ) ) );
+     array_push( $aFiltersParameters, $date_range );
     // set hide to true
     $aHiddenTermQuery = array();
     $aHiddenTermQuery["term"]["hidden"] = false;

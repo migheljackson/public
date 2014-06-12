@@ -22,6 +22,7 @@
 <h5 class="text-center"><strong>Issuer:</strong></h5>
 <img src="[[+org.logo_url]]" style="max-height:50px" class="left"/> <p class="text-center">[[+org.name]]
 <br/><a href="[[+org.url]]" title="[[+org.description]]">[[+org.url]]</a></p>
+[[+issuedate]]
 </div>
 
 <br>

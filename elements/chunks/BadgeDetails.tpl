@@ -11,7 +11,7 @@
 <div class="title-line small-centered small-12 large-10 columns">
 <h3 class="text-center" style="background:#eaf9fc;">[[+name]]</h3>
 <hr class="line">
-<a href="#">< back </a>
+<a href="#" onclick="history.go(-1); return false;">< go back</a>
 </div>
 
 <div class="row">

@@ -223,9 +223,10 @@ class COL {
       }
       array_push( $aFiltersParameters, $range );
     }
-
+    $no_data = array('missing' => array('field' => 'end_date', 'existence' => true, 'null_value' => true));
     $date_range = array( 'range'=>array( 'end_date' => array( 'gte' => date("Y-m-d") ) ) );
-     array_push( $aFiltersParameters, $date_range );
+    $end_date_filter = array('or' => array('filters' => array($no_data, $date_range)));
+    array_push( $aFiltersParameters, $end_date_filter );
     // set hide to true
     $aHiddenTermQuery = array();
     $aHiddenTermQuery["term"]["hidden"] = false;

@@ -15,6 +15,7 @@ require_once $core_path.'col-library/col_user.php';
 
 if (COL::is_signed_in()) {
   $response = COL_User::get_profile();
+
  
   COL::log_action('read_profile', array( 'extra_params' => array('status' =>  $response->status)));
   //var_dump($response);
@@ -70,6 +71,8 @@ if (COL::is_signed_in()) {
       );
 
     $modx->setPlaceholders($placeholders);
+    $jwt = COL::_get_jwt_token();
+    $modx->setPlaceholder('jwt', $jwt);
   } else {
     header('Location: sign-in');
     die();

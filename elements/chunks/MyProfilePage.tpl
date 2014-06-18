@@ -3,7 +3,7 @@
 @description Page for the Direct Sign up into COL
 -->
 [[!fe_get_profile]]
-[[!fe_do_iremix_login]]
+
 <div class="profile">
     <div class="small-12 columns">
         <h2 class="text-center">My profile</h2>
@@ -44,7 +44,7 @@
         </div>
     </div>
 </div>
-<script src="[[++iremix_base_url]]/col/pathways/profile_widget?js=true"></script>
+<script src="[[++iremix_base_url]]/col/pathways/profile_widget?js=true&jwt=[[+jwt]]"></script>
 <!--<iframe id="main_iframe" style="border: 0px;" src="[[++iremix_base_url]]/col/pathways/profile_widget" width="100%" height="0"></iframe>-->
 <div class="profile-badges">
     <div class="small-12 columns">

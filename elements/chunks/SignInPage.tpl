@@ -24,6 +24,9 @@
             <div class="row">
             <div class="small-12 large-12 columns">
                 <input type="submit" class="button small expand radius next-step" value="Log in" /><br><br>
+                <div class="small-12 large-12 columns text-center">
+                    <a href="/sign-up" class="link text-center" title="new">I don't have an account</a>
+                </div>
                 <div class="small-6 columns">
                     <a href="forgotten-password" class="link text-center">forgot your password?</a>
                 </div>
@@ -59,7 +62,15 @@ $(document).on('submit', '#direct_signin', function(e) {
                 console.log(json.status);
 
                 if (json.status == 200 || json.status == 201) {
-                    window.location = 'my-profile';
+                    var redirect_to = "/my-profile";
+
+                    var o_redirect = $.getUrlVar("r");
+                    if (o_redirect && o_redirect !== undefined && o_redirect.length > 0) {
+                        redirect_to = decodeURIComponent(o_redirect);
+                    }
+
+
+                    window.location = redirect_to;
                 } else {
                     $('#error_dsignin_username').text(json.errors).show();
                 }

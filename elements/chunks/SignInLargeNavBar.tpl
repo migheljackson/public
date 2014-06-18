@@ -5,7 +5,7 @@
         <form id="form_signin" action="[[fe_get_signin_url]]">
           <div class="small-12 columns">
             <label for="new"><span>New Users</span><br>
-              <a href="sign-up" class="button expand radius" title="new">Create An Account</a>
+              <a href="/sign-up" class="button expand radius" title="new">Create An Account</a>
             </label>
             <hr>
             

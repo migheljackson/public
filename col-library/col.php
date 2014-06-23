@@ -125,7 +125,7 @@ class COL {
    *
    */
   public static function search( $sQuery = "", $aTopics = array() , $iMinAge = 0,
-    $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 15, $latitude = null, $longitude = null, $distance = null, $types="ScheduledProgram,Pathway" ) {
+    $iMaxAge = 100, $bPrice = null, $aLocations=array(), $iPage = 0, $iPerPage = 15, $latitude = null, $longitude = null, $distance = null, $types="ScheduledProgram" ) {
     $client = self::connect();
 
     $searchParams['index'] = self::SEARCH_INDEX;
@@ -223,7 +223,10 @@ class COL {
       }
       array_push( $aFiltersParameters, $range );
     }
-
+    $no_data = array('missing' => array('field' => 'end_date', 'existence' => true, 'null_value' => true));
+    $date_range = array( 'range'=>array( 'end_date' => array( 'gte' => date("Y-m-d") ) ) );
+    $end_date_filter = array('or' => array('filters' => array($no_data, $date_range)));
+    array_push( $aFiltersParameters, $end_date_filter );
     // set hide to true
     $aHiddenTermQuery = array();
     $aHiddenTermQuery["term"]["hidden"] = false;

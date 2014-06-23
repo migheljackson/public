@@ -12,7 +12,8 @@ require_once $core_path.'col-library/col.php';
 $user_token = COL::_get_token();
 
 if(count($user_token)>0) {
-  return $modx->runSnippet('fe_do_iremix_login');
+  $modx->setPlaceholder('jwt', COL::_get_jwt_token());
+  return "";//$modx->runSnippet('fe_do_iremix_login');
 } else {
   return $modx->runSnippet('fe_do_iremix_signout');
 }

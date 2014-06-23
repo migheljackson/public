@@ -5,7 +5,7 @@
 
 [[!fe_do_iremix_login_sync]]
 
-<iframe id="main_iframe" style="border: 0px;" src="[[++iremix_base_url]]/col/pathways/[[!parameter_extractor? &param=id]]" width="100%" height="1800"></iframe>
+<iframe id="main_iframe" style="border: 0px;" src="[[++iremix_base_url]]/col/pathways/[[!parameter_extractor? &param=id]]?start=[[!parameter_extractor? &param=start]]&jwt=[[+jwt]]" width="100%" height="1800"></iframe>
 
 <script>
 function alertsize(pixels){

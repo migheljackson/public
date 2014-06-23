@@ -16,7 +16,15 @@ $(document).on('submit', '#form_signin', function(e) {
                 console.log(json.status);
 
                 if (json.status == 200 || json.status == 201) {
-                    window.location = 'my-profile';
+                    var redirect_to = "/my-profile";
+
+                    var o_redirect = $.getUrlVar("r");
+                    if (o_redirect && o_redirect !== undefined && o_redirect.length > 0) {
+                        redirect_to = o_redirect;
+                    }
+
+
+                    window.location = redirect_to;
                 } else {
                     $('#error_signin_username').text(json.errors).show();
                 }
@@ -24,6 +32,23 @@ $(document).on('submit', '#form_signin', function(e) {
         });
     }
     return false;
+});
+
+$.extend({
+    getUrlVars: function() {
+        var vars = [],
+            hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    },
+    getUrlVar: function(name) {
+        return $.getUrlVars()[name];
+    }
 });
 $(document).ready(function() {
 

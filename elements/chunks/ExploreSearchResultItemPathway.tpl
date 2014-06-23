@@ -1,6 +1,6 @@
 <li data-equalizer-watch>
   <div class="item-block clearfix">
-    <img src="[[+logo_url]]" alt="[[+name]]">
+    <a href="/challenges?id=[[+id]]" title="[[+name]]"><img src="[[+logo_url]]" alt="[[+name]]"></a>
     <div class="row">
       <div class="small-12 large-12 columns prog-title-hdr"><h5><a href="/challenges?id=[[+id]]" title="[[+name]]">[[+name]]</a></h5></div>
       <div class="small-12 large-12 columns"><h5 class="price">[[+price]]</h5></div>

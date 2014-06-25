@@ -425,6 +425,12 @@ class COL {
      $response = COL::get( $endpoint  );
      return $response;
   }
+  
+  public static function get_orgs() {
+  	$response = COL::get("/orgs.json");
+  	// print_r($response);
+  	return $response;
+  }
 }
 
 

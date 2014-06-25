@@ -70,6 +70,7 @@
                 <div class="small-6 large-12 columns">
                   <p style="color: #35BDD3;">[[+price]]</p>
                   <p>Registration Deadline: [[+registration_deadline]]</p>
+                  <p>Recommended Ages: [[+min_age]]&mdash;[[+max_age]]</p>
                   <ul class="work-cat">
                     [[+categoryHtml]]
                   </ul>

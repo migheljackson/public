@@ -108,9 +108,6 @@ if ($lat!=null && $long!=null) {
 $categoryText = "";
 $relatedItemCountMax = 5;
 $categoriesHtml = "";
-// get related workshops by category
-$relatedTpl = $modx->getOption( 'tpl', $scriptProperties, 'WorkshopRelatedWorkshops' );
-$relatedItemTpl = $modx->getOption( 'tpl', $scriptProperties, 'WorkshopRelatedItem' );
 
 foreach ($workshop['categories'] as $category ) {
 	$categoryText .= "<li>" . $category["name"] . "</li>";
@@ -247,6 +244,11 @@ if($workshop['badges']!=null) {
 	$badgeHtml .="</div>";
 	$workshop['badgesHtml'] = $badgeHtml;
 }
+
+// recommended ages
+$minAge = $workshop["min_age"];
+$maxAge = $workshop["max_age"];
+$ageHtml = "Recommended Ages: " . $minAge . "&mdash;" . $maxAge . "";
 
 $modx->setPlaceholders($workshop);
 return $workshop;

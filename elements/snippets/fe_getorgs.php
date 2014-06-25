@@ -15,15 +15,16 @@ $orgs_json = json_decode(json_encode($org_result), true);
 $orgs = $orgs_json["result"];
 
 $orgHtml = "";
-// print_r($orgs);
 foreach($orgs as $org) {
-	// print_r($org);
 	// validate logo url
-	// validate url
-	$orgHtml .= '<div class="col-md-3 logo-box"><a title="' . $org["name"] . '" href="' . $org["url"] . '"><img style="height: 75px;" src="'. $org["logo_url"] .'" alt="' . $org["url"] . '" onerror="loadtitle();"/></a></div>';
-	// $orgHtml.="<li><a href='". $org["url"] . "'><img src='" . $org["logo_url"] . "' title='" . $org["name"] . "'/></a></li>";	
+	if(!empty($org["logo_url"])) {
+		// validate url
+		if(!empty($org["url"]) && substr( $org["url"], 0, 7 ) !== "http://") {
+			$org["url"] = "http://" . $org["url"];
+		}
+		$orgHtml .= '<div class="col-md-3 logo-box"><a title="' . $org["name"] . '" href="' . $org["url"] . '"><img style="height: 75px;" src="'. $org["logo_url"] .'" alt="' . $org["url"] . '" onerror="loadtitle();"/></a></div>';
+	}
 }
 
 $modx->setPlaceholder("orgs",$orgHtml);
 return;
-// return $orgHtml;

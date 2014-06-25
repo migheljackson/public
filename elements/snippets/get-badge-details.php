@@ -20,19 +20,24 @@ $badgeMeta = json_decode(json_encode($badgeMeta), true);
 $badge = $badgeMeta['result'];
 
 $modx->setPlaceholders($badge);
-
 //get user if available
 if (COL::is_signed_in()) {
 	$response = COL_User::get_profile();
-    if ($response->status == 200) {
-		$userData = json_decode(json_encode($response->result), true);
-		$issuedBadges = $userData["issued_badges"];
-		foreach ($issuedBadges as $ibadge) {
-			if($ibadge["issued_badge"]["badge_id"] == $badge["id"]) {
-				$date = new DateTime($ibadge["issued_badge"]["awarded_at"]);
-				$issueDateHtml='<h5 class="text-center"><strong>Date issued:</strong></h5><p class="text-center">'.$date->format('m/d/Y').'</p>';
-				$modx->setPlaceholder("issuedate",$issueDateHtml);
-            	break;
+	if ($response->status == 200) {
+		
+		if($badge["issued_badges"]) {
+			foreach($badge["issued_badges"] as $ibadge) {
+				if(empty($issueDateHtml)) {	
+					$issueDateHtml='<h5 class="text-center"><strong>Date issued:</strong></h5><p class="text-center">'.$ibadge["awarded_at"].'</p>';
+					$modx->setPlaceholder("issuedate",$issueDateHtml);
+				}
+				if(!empty($ibadge["evidences"])) {
+					$evidenceHtml ="<h5 class='text-center'><strong>Evidence:</strong></h5><p class='text-center'>";
+					foreach($ibadge["evidences"] as $evidence) {
+						$evidenceHtml .= "<a href='". $evidence["url"] . "'>" . $evidence["url"] . "</a>";
+					}
+					$modx->setPlaceholder("evidence",$evidenceHtml);
+				}
 			}
 		}
 	}
@@ -57,4 +62,5 @@ if(isset($criteria)) {
 	$output.="</ul>";
 	$modx->setPlaceholder("criteria", $output);
 }
+
 return;

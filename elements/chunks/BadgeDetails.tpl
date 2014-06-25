@@ -11,7 +11,7 @@
 <div class="title-line small-centered small-12 large-10 columns">
 <h3 class="text-center" style="background:#eaf9fc;">[[+name]]</h3>
 <hr class="line">
-<a href="#" onclick="history.go(-1); return false;">< go back</a>
+<a href="#" onclick="history.go(-1); return false;">< go back </a>
 </div>
 
 <div class="row">
@@ -23,9 +23,9 @@
 <img src="[[+org.logo_url]]" style="max-height:50px" class="left"/> <p class="text-center">[[+org.name]]
 <br/><a href="[[+org.url]]" title="[[+org.description]]">[[+org.url]]</a></p>
 [[+issuedate]]
+[[+evidence]]
 </div>
 
-<br>
 <h5 class="text-center"><strong>Description:</strong></h5>
 <p class="text-center">[[+informal_description]]</p>
 <p class="text-center"><strong>Badge Type:</strong> [[+badge_type]]</p>

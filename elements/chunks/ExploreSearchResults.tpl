@@ -31,7 +31,7 @@
                 <li><a href="#" class="filter" data-filter-type="age_range" data-filter-value="8-12">8-12</a></li>
                 <li><a href="#" class="filter" data-filter-type="age_range" data-filter-value="12-16">12-16</a></li>
                 <li><a href="#" class="filter" data-filter-type="age_range" data-filter-value="16-19">16-19</a></li>
-                <li><a href="#" class="filter" data-filter-type="age_range" data-filter-value="19-22">19-22</a></li>
+                <li><a href="#" class="filter" data-filter-type="age_range" data-filter-value="19-24">19-24</a></li>
               </ul>
             </li>
           </ul>

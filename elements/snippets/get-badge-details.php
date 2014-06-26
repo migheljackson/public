@@ -28,7 +28,8 @@ if (COL::is_signed_in()) {
 		if($badge["issued_badges"]) {
 			foreach($badge["issued_badges"] as $ibadge) {
 				if(empty($issueDateHtml)) {	
-					$issueDateHtml='<h5 class="text-center"><strong>Date issued:</strong></h5><p class="text-center">'.$ibadge["awarded_at"].'</p>';
+					$date = new DateTime($ibadge["awarded_at"]);
+					$issueDateHtml='<h5 class="text-center"><strong>Date issued:</strong></h5><p class="text-center">'.$date->format('m/d/Y').'</p>';
 					$modx->setPlaceholder("issuedate",$issueDateHtml);
 				}
 				if(!empty($ibadge["evidences"])) {

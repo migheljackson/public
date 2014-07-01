@@ -17,7 +17,7 @@ if (COL::is_signed_in()) {
   $response = COL_User::get_profile();
 
  
-  COL::log_action('read_profile', array( 'extra_params' => array('status' =>  $response->status)));
+  COL::log_action('view_profile', array( 'extra_params' => array('status' =>  $response->status)));
   //var_dump($response);
 
   if ($response->status == 200) {

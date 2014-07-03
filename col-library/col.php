@@ -233,7 +233,7 @@ class COL {
     array_push( $aFiltersParameters, $aHiddenTermQuery );
     if ( count( $aQueryStringParameters ) > 0 ) {
       $aQueryString["query_string"]["query"] = $sQuery."*" ;
-      $aQueryString["query_string"]["fields"] = array( "description", "name^5" );
+      $aQueryString["query_string"]["fields"] = array( "description", "name^5", "blurb^2", "tag", "org_name" );
 
       $searchParams['body']['query']['bool']['must'] = array( $aQueryString );
     } else {
@@ -476,6 +476,32 @@ curl -XPUT 'http://localhost:9200/pitt/ScheduledProgram/_mapping' -d '
     }
 
 
+}'
+
+curl -XPUT 'http://localhost:9200/chicago/Pathway/_mapping' -d '
+{
+  "properties":{
+    "blurb": 
+      {"type":"string",
+      "index": "analyzed",
+      "boost": 5.0},
+    "categories":{"properties":{"description":{"type":"string"},"id":{"type":"long"},"name":{"type":"string"}}},
+    "description":{"type":"string",
+      "index": "analyzed",
+            "boost": 1.0},
+    "due_date":{"type":"date","format":"dateOptionalTime"},
+    "end_date":{"type":"date","format":"dateOptionalTime"},
+    "hidden":{"type":"boolean"},"id":{"type":"string"},
+    "logo_url":{"type":"string"},
+    "max_age":{"type":"long"},
+    "min_age":{"type":"long"},
+    "tags": {"type": "string", "index_name": "tag"},
+    "name":{"type":"string",
+            "index": "analyzed",
+            "boost": 10.0},
+    "pathway_type":{"type":"string"},
+    "price":{"type":"long"}
+    }
 }'
 
 curl -XPUT 'http://localhost:9200/chicago/ScheduledProgram/_mapping' -d '

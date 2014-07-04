@@ -28,5 +28,15 @@ window.addEventListener('message',function(event) {
         if (msg_data.type == "redirect") {
             window.location = msg_data.data;
         }
+        if (msg_data.type == "scroll_height_request") {
+          var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+          var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+          var iframe_st =  $('#main_iframe').scrollTop();
+          var sx, sy, d= document, r= d.documentElement, b= d.body;
+          sx= r.scrollLeft || b.scrollLeft || 0;
+          sy= r.scrollTop || b.scrollTop || 0;
+          var msg = {type: "scroll_height", w: w, h: h, iframe_st: iframe_st, sx: sx, sy: sy};
+          document.getElementById('main_iframe').contentWindow.postMessage(msg, '*');
+        }
 },false);
 </script>

@@ -9,6 +9,7 @@ require_once 'curl_helpers.php';
 
 $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'components/col_public/' );
 require_once $core_path.'vendor/autoload.php';
+Airbrake\EventHandler::start('f5055409347290c5dcf4625c11c96ff9');
 
 class COL {
 

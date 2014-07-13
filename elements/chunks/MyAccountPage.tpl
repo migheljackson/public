@@ -393,7 +393,7 @@ $(function() {
             var data_ref = $('input.claim_code_input[value="' + r.code + '"]').attr("id");
             if (r.success) {
 
-              if (r.object.hasOwnProperty("badge_type")) {
+              if (r.object!=null && r.object.hasOwnProperty("badge_type")) {
                 r.object_type = "Badge"
               } else {
                 r.object_type = r.program_type;

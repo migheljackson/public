@@ -35,7 +35,7 @@ if (COL::is_signed_in()) {
 				if(!empty($ibadge["evidences"])) {
 					$evidenceHtml ="<h5 class='text-center'><strong>Evidence:</strong></h5><p class='text-center'>";
 					foreach($ibadge["evidences"] as $evidence) {
-						$evidenceHtml .= "<a href='". $evidence["url"] . "'>" . $evidence["url"] . "</a>";
+						$evidenceHtml .= "<a href='". $evidence["url"] . "'>" . $evidence["url"] . "</a><br/>";
 					}
 					$modx->setPlaceholder("evidence",$evidenceHtml);
 				}

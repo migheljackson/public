@@ -3,6 +3,7 @@
 @description Page for the Direct Sign up into COL
 -->
 [[!fe_get_securityquestions]]
+[[!fe_do_get_sign_up_prefill]]
 <style>
 .step {
     position: absolute;
@@ -37,9 +38,10 @@
           <div class="small-12 large-centered large-6 columns">
             <span style="display:none" id="error_name" class="error_message"></span>
             <label for="name">
-              <input name="full_name" id="name" type="text" placeholder="First & last name" >
+              <input name="full_name" id="name" type="text" placeholder="First & last name" value="[[+full_name]]" >
             </label>
             <div class="row">
+              <input type="hidden" id="preset_dob" value="[[+date_of_birth]]">
               <div class="small-12 large-12 columns">
                 <span >Your Birthdate</span>
               </div>
@@ -181,11 +183,11 @@
           <div class="small-12 large-centered large-6 columns">
             <span style="display:none" id="error_guardian_email_address" class="error_message"></span>
             <label for="email">
-              <input name="guardian_email_address" id="guardian_email_address" type="text" placeholder="Legal Guardian E-Mail">
+              <input name="guardian_email_address" id="guardian_email_address" type="text" placeholder="Legal Guardian E-Mail" value="[[+guardian_email_address]]">
             </label>
             <span style="display:none" id="error_guardian_phone" class="error_message"></span>
             <label for="phone">
-              <input name="guardian_phone" id="guardian_phone" type="text" placeholder="Legal Guardian Phone Number">
+              <input name="guardian_phone" id="guardian_phone" type="text" placeholder="Legal Guardian Phone Number" value="[[+guardian_phone]]">
             </label>
             <div class="small-12 columns link" data-reveal-id="why_parent_info">
               <a href="#">Why do we ask this?</a><br>
@@ -266,7 +268,7 @@
             
             <span style="display:none" id="error_email_address" class="error_message"></span>
             <label class="over_13" for="email">
-              <input name="email_address" id="email_address" type="text" placeholder="E-mail address">
+              <input name="email_address" id="email_address" type="text" placeholder="E-mail address" value="[[+email_address]]">
             </label>
             <span style="display:none" id="error_zipcode" class="error_message"></span>
             <label for="zip">
@@ -626,6 +628,20 @@ $(function() {
   $.extend($.validity.patterns, {
     month_day: /^((0?\d)|(1[012]))[\/-]([012]?\d|30|31)$/
   });
+
+  if($('#preset_dob').val().length > 0) {
+    var preset_dob = $('#preset_dob').val().split("/");
+    $("#birthmonth option[value='"+preset_dob[0]+"']").attr("selected", true);
+    $("#birthdate option[value='"+preset_dob[1]+"']").attr("selected", true);
+    $("#birthyear option[value='"+preset_dob[2]+"']").attr("selected", true);
+    debugger;
+    $('#btn_step1').trigger('click');
+    var preset_dob = moment($('#preset_dob').val(), "MM/DD/YYYY");
+    over_13 = preset_dob.isBefore(moment().subtract('years', 13));
+    if (!over_13) {
+      go_to_step( 3);
+    }
+  }
 
   $('#birthday').mask('00/00');
  /* $('#direct_signup').easyWizard({

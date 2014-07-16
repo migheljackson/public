@@ -16,7 +16,7 @@
     <hr>  
     <div class="row details">
       <div class="small-12 large-12 columns type">
-        <p><a href="/[[+program_type]]-detail?id=[[+id]]">[[+org_name]]</a></p>
+        <p>[[+org_name]]</p>
         <p>[[+categories_links]]</p>
       </div>
     </div>

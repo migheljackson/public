@@ -18,11 +18,6 @@
         <a href="#" class="row button small radius orange">+ MY PROFILE</a>
       </div>      
     </div>
-    <hr>  
-    <div class="row details">
-      <div class="small-12 large-12 columns type">
-        <h5>Digital Youth Network</h5>
-      </div>
-    </div>
+    <hr>
   </div>
 </li>

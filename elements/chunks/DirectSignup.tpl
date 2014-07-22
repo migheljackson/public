@@ -631,9 +631,9 @@ $(function() {
 
   if($('#preset_dob').val().length > 0) {
     var preset_dob = $('#preset_dob').val().split("/");
-    $("#birthmonth option[value='"+preset_dob[0]+"']").attr("selected", true);
-    $("#birthdate option[value='"+preset_dob[1]+"']").attr("selected", true);
-    $("#birthyear option[value='"+preset_dob[2]+"']").attr("selected", true);
+    $("#birthmonth option[value='"+preset_dob[0]+"']").prop("selected", true);
+    $("#birthdate option[value='"+preset_dob[1]+"']").prop("selected", true);
+    $("#birthyear option[value='"+preset_dob[2]+"']").prop("selected", true);
     debugger;
     $('#btn_step1').trigger('click');
     var preset_dob = moment($('#preset_dob').val(), "MM/DD/YYYY");

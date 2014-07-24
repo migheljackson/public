@@ -57,6 +57,22 @@ class COL_User {
     $response = COL::get( $endpoint  );
     return $response;
   }
+  
+  public static function validate_external_user($dob, $name, $id) {
+  	$endpoint = '/users/validate_external_sys_id.json';
+  	$user = array('external_sys_id' => $id, 'full_name' => $name, 'dob' => $dob);
+  	$response = COL::post_encrypted_json($endpoint, array("user"=>$user));
+  
+  	return $response;
+  }
+  
+  public static function validate_claim_code($dob, $name, $code) {
+  	$endpoint = '/users/validate_account_claim_code.json';
+  	$user = array('claim_code' => $code, 'full_name' => $name, 'dob' => $dob);
+  	$response = COL::post_encrypted_json($endpoint, array("user"=>$user));
+  
+  	return $response;
+  }
 
   public static function update_account( $id, $username, $full_name, $dob, $password, $email_address,
     $guardian_email_address, $guardian_name, $guardian_phone ) {

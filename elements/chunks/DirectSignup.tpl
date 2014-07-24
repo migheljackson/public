@@ -18,6 +18,9 @@
   border-color: yellow; 
   background-color: yellow;
 }
+
+.error_message {border: 1px solid #FFF; color: #FFF; background:#b22927; display:inline-block; padding:3px; opacity:.9}
+#code_entered {background: #3bbcd3; color:#FFF; padding: 3px;border:1px solid #FFF;opacity:.9}
 </style>
 <form id="direct_signup" type="post" action="process-signup" class="form-horizontal" style="position:relative;min-height:600px;">
   <section class="step active" data-step-title="step-1" style="display:block;">
@@ -136,32 +139,38 @@
                     <option value="1991">1991</option>
                     <option value="1990">1990</option>
                     <option value="1989">1989</option>
-
                   </select>
                 </label>
               </div>
             </div>
-            <div id="code_entered" class="small-12 " style="display:none">Code: <span id="claim_code_entered"></span></div>
-            <div class="small-12 link"><a href="#" data-reveal-id="code">Do you have a claim code?</a></div>
+            <div id="code_entered" class="small-12" style="display:none">Sweet! Your account claim code <span id="claim_code_entered"></span> has been successfully verified.</div>
+            <div id="code_select" class="small-12 link">
+	            <label>Do you have a claim code?</label>
+	            <select id="claim_code_select">
+	            	<option value="">Select One</option>
+	            	<option value="yes">Yes</option>
+	            	<option value="no">No</option>
+	            	<option value="idk">Don't Know</option>
+	            </select>
+            </div>
+            <div id="code_inline" class="small-12" style="display:none">
+		        <label>Enter your claim code</label>
+		        <span id="error_claim_code" class="error_message" style="display:none;"></span>
+		        <div class="small-6 column" style="padding-left:0">
+		        	<input type="text" name="claim_code" id="claim_code" placeholder="Claim code" value="[[+claim_code]]">
+		        </div>
+		        <div class="small-6 column">
+		        	<a id="claim_code_continue" class="button small radius next-step">Verify</a>
+		    	</div>
+		    </div>
             <div class="row">
               <div class="small-12 large-12 columns">
-                <a href="#" id="btn_step1" class="button small expand radius next-step">Continue Sign Up</a><br><br>
+                <a id="btn_step1" class="button small expand radius next-step">Continue Sign Up</a><br><br>
               </div>
             </div>
             
           </div>
         </div>
-      </div>
-      <!-- Claim code modal -->
-      <div id="code" class="reveal-modal tiny" data-reveal>
-        <p>Enter your claim code</p>
-          <span id="error_claim_code" class="error_message" style="display:none;"></span>
-          <label for="code">
-            <input type="text" name="claim_code" id="claim_code" placeholder="Claim code" value="[[+claim_code]]">
-          </label>
-          <input id="claim_code_continue" type="submit" value="Continue" class="button small expand radius next-step">
-        
-        <a class="close-reveal-modal">&#215;</a>
       </div>
     </div>
   </section>
@@ -335,23 +344,6 @@ var go_to_step = function(step_num) {
 
   var $target = $('section[data-step-title="step-'+step_num+'"]'),
             $other = $target.siblings('.active');
-
-        /*
-        if (!$target.hasClass('active')) {
-            $other.each(function(index, self) {
-                var $this = $(this);
-                $this.removeClass('active').animate({
-                    left: $this.width(),
-                }, 500);
-            });
-
-            $target.addClass('active').show().css({
-                left: -($target.width())
-            }).animate({
-                left: 0
-            }, 500);
-        }
-        */
         $other.fadeOut().removeClass('active');
         $target.fadeIn().addClass('active');
 }
@@ -385,14 +377,12 @@ function scorePassword(pass) {
     return parseInt(score);
 }
 
-function generate_password()
-{
+function generate_password() {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?()#-";
 
     for( var i=0; i < 8; i++ )
         text += possible.charAt(Math.floor(Math.random() * possible.length));
-
     return text;
 }
 
@@ -415,21 +405,20 @@ $(document).on('click', '#btn_step1', function(e) {
   if (!month_set.hasClass("fail")) {
     var day_set = $('#birthdate').require("We need to know when were born. Please select the day.");
     if (!day_set.hasClass("fail")) {
-    var year_set = $('#birthyear').require("We need to know when were born. Please select the year");
-    if (!year_set.hasClass("fail")) {
-
-      $('#dob').val($('#birthmonth').val() + "/" + $('#birthdate').val() + '/' + $('#birthyear').val()).match("date", "Oops! Please review your birthdate and re-enter.").assert(function(el) {
-        return moment($(el).val(), "MM/DD/YYYY").isValid();
-      }, "Oops! Please review your birthdate and re-enter.");
-    }
-  }
-  }
-  
+	    var year_set = $('#birthyear').require("We need to know when were born. Please select the year");
+	    if (!year_set.hasClass("fail")) {
+	
+	      $('#dob').val($('#birthmonth').val() + "/" + $('#birthdate').val() + '/' + $('#birthyear').val()).match("date", "Oops! Please review your birthdate and re-enter.").assert(function(el) {
+	        return moment($(el).val(), "MM/DD/YYYY").isValid();
+	      }, "Oops! Please review your birthdate and re-enter.");
+	    }
+	  }
+  	}
 
   var result = $.validity.end();
 
   if (result.valid) {
-    var dob = moment($('#dob').val(), "MM/DD/YYYY");
+	var dob = moment($('#dob').val(), "MM/DD/YYYY");
     over_13 = dob.isBefore(moment().subtract('years', 13));
     if (over_13) {
       // go to step 4
@@ -440,6 +429,7 @@ $(document).on('click', '#btn_step1', function(e) {
       go_to_step( 2);
     }
   }
+  return false;
 });
 
 $(document).on('open', '[data-reveal]', function () {
@@ -452,18 +442,21 @@ $(document).on('open', '[data-reveal]', function () {
 
 $(document).on('click', '#claim_code_continue', function(){
   $.validity.start();
-  $('#claim_code').minLength(5, 'Code is not valid. Please review and enter the correct code. If you don\'t have it now, or are not sure about the correct code, you can add them later on your account page');
+  $('#claim_code').minLength(5, 'The claim code you entered is not valid. Please review it and enter a valid claim code.');
+
   var result = $.validity.end();
   if (result.valid) {
-    if ($("#claim_code").val().length > 0) {
+	if($('#claim_code').val().substr(0,1).toLowerCase()=="a") {
+  		$('#dob').val($('#birthmonth').val() + "/" + $('#birthdate').val() + '/' + $('#birthyear').val());
+  		verify($('#name').val(), $('#dob').val(), $('#claim_code').val());
+  	} else if ($("#claim_code").val().length > 0) {
       $('#claim_code_entered').text($("#claim_code").val());
       $('#code_entered').show();
     } else {
       $('#code_entered').hide();
     }
-    
-    $('#code').find('a.close-reveal-modal').trigger("click");
   }
+  return false;
 });
 
 
@@ -533,8 +526,6 @@ $('#permission').assert($("#permission:checked").length != 0,
       success: function(data) {
         var json = JSON.parse(data);
 
-        // console.log(json.status);
-
         if (json.status == 200 || json.status == 201) {
           window.location = 'choose-avatar';
         } else {
@@ -558,16 +549,13 @@ $('#permission').assert($("#permission:checked").length != 0,
             }
 
           } else {
-            console.log(json.errors + " " + json.result);
             alert("There was an error trying to create your account. Please try again in a moment.");
           }
         }
       },
       error: function(data) {
         var json = JSON.parse(data);
-        console.log(json.errors + " " + json.result);
         alert("There was an error trying to create your account. Please try again in a moment.");
-
       }
     });
   }
@@ -644,11 +632,6 @@ $(function() {
   }
 
   $('#birthday').mask('00/00');
- /* $('#direct_signup').easyWizard({
-    showSteps: false,
-    debug: true,
-    showButtons: false
-  }); */
 });
 $(document).ready(function() {
   $('.roadblock').click(function(){
@@ -660,6 +643,41 @@ $(document).ready(function() {
   });
 });
 
-
+function verify(name, dob, code) {
+	var params = "dob="+dob+"&name="+name+"&code="+code;
+	
+	 $.ajax({
+      url: "validate-claim-code",
+      method: "post",
+      dataType: "json",
+      data: {dob: dob, name:name, code: code},
+      success: function(data) {
+	    if(data.status==400) {
+	    	var msg;	
+	    	if(data.errors[0]=="No user found with that external_sys_id"){
+	    		msg="The account code you entered is not valid. Please review it and enter a valid account code.";
+	    	} else {
+	    		msg="Your account code is not valid. Please review your name, date of birth, and account code. Try again or create account without code.";
+	    	}
+	    	$("#error_claim_code").text(msg).show();
+	    } else {
+	    	$('#claim_code_entered').text($("#claim_code").val());
+      		$('#code_entered').show();
+      		$("#error_claim_code").hide();
+      		$("#code_inline").hide();
+      		$("#code_select").hide();
+		}
+		return false;
+	  },
+	  error: function(data, errorString, error) {
+	  	alert(errorString);
+	  }
+	});
+}
+     $('#claim_code_select').change(function() {
+        if($(this).val()=="yes"){
+            $("#code_inline").slideToggle();
+       	}
+     });
 </script>
 <div class="clearfix"></div>

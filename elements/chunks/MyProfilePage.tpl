@@ -7,7 +7,7 @@
 <div class="profile">
     <div class="small-12 columns">
         <h2 class="text-center">My profile</h2>
-        <div class="small-centered small-6 large-2 columns">
+        <div class="small-centered small-6 large-2 columns text-center">
             <img src="[[+preset_avatar_url]]" alt="avatar" class="text-center">
         </div>
         <br>

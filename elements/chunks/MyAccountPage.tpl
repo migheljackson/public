@@ -117,7 +117,7 @@
             <br><br>
       </form>
     </div>
-    
+    <a id="claim_codes_link"></a>
     <div class="small-12 columns">
       <div class="title-line small-centered small-12 large-8 columns">
         <h3 class="text-center">My City of Learning Codes</h3>

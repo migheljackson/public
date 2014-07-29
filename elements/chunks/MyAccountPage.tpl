@@ -164,11 +164,11 @@
 <div class="row">
 <div class="small-6 large-5 columns">
   <img src="[[++col_public.assets_url]]images/checkmark-circle.png" class="left check">
-  <img src="{{object.image_url}}" alt="{{name}}" class="th right" width="70px" height="70px">
+  <img src="{{image_url}}" alt="{{name}}" class="th right" width="70px" height="70px">
 </div>
 <div class="small-6 large-7 columns">
   <p class="workshop-name">{{code}}</p>
-  <p class="workshop-name">{{object_type}} name has been added to your account.</p>
+  <p class="workshop-name">{{object_type}} {{name}} has been added to your account.</p>
 </div>
 <div class="small-12 columns">
   <a href="my-profile" class="profile-link">View {{object_type}} in your profile<br></a>

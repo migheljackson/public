@@ -19,9 +19,7 @@
 <div class="small-centered small-6 large-8 columns ">
 <img src="[[+image_url]]" title="[[+name]]" alt="[[+name]]"/>
 <br>
-<h5 class="text-center"><strong>Issuer:</strong></h5>
-<img src="[[+org.logo_url]]" style="max-height:50px" class="left"/> <p class="text-center">[[+org.name]]
-<br/><a href="[[+org.url]]" title="[[+org.description]]">[[+org.url]]</a></p>
+[[+issuer]]
 [[+issuedate]]
 [[+evidence]]
 </div>
@@ -29,7 +27,7 @@
 <h5 class="text-center"><strong>Description:</strong></h5>
 <p class="text-center">[[+informal_description]]</p>
 <p class="text-center"><strong>Badge Type:</strong> [[+badge_type]]</p>
-<p class="text-center"><strong>Expected Duration:</strong> [[+duration]]</p>
+[[+duration]]
 
 [[+criteria]]
 </div>

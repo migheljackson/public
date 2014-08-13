@@ -25,7 +25,7 @@
 </div>
 
 <h5 class="text-center"><strong>Description:</strong></h5>
-<p class="text-center">[[+informal_description]]</p>
+<p class="text-center">[[+description]]</p>
 <p class="text-center"><strong>Badge Type:</strong> [[+badge_type]]</p>
 [[+duration]]
 

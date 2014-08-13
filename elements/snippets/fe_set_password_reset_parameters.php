@@ -8,6 +8,6 @@
  */
 
 // parameters from form
-
-$modx->setPlaceholder( 'username', $_REQUEST["username"] );
+$username= '"' . str_replace('%20', '', $_REQUEST["username"]) . '"';
+$modx->setPlaceholder( 'username', $username);
 $modx->setPlaceholder( 'forgotten_password_token', $_REQUEST["token"] );

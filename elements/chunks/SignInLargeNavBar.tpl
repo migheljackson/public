@@ -1,14 +1,14 @@
-<li id="sign_up"><a href="#" class="button radius">Sign Up</a>
-  <div id="signup-pop" class="signup-pop-block" style="display:none;">
+<li id="sign_up"><a href="sign-up" class="button radius">Sign Up</a></li>
+<li id="login"><a href="#" class="radius">Log In</a>
+	<div id="signup-pop" class="signup-pop-block" style="display:none;">
     <div class="signup-wrapper clearfix arrow_box">
       <div class="row">
         <form id="form_signin" action="[[fe_get_signin_url]]">
           <div class="small-12 columns">
+            <!-- 
             <label for="new"><span>New Users</span><br>
               <a href="/sign-up" class="button expand radius" title="new">Create An Account</a>
-            </label>
-            <hr>
-            
+            </label> <hr> -->
             <label for="login"><span>Existing Users</span><br/>
               <span id="error_signin_username"  class="error_message"  style="display:none;"></span>
               <input type="text" id="signin_username" name="username" placeholder="username">

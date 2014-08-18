@@ -224,7 +224,7 @@ if ( $workshop['registration_url']!=null ) {
 	} else {
 		$url_to_use = "http://".$url_to_use;
 	}
-	$workshop['reg_button'] = "<a class='small button radius' href='".$url_to_use."'>Register</a>";
+	$workshop['reg_button'] = "<a class='small button radius trk_ext' href='".$url_to_use."' data-sched-id='" . $scheduled_program_id . "'>Register for " . $workshop['program_type'] . "</a>";
 }
 
 if ( $workshop['program_url']!=null ) {

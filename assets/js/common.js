@@ -76,6 +76,11 @@ $(document).ready(function() {
     $('#login a').click(function() {
         $('#signup-pop').slideToggle('fast');
         $(this).toggleClass('button');
+        ga('col.send', 'event', 'sign in', 'click', 'signin popup');
     });
 
+    $('a.trk_ext').click(function(){
+    	ga('col.send', 'event', 'external links', 'click', $(this).attr('href'));
+    });
+  
 });

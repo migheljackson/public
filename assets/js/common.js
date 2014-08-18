@@ -80,7 +80,7 @@ $(document).ready(function() {
     });
 
     $('a.trk_ext').click(function(){
-    	ga('col.send', 'event', 'external links', 'click', $(this).attr('href'));
+    	ga('col.send', 'event', 'external links', 'click', $(this).attr('data-sched-id'));
     });
   
 });

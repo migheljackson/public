@@ -12,18 +12,12 @@ $(document).on('submit', '#form_signin', function(e) {
             url: $("#form_signin").attr("action"),
             success: function(data) {
                 var json = JSON.parse(data);
-
-                console.log(json.status);
-
                 if (json.status == 200 || json.status == 201) {
                     var redirect_to = "/my-profile";
-
                     var o_redirect = $.getUrlVar("r");
                     if (o_redirect && o_redirect !== undefined && o_redirect.length > 0) {
                         redirect_to = o_redirect;
                     }
-
-
                     window.location = redirect_to;
                 } else {
                     $('#error_signin_username').text(json.errors).show();
@@ -51,7 +45,6 @@ $.extend({
     }
 });
 $(document).ready(function() {
-
     // We'll decide to install our custom output mode under the name 'custom':
     $.validity.outputs.field_fill = {
 
@@ -60,34 +53,34 @@ $(document).ready(function() {
             $('.fail').removeClass('fail');
             $('.error_message').hide();
         },
-
         end: function(results) {
-
         },
 
         // Our raise function will display the error and animate the text-box:
         raise: function($obj, msg) {
-
             $('#error_' + $obj.attr("id")).text(msg).show();
 
             // Animate the border of the text box:
             $obj.addClass('fail');
-
         },
 
         // Our aggregate raise will just raise the error on the last input:
         raiseAggregate: function($obj, msg) {
-
             this.raise($($obj.get($obj.length - 1)), msg);
-
         }
     };
 
     $.validity.setup({
         outputMode: "field_fill"
     });
-    $('#sign_up a').click(function() {
+    $('#login a').click(function() {
         $('#signup-pop').slideToggle('fast');
-    })
+        $(this).toggleClass('button');
+        ga('col.send', 'event', 'sign in', 'click', 'signin popup');
+    });
 
+    $('a.trk_ext').click(function(){
+    	ga('col.send', 'event', 'external links', 'click', $(this).attr('data-sched-id'));
+    });
+  
 });

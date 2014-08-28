@@ -201,7 +201,7 @@
             
             <span style="display:none" id="error_username" class="error_message"></span>
             <label for="user">
-              <input type="text" name="username" id="username" placeholder="User name" readonly value=[[+username]]>
+              <input type="text" name="username" id="username" placeholder="User name" readonly value="[[+username]]">
             </label>
             <span style="display:none" id="error_password" class="error_message"></span>
             <label for="pass">

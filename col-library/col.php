@@ -83,6 +83,25 @@ class COL {
     return $aResponse;
   }
 
+  public static function get_json_with_payload($endpoint, $payload)
+  {
+    $aResponse = array();
+    $new_payload = array_merge($payload, array('token' => self::_get_token()));
+    $token = array(
+      "payload" =>  $new_payload,
+      "exp" => time() + 30,
+      );
+    
+    $jwt = JWT::encode($token, self::KEY);
+    $data = array("jwt" => $jwt);
+
+    $url =  self::BASE_URL.$endpoint.'?jwt='.$jwt;
+     
+    $aResponse = WWW::get($url);
+    
+    return $aResponse;
+  }
+
   public static function is_signed_in() {
     return isset( $_COOKIE[self::COOKIE_NAME_AU]) ; 
   }
@@ -331,6 +350,23 @@ class COL {
 
     $token = array(
       //'token' => $_COOKIE[self::COOKIE_NAME],
+      "payload" => $payload,
+      "exp" => time() + 60,
+    );
+    $jwt = JWT::encode( $token, self::KEY );
+    $data = array( "jwt" => $jwt );
+
+    $url =  self::BASE_URL.$endpoint;
+
+    $response = WWW::post( $url, $data );
+
+    return $response;
+  }
+
+    public static function post_json_logged_in( $endpoint, $payload ) {
+    $aResponse = array();
+    $payload['token'] = self::_get_token();
+    $token = array(
       "payload" => $payload,
       "exp" => time() + 60,
     );

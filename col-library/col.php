@@ -278,6 +278,12 @@ class COL {
     return $client->get( $aGetParams );
   }
 
+  public static function document_mget( $aDocsArray ) {
+    $client = self::connect();
+    $aGetParams =  array( 'body' => array('docs' => $aDocsArray), 'index' => self::SEARCH_INDEX,  '_source' => true );
+    return $client->mget( $aGetParams );
+  }
+
   public static function post( $endpoint, $payload ) {
     $aResponse = array();
 

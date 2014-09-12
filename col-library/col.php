@@ -255,9 +255,9 @@ class COL {
       $aQueryString["query_string"]["query"] = $sQuery."*" ;
       $aQueryString["query_string"]["fields"] = array( "description", "name^5", "blurb^2", "tag", "org_name" );
 
-      $searchParams['body']['query']['bool']['must'] = array( $aQueryString );
+      $searchParams['body']['query']['filtered']['query']['bool']['must'] = array( $aQueryString );
     } else {
-      $searchParams['body']['query']["match_all"] = array( "boost"=>1 );
+      $searchParams['body']['query']['filtered']['query']["match_all"] = array( "boost"=>1 );
     }
 
 

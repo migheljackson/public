@@ -35,6 +35,7 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
       $fiWidget = $modx->getOption( 'tpl', $scriptProperties, 'FeaturedItemWidget' );
       $fiGroup = $modx->getOption( 'tpl', $scriptProperties, 'FeaturedItemGroup' );
       $fiScheduledProgram = $modx->getOption( 'tpl', $scriptProperties, 'FeaturedItemScheduledProgram' );
+      $fiChallenge = $modx->getOption( 'tpl', $scriptProperties, 'FeaturedItemChallenge' );
 
       $es_result = COL::document_mget( $document_ids );
       //var_dump($es_result);
@@ -46,8 +47,9 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
 
           // for each of the documents fill a featured item chunk
           $doc_details = $doc["_source"];
+
           if ( $doc["_type"] == "ScheduledProgram" ) {
-            
+
             $doc_details["short_description"] = substr( $doc_details["description"], 0, 80 )."...";
 
             // <strong>July 23-Aug 2, Mo-Wed <br> Downtown</strong>
@@ -108,6 +110,7 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
             }
 
             if ( !empty( $doc_details["badges"] ) ) {
+              //var_dump( $doc_details );
               $badge_details = "";
               foreach ( $doc_details["badges"] as $badge ) {
                 $badge_details .= '<li><img src="'.$badge["image_url"].'" alt="'.$badge["name"].'"></li>';
@@ -118,7 +121,23 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
             $fi_detail = $modx->getChunk( $fiScheduledProgram, $doc_details );
             array_push( $fi_snippets, $fi_detail );
 
-          }
+          } else if ( $doc["_type"] == "Pathway" ) {
+              //var_dump( $doc_details );
+              $doc_details["short_description"] = substr( $doc_details["blurb"], 0, 80 )."...";
+
+              if ( !empty( $doc_details["badges"] ) ) {
+                $badge_details = "";
+                foreach ( $doc_details["badges"] as $badge ) {
+                  $badge_details .= '<li><img src="'.$badge["image_url"].'" alt="'.$badge["name"].'"></li>';
+
+                }
+                $doc_details["badge_details"] = '<h6>EARN BADGES</h6><ul class="small-12 columns item-badges">'.$badge_details.'</ul>';
+
+              }
+
+              $fi_detail = $modx->getChunk( $fiChallenge, $doc_details );
+              array_push( $fi_snippets, $fi_detail );
+            }
 
         }
       }

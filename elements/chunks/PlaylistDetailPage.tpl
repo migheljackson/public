@@ -15,21 +15,21 @@
 						<li class="current"><a href="#">DETAIL</a></li>
 					</ul>
 					<!-- playlist short resume -->
-<div class="large-12 large-centered text-center panel callout radius" style="background: #fff;"> 
-<h4>
-This is the System notification box
+<div class="large-12 large-centered text-center panel callout radius" style="background: #fff;display:none;"> 
+<h4 id="system_notification">
+
 </h4>
 </div>
 					<div class="small-12 large-8 large-centered columns">
 
 						<div class="large-3 small-12 columns">
-							<img src="http://placehold.it/150X150" class="center-text th" alt="">
+							<img src="[[+playlist-logo]]" class="center-text th" alt="">
 						</div>
 						<div class="large-9 small-12 columns">
 							<h4>[[+playlist-name]]</h4>
 							<p>[[+playlist-blurb]]</p>
-[[$PlaylistDetailUserWidget?playlist_id=1]]
-							<button class="button radius">LOGIN TO GET STARTED</button>
+							[[$PlaylistDetailUserWidget?playlist_id=1]]
+							
 						</div>
 					</div>
 					<hr>
@@ -59,13 +59,7 @@ This is the System notification box
 							</div>							
 							<div class="small-12 large-5 columns">
 								<p>[[+playlist-description]]</p>
-								<h5>EARN BADGES</h5>
-								<ul class="small-12">
-									<li><img src="assets/images/badge-1.png" alt=""></li>
-									<li><img src="assets/images/badge-2.png" alt=""></li>
-									<li><img src="assets/images/badge-3.png" alt=""></li>
-									<li><img src="assets/images/badge-4.png" alt=""></li>
-								</ul>
+								[[+badge-items]]
 							</div>
 						</div>
 					</div>
@@ -78,10 +72,9 @@ This is the System notification box
 						</div>
 					</div>
 				</div>
-				<script src="assets/js/vendor/jquery.js"></script>
-				<script src="assets/js/foundation/foundation.js"></script>
-				<script src="assets/js/foundation/foundation.orbit.js"></script>
+				
 				<script>
+				$(function(){
 					$(document).foundation({
 						orbit: {
 							navigation_arrows: false,
@@ -91,6 +84,8 @@ This is the System notification box
       				swipe: true
   				}
 				});
+					
+					});
 				</script>
 
 				<!-- playlist end -->

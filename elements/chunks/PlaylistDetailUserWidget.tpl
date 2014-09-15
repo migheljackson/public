@@ -1,5 +1,5 @@
 <!--
-@name PlaylistDetailUserWidgetLoggedIn
+@name PlaylistDetailUserWidget
 @description source for event details view
 -->
 <script type="text/javascript">
@@ -49,7 +49,7 @@ $.ajax({
   },
   dataType: "JSON",
   success: function(data) {
-      debugger
+      
       if (data.status == 200) {
         if (data.result.hasOwnProperty("state")) {
           if (data.state == "completed") {
@@ -87,6 +87,5 @@ $.ajax({
 
 </script>
 <a id="next_step_link" href="">
-<button id="start_button_label"></button>
+<button id="start_button_label" class="button radius"></button>
 </a>
-<span id="system_notification"></span>

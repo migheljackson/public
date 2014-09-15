@@ -23,7 +23,8 @@ var start_playlist = function(){
           if (data.result.hasOwnProperty("id")) {
             $("#start_button_label").text("").hide();
             $("#next_step_link").attr("href", "#");
-            $("#system_notification").text("You have started this playlist. Check out the activities below to complete it.").show();
+            $("#system_notification").text("You have started this playlist. Check out the activities below to complete it.");
+            $("#sys_notification_box").show();
           } 
           
         } else if(data.status == 403) {
@@ -55,11 +56,13 @@ $.ajax({
           if (data.state == "completed") {
             $("#start_button_label").text("").hide();
             $("#next_step_link").attr("href", "#");
-            $("#system_notification").text("High five! You completed this playlist").show();
+            $("#system_notification").text("High five! You completed this playlist");
+            $("#sys_notification_box").show();
           } else {
             $("#start_button_label").text("").hide();
             $("#next_step_link").attr("href", "#");
-            $("#system_notification").text("You have started this playlist. Check out the activities below to complete it.").show();
+            $("#system_notification").text("You have started this playlist. Check out the activities below to complete it.");
+            $("#sys_notification_box").show();
           }
           
 

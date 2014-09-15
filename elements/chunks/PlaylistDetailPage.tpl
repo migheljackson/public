@@ -15,7 +15,7 @@
 						<li class="current"><a href="#">DETAIL</a></li>
 					</ul>
 					<!-- playlist short resume -->
-<div class="large-12 large-centered text-center panel callout radius" style="background: #fff;display:none;"> 
+<div id="sys_notification_box" class="large-12 large-centered text-center panel callout radius" style="background: #fff;display:none;"> 
 <h4 id="system_notification">
 
 </h4>

@@ -69,14 +69,14 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
     foreach ( $es_result["docs"] as $doc ) {
       // code...
       if ( $doc["found"] ) {
-
+        //var_dump($doc);
         // for each of the documents fill a featured item chunk
         $doc_details = $doc["_source"];
 
         if ($doc['_type']=="ScheduledProgram") {
-          $href_details = '/'.$doc["program_type"].'-detail?id='.strval($doc["id"]);
+          $href_details = '/'.$doc_details["program_type"].'-detail?id='.substr($doc["_id"], 17);
         } else {
-          $href_details = '/challenges?id='.strval($doc["id"]);
+          $href_details = '/challenges?id='.substr($doc["_id"],8);
         }
         
         $activity_list .= "<li><a href='".$href_details."'><img style='max-width:75px;' src=".$doc_details["logo_url"]." alt=".$doc_details["name"]." /></a></li>";

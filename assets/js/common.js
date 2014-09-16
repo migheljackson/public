@@ -75,7 +75,7 @@ $(document).ready(function() {
     });
     $('#login a').click(function() {
         $('#signup-pop').slideToggle('fast');
-        $(this).toggleClass('button');
+        //$(this).toggleClass('button');
         ga('col.send', 'event', 'sign in', 'click', 'signin popup');
     });
 

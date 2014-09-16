@@ -1,5 +1,4 @@
-<li id="sign_up"><a href="sign-up" class="button radius">Sign Up</a></li>
-<li id="login"><a href="#" class="radius">Log In</a>
+<script type='text/javascript'>$(function(){ $('#top_login_buttons').show() });</script>
 	<div id="signup-pop" class="signup-pop-block" style="display:none;">
     <div class="signup-wrapper clearfix arrow_box">
       <div class="row">
@@ -32,4 +31,4 @@
       </div>
     </div>
   </div>
-</li>
+

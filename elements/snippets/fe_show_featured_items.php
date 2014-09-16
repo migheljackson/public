@@ -169,8 +169,10 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
         $widget_details .= $group_widget;
       }
 
+      $all_fi_items = implode("", $fi_snippets);
+
       // for the featured item widget fill in all the group chunks
-      $featured_widget = $modx->getChunk( $fiWidget , array( 'featured_item_groups' => $widget_details ) );
+      $featured_widget = $modx->getChunk( $fiWidget , array( 'featured_item_groups' => $widget_details, 'all_featured_items' => $all_fi_items ) );
       // save the final widget to the cache
       $modx->cacheManager->set( $featured_items_cache_key, $featured_widget, 7200 ); // set for 2 hours
       // return final widget

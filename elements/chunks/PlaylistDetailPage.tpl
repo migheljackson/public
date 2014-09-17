@@ -3,7 +3,7 @@
 @description source for event details view
 -->
 
-[[!fe_get_playlist]]
+[[!fe_get_playlist? &playlist_id=`[[+playlist_id]]`]]
 
 				<!-- playlist start -->
 				<div class="small-12 columns playlists">
@@ -28,7 +28,7 @@
 						<div class="large-9 small-12 columns">
 							<h4>[[+playlist-name]]</h4>
 							<p>[[+playlist-blurb]]</p>
-							[[$PlaylistDetailUserWidget?playlist_id=1]]
+							[[$PlaylistDetailUserWidget?playlist_id=[[+playlist_id]]]]
 							
 						</div>
 					</div>

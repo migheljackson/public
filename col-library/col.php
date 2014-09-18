@@ -83,6 +83,25 @@ class COL {
     return $aResponse;
   }
 
+  public static function get_json_with_payload($endpoint, $payload)
+  {
+    $aResponse = array();
+    $new_payload = array_merge($payload, array('token' => self::_get_token()));
+    $token = array(
+      "payload" =>  $new_payload,
+      "exp" => time() + 30,
+      );
+    
+    $jwt = JWT::encode($token, self::KEY);
+    $data = array("jwt" => $jwt);
+
+    $url =  self::BASE_URL.$endpoint.'?jwt='.$jwt;
+     
+    $aResponse = WWW::get($url);
+    
+    return $aResponse;
+  }
+
   public static function is_signed_in() {
     return isset( $_COOKIE[self::COOKIE_NAME_AU]) ; 
   }
@@ -236,9 +255,9 @@ class COL {
       $aQueryString["query_string"]["query"] = $sQuery."*" ;
       $aQueryString["query_string"]["fields"] = array( "description", "name^5", "blurb^2", "tag", "org_name" );
 
-      $searchParams['body']['query']['bool']['must'] = array( $aQueryString );
+      $searchParams['body']['query']['filtered']['query']['bool']['must'] = array( $aQueryString );
     } else {
-      $searchParams['body']['query']["match_all"] = array( "boost"=>1 );
+      $searchParams['body']['query']['filtered']['query']["match_all"] = array( "boost"=>1 );
     }
 
 
@@ -257,6 +276,12 @@ class COL {
     $client = self::connect();
     $aGetParams =  array( 'id' => $iDocumentId, 'index' => self::SEARCH_INDEX, 'type' => $sDocumentType, '_source' => true );
     return $client->get( $aGetParams );
+  }
+
+  public static function document_mget( $aDocsArray ) {
+    $client = self::connect();
+    $aGetParams =  array( 'body' => array('docs' => $aDocsArray), 'index' => self::SEARCH_INDEX,  '_source' => true );
+    return $client->mget( $aGetParams );
   }
 
   public static function post( $endpoint, $payload ) {
@@ -331,6 +356,23 @@ class COL {
 
     $token = array(
       //'token' => $_COOKIE[self::COOKIE_NAME],
+      "payload" => $payload,
+      "exp" => time() + 60,
+    );
+    $jwt = JWT::encode( $token, self::KEY );
+    $data = array( "jwt" => $jwt );
+
+    $url =  self::BASE_URL.$endpoint;
+
+    $response = WWW::post( $url, $data );
+
+    return $response;
+  }
+
+    public static function post_json_logged_in( $endpoint, $payload ) {
+    $aResponse = array();
+    $payload['token'] = self::_get_token();
+    $token = array(
       "payload" => $payload,
       "exp" => time() + 60,
     );

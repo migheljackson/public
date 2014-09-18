@@ -40,18 +40,10 @@
 								<a href="#" class="middle orbit-prev"><i class="fa fa-chevron-left fa-3x"></i></a>
 							</div>
 							<div class="large-5 small-12 columns">
-								<div class="featured" data-orbit>
-									<li>
-										<div class="flex-video">
-											<iframe src="https://embed-ssl.ted.com/talks/sir_ken_robinson_bring_on_the_revolution.html" width="640" height="360" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-										</div>
-									</li>
-									<li>
-										<img src="http://placehold.it/400X300" alt="">
-									</li>
-									<li>
-										<img src="http://placehold.it/400X300" alt="">
-									</li>																		
+								<div class="featured" >
+									<ul data-orbit>
+									[[+media-items]]
+									</ul>																	
 								</div>
 							</div>
 							<div class="large-1 show-for-medium-up columns">

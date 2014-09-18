@@ -65,5 +65,15 @@ if ( !empty( $badges_to_be_earned ) ) {
 }
 $modx->setplaceholder( "badge-items", $badge_summary_details );
 
+$playlist_media_items = "";
+foreach ( $playlist->playlist_media as $item ) {
+  if ($item->playlist_medium->media_type == 1) {
+    $playlist_media_items .= '<li><div class="flex-video">'.$item->playlist_medium->data.'</div></li>';
+  } else {
+    $playlist_media_items .= '<li><img src="'.$item->playlist_medium->data.'"/></li>';
+  }
+  
+}
+$modx->setplaceholder( "media-items", $playlist_media_items );
 //var_dump( $badges_to_be_earned );
 // var_dump($es_result);

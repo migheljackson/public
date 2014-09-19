@@ -29,7 +29,7 @@ if (COL::is_signed_in()) {
   	for($i = 0; $i < $badge_count; $i++) {
       $badge = $response->result->issued_badges[$i];
       $badgeAwarded = new DateTime( $badge->issued_badge->awarded_at );
-      $badge_awarded_at = $badgeAwarded->format( "m/d/Y g:i A" );
+      $badge_awarded_at = $badgeAwarded->format( "m/d/Y" );
       $badge_sort = $badgeAwarded->format( "Y/m/d A g:i " );
       if($badge->issued_badge->externally_issued===false) {
         $badge_items .= $modx->getChunk($bChunk, array('sort_awarded_at' =>  $badge_sort, 'awarded_at' => $badge_awarded_at, 'badge_name' => $badge->issued_badge->badge_name,

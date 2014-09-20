@@ -2,7 +2,8 @@
 @name PlaylistDetailPage
 @description source for event details view
 -->
-
+<!--<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>-->
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.2/owl.carousel.min.css"/>
 [[!fe_get_playlist? &playlist_id=`[[+playlist_id]]`]]
 
 				<!-- playlist start -->
@@ -40,10 +41,10 @@
 								<a href="#" class="middle orbit-prev"><i class="fa fa-chevron-left fa-3x"></i></a>
 							</div>
 							<div class="large-5 small-12 columns">
-								<div class="featured" >
-									<ul data-orbit>
+								<div id="playlist_media" class="" style="max-height:280px important!">
+									
 									[[+media-items]]
-									</ul>																	
+																									
 								</div>
 							</div>
 							<div class="large-1 show-for-medium-up columns">
@@ -64,19 +65,47 @@
 						</div>
 					</div>
 				</div>
+				<!--<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.3.6/slick.min.js"></script>-->
+				<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.2/owl.carousel.min.js"></script>
 				
 				<script>
-				$(function(){
-					$(document).foundation({
-						orbit: {
-							navigation_arrows: false,
-      				next_class: 'orbit-next', // Class name given to the next button
-      				prev_class: 'orbit-prev', // Class name given to the previous button
-      				variable_height: false, // Does the slider have variable height content?
-      				swipe: true
-  				}
+
+				$(document).on('click', '.orbit-prev', function (e) {
+					e.preventDefault();
+					var owl = $("#playlist_media").data('owlCarousel');
+					owl.prev();
+					return false;
 				});
+				$(document).on('click', '.orbit-next', function (e) {
+					e.preventDefault();
+					var owl = $("#playlist_media").data('owlCarousel');
+					owl.next();
+					return false;
+				});
+
+				$(function(){
+
+					$("#playlist_media").owlCarousel({
+ 
+      navigation : false, // Show next and prev buttons
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      singleItem: true,
+ 			 navigationText: [
+      "<i class='fa fa-chevron-left icon-white fa-3x'></i>",
+      "<i class='fa fa-chevron-right icon-white fa-3x'></i>"
+      ],
+ 
+  });
 					
+					/*
+						$('#playlist_media').slick({
+							nextArrow: '.orbit-next',
+							prevArray: '.orbit-prev',		
+							//vertical: true
+							onBeforeChange: function(){  $('#playlist_media div').show(); }					
+						});
+					*/
 					});
 				</script>
 

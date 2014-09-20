@@ -25,19 +25,14 @@ if (COL::is_signed_in()) {
     $activities_items = "";
 
     $bChunk = $modx->getOption( 'tpl', $scriptProperties, 'ProfileBadgeItem' );
-    $extBChunk = $modx->getOption('tpl', $scriptProperties, 'ProfileBadgeItemExternal');
+    // $extBChunk = $modx->getOption('tpl', $scriptProperties, 'ProfileBadgeItemExternal');
   	for($i = 0; $i < $badge_count; $i++) {
       $badge = $response->result->issued_badges[$i];
       $badgeAwarded = new DateTime( $badge->issued_badge->awarded_at );
       $badge_awarded_at = $badgeAwarded->format( "m/d/Y" );
       $badge_sort = $badgeAwarded->format( "Y/m/d A g:i " );
-      if($badge->issued_badge->externally_issued===false) {
-        $badge_items .= $modx->getChunk($bChunk, array('sort_awarded_at' =>  $badge_sort, 'awarded_at' => $badge_awarded_at, 'badge_name' => $badge->issued_badge->badge_name,
-                'badge_image_url' => $badge->issued_badge->badge_image_url, 'badge_id' => $badge->issued_badge->badge_id ));
-      } else {
-      	$badge_items .= $modx->getChunk($extBChunk, array('sort_awarded_at' =>  $badge_sort, 'awarded_at' => $badge_awarded_at, 'badge_name' => $badge->issued_badge->badge_name,
-      			'badge_image_url' => $badge->issued_badge->badge_image_url, 'badge_id' => $badge->issued_badge->badge_id ));
-      }
+      $badge_items .= $modx->getChunk($bChunk, array('sort_awarded_at' =>  $badge_sort, 'awarded_at' => $badge_awarded_at, 'badge_name' => $badge->issued_badge->badge_name,
+		'badge_image_url' => $badge->issued_badge->badge_image_url, 'badge_id' => $badge->issued_badge->badge_id ));
     }
 
     //var_dump($badge_items);

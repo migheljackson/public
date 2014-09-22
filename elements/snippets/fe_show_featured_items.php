@@ -112,9 +112,11 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
             if ( !empty( $doc_details["badges"] ) ) {
               //var_dump( $doc_details );
               $badge_details = "";
+              $counter=0;
               foreach ( $doc_details["badges"] as $badge ) {
                 $badge_details .= '<li><img src="'.$badge["image_url"].'" alt="'.$badge["name"].'"></li>';
-
+                $counter+=1;
+                if($counter==4){break;}
               }
               $doc_details["badge_details"] = '<h6>EARN BADGES</h6><ul class="small-12 columns item-badges">'.$badge_details.'</ul>';
             }

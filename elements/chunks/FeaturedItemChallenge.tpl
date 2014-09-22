@@ -13,7 +13,7 @@
       <div class="small-12 columns">
         [[+badge_details]]
       </div>
-      <div class="small-9 small-centered columns featured-item-action" style="position:absolute; bottom:0px;">
+      <div class="small-9 small-centered columns featured-item-action" style="position:absolute; bottom:0px; left:50%; margin-left:-128px;">
           <a href="/challenges?id=[[+id]]" class="button small radius expand">LEARN MORE</a>
       </div>
     </div>

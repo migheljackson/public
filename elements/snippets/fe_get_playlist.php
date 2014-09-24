@@ -78,7 +78,7 @@ foreach ( $playlist->playlist_media as $item ) {
     
 
   if ($item->playlist_medium->media_type == 1) {
-    $playlist_media_items .= '<div class="item flex-video" style="'.$style_show.'">'.$item->playlist_medium->data.'</div>';
+    $playlist_media_items .= '<div class="item" style="'.$style_show.'">'.$item->playlist_medium->data.'</div>';
   } else {
     $playlist_media_items .= '<div class="item" style="'.$style_show.'"><img src="'.$item->playlist_medium->data.'"/></div>';
   }

@@ -79,7 +79,7 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
           $href_details = '/challenges?id='.substr($doc["_id"],8);
         }
         
-        $activity_list .= "<li><a href='".$href_details."'><img style='max-width:75px;' src=".$doc_details["logo_url"]." alt=".$doc_details["name"]." /></a></li>";
+        $activity_list .= "<li><a href='".$href_details."'><img style='max-width:75px;' src='".$doc_details["logo_url"]."' alt='".$doc_details["name"]."' title='".$doc_details["name"]."'/></a></li>";
       }
     }
     $activity_list .= "</ul>";

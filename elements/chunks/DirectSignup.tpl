@@ -527,7 +527,14 @@ $('#permission').assert($("#permission:checked").length != 0,
         var json = JSON.parse(data);
 
         if (json.status == 200 || json.status == 201) {
-          window.location = 'choose-avatar';
+          redirect_to = 'choose-avatar'
+
+          var o_redirect = $.getUrlVar("r");
+          if (o_redirect && o_redirect !== undefined && o_redirect.length > 0) {
+              redirect_to = redirect_to + "?r=" + o_redirect;
+          }
+
+          window.location = redirect_to;
         } else {
           if (json.status == 400) {
             if (json.errors['guardian_email_address']) {

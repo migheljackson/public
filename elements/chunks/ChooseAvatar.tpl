@@ -44,6 +44,11 @@ $(function(){
   if (!hide_next_steps) {
     $('#next_steps').show();
   }
+
+  var o_redirect = $.getUrlVar("r");
+  if (o_redirect && o_redirect !== undefined && o_redirect.length > 0) {
+    $('#next_steps').hide();
+  }
 });
 
 $(document).on('click', '.avatar_item', function(e){
@@ -62,9 +67,15 @@ $(document).on('click', '.avatar_item', function(e){
         // console.log(json.status);
 
         if (json.status == 200 || json.status == 201) {
-          $('#page_header').text("Your Avatar has been set!")
+          $('#page_header').text("Your Avatar has been set!");
+          redirect_to = 'my-profile';
+          var o_redirect = $.getUrlVar("r");
+          if (o_redirect && o_redirect !== undefined && o_redirect.length > 0) {
+              redirect_to = decodeURIComponent(o_redirect);
+          }
+
           $('#next_steps').show();
-          window.location = 'my-profile';
+          window.location = redirect_to;
 
         } else {
           $('#next_steps').show();

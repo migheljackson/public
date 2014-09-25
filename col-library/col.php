@@ -432,6 +432,29 @@ class COL {
     return $aResponse;
   }
 
+    public static function system_get_with_payload($endpoint, $payload ) {
+    $aResponse = array();
+
+    $token = array(
+      "payload" =>  $payload,
+      "exp" => time() + 60,
+      );
+         
+    $jwt = JWT::encode( $token, self::KEY );
+    $data = array( "jwt" => $jwt );
+
+    $url =  self::BASE_URL.$endpoint.'?jwt='.$jwt;
+
+    $response = WWW::get( $url );
+
+    try {
+      $aResponse = JWT::jsonDecode($response, self::KEY );
+    } catch ( Exception $ex ) {
+      error_log( "COL::system_get_with_payload():" . $ex . " resp: ". print_r( $response ) );
+    }
+    return $aResponse;
+  }
+
   public static function system_get_encrypted_with_payload($endpoint, $payload ) {
     $aResponse = array();
 

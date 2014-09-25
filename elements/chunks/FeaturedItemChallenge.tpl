@@ -1,4 +1,4 @@
-<li>
+<li class="small-8 small-offset-2">
   <!-- ITEM -->
   <div class="set clearfix">
     <div class="row set-item">

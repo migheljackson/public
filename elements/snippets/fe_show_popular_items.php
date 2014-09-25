@@ -29,12 +29,15 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
 
     if ( !empty( $pop_items->categories ) ) {
       $render = true;
-      $category_list = '<ul id="topics" class="small-12 large-6 columns">';
+      $category_list = '<ul id="topics" class="show-for-medium-up small-12 large-6 columns">';
+      $category_list_slider = '<div id="topics_slider" class="show-for-small-only small-12 column">';
       foreach ( $pop_items->categories as $category ) {
         //var_dump($category);
         $category_list .= "<li><a href='/explore/?query=&cat_ids%5B%5D=". $category->category->item_id."'>".$category->category->name."</a></li>";
+        $category_list_slider .= "<div class='small-12 small-centered'><a href='/explore/?query=&cat_ids%5B%5D=". $category->category->item_id."'>".$category->category->name."</a></div>";
       }
       $category_list .= '</ul>';
+      $category_list_slider .= '</div>';
 
       //var_dump($category_list);
     }
@@ -65,7 +68,8 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
     $es_result = COL::document_mget( $document_ids );
     //var_dump( $es_result );
     // build the categories from chunk
-    $activity_list = '<ul id="activities" class="small-12 large-6 columns">';
+    $activity_list = '<ul id="activities" class="show-for-medium-up medium-12 large-6 columns">';
+    $activity_list_slider = '<div id="activities_slider" class="show-for-small-only small-12 columns">';
     foreach ( $es_result["docs"] as $doc ) {
       // code...
       if ( $doc["found"] ) {
@@ -80,11 +84,13 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
         }
         
         $activity_list .= "<li><a href='".$href_details."'><img style='max-width:75px;' src='".$doc_details["logo_url"]."' alt='".$doc_details["name"]."' title='".$doc_details["name"]."'/></a></li>";
+        $activity_list_slider .= "<div><a href='".$href_details."'><img style='max-height:12rem;' src='".$doc_details["logo_url"]."' alt='".$doc_details["name"]."' title='".$doc_details["name"]."'/></a></div>";
       }
     }
     $activity_list .= "</ul>";
+    $activity_list_slider .= "</div>";
     //var_dump( $activity_list );
-    $cached_str = $modx->getChunk( $piWidget, array('activity_list' => $activity_list, 'category_list' => $category_list)  );
+    $cached_str = $modx->getChunk( $piWidget, array('activity_list' => $activity_list, 'category_list' => $category_list, 'category_slider' => $category_list_slider, 'activity_slider' => $activity_list_slider));
 
     $modx->cacheManager->set( $featured_items_cache_key, $cached_str, 7200 ); // set for 2 hours
     return $cached_str;

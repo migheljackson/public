@@ -4,7 +4,7 @@
       <h3 class="text-center">ALLOW "[[+org_name]]" to award you badges on your [[++site_name]] account. </h3>
       <hr>
       <h5 class="text-center" id="status"><strong>What information we will share with [[+org_name]]?</strong></h4>
-      <h5 class="text-center">[[+org_name]] will be able to award badges to your [++site_name]] account, but we will not share any personal information about you with [[+org_name]].</h5>
+      <h5 class="text-center">[[+org_name]] will be able to award badges to your [[++site_name]] account, but we will not share any personal information about you with [[+org_name]].</h5>
       <hr>
       <h5>Do you want to allow [[+org_name]] to award you badges?</h5>
       

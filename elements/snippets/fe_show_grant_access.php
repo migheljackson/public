@@ -37,7 +37,7 @@ if ($org_response->status != 200) {
     // if logged in show the GrantAccessLoggedIn chunk
     $grantAccessLoggedInChunk = $modx->getOption( 'tpl', $scriptProperties, 'GrantAccessLoggedIn' );
     // craft access denied url with org call back
-    $payload["org_access_denied_url"] = $org_response->result->access_callback_url."?error=access_denied";
+    $payload["org_access_denied_url"] = $org_response->result->access_callback_url."?error=access_denied&ouid=".$_REQUEST["ouid"];
 
     $page = $modx->getChunk( $grantAccessLoggedInChunk, $payload );
   } else {

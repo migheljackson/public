@@ -45,9 +45,9 @@ if ($org_response->status != 200) {
     $grantAccessNotLoggedInChunk = $modx->getOption( 'tpl', $scriptProperties, 'GrantAccessNotLoggedIn' );
 
     // craft both urls for the sign up with redirect logic
-    $create_account_url = "/sign-up?r=". urlencode("/auth?token".$_REQUEST["token"]."&ouid=".$_REQUEST["ouid"]);
+    $create_account_url = "/sign-up?r=". urlencode("/auth?token=".$_REQUEST["token"]."&ouid=".$_REQUEST["ouid"]);
     // craft login url with redirct logic
-    $login_account_url = "/sign-in?r=". urlencode("/auth?token".$_REQUEST["token"]."&ouid=".$_REQUEST["ouid"]);
+    $login_account_url = "/sign-in?r=". urlencode("/auth?token=".$_REQUEST["token"]."&ouid=".$_REQUEST["ouid"]);
     
     $payload['login_account_url'] = $login_account_url;
     $payload['create_account_url'] = $create_account_url;

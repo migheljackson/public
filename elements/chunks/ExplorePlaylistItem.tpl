@@ -6,7 +6,7 @@
 				<img src="[[+logo_url]]" alt="[[+name]]" class="center-text th">
 			</a>
 		</div>
-		<div class="columns">
+		<div>
 			<h5>[[+name]]</h5>
 			<p class="type">Online</p>
 			<p>[[+blurb]]</p>

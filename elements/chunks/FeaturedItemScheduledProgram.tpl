@@ -1,12 +1,12 @@
-<li class="small-8 small-offset-2">
+<li>
   <!-- ITEM -->
   <div class="set clearfix">
     <div class="row set-item">
       <div class="small-12 large-5 columns featured-item-logo">
-        <img src="[[+logo_url]]" class="th" alt="">
+        <a href="/[[+program_type]]-detail?id=[[+id]]"><img src="[[+logo_url]]" class="th" alt=""></a>
       </div>
       <div class="small-12 large-7 left featured-item-details">
-        <h5>[[+name]]</h5>
+        <h5><a href="/[[+program_type]]-detail?id=[[+id]]">[[+name]]</a></h5>
         <p>[[+short_description]]</p>
         <p>[[+location_details]]</p>
       </div>

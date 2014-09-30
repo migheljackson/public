@@ -118,7 +118,7 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
                 $counter+=1;
                 if($counter==4){break;}
               }
-              $doc_details["badge_details"] = '<h6>EARN BADGES</h6><ul class="small-12 columns item-badges">'.$badge_details.'</ul>';
+              $doc_details["badge_details"] = '<h6>EARN BADGES</h6><ul class="small-12 medium-12 large-12 columns item-badges">'.$badge_details.'</ul>';
             }
             $fi_detail = $modx->getChunk( $fiScheduledProgram, $doc_details );
             array_push( $fi_snippets, $fi_detail );
@@ -133,7 +133,7 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
                   $badge_details .= '<li><img src="'.$badge["image_url"].'" alt="'.$badge["name"].'"></li>';
 
                 }
-                $doc_details["badge_details"] = '<h6>EARN BADGES</h6><ul class="small-12 columns item-badges">'.$badge_details.'</ul>';
+                $doc_details["badge_details"] = '<h6>EARN BADGES</h6><ul class="small-12 medium-12 large-12 columns item-badges">'.$badge_details.'</ul>';
 
               }
 

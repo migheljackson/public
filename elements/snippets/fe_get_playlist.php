@@ -44,7 +44,7 @@ for ( $i = 0; $i < count( $docs ); $i++ ) {
   if ( $doc["found"] ) {
     $sp = $doc["_source"];
     $sp["id"] = substr( $sp["id"], 8 );
-
+    $sp["short_description"] = substr( $sp["short_description"], 0, 80 )."...";
     $pl_item = $modx->getChunk( $srItemPathwayChunk, $sp );
     $playlist_items .= $pl_item;
     //var_dump($sp["badges"]);
@@ -61,7 +61,7 @@ if ( !empty( $badges_to_be_earned ) ) {
     $badge_details .= '<li><img src="'.$badge["image_url"].'" alt="'.$badge["name"].'" style="max-width: 75px;"></li>';
 
   }
-  $badge_summary_details = '<h5>EARN BADGES</h5><ul class="small-12">'.$badge_details.'</ul>';
+  $badge_summary_details = '<h5>EARN BADGES</h5><ul class="small-12" id="badges-earned">'.$badge_details.'</ul>';
 }
 $modx->setplaceholder( "badge-items", $badge_summary_details );
 

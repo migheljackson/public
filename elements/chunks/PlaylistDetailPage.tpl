@@ -36,7 +36,7 @@
 					<hr>
 					<!-- playlist carrouselle -->
 					<div class="row">
-						<div class="small-12 large-11 large-centered columns carrouselle">
+						<div class="small-12 large-10 large-centered columns carrouselle">
 							<div class="large-1 show-for-medium-up columns">
 								<a href="#" class="middle orbit-prev"><i class="fa fa-chevron-left fa-3x"></i></a>
 							</div>
@@ -58,7 +58,7 @@
 					</div>
 					<!-- Playlist items -->
 					<div class="row">
-						<div class="panel small-12 columns">
+						<div class="panel small-12 large-10 large-centered columns">
 							<ul class="small-block-grid-1 large-block-grid-4 columns">
 								[[+playlist-items]]
 							</ul>

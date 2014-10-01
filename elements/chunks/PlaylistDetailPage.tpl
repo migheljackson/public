@@ -58,7 +58,7 @@
 					</div>
 					<!-- Playlist items -->
 					<div class="row">
-						<div class="panel small-12 large-10 large-centered columns">
+						<div class="panel small-12 large-10 large-centered columns clearfix">
 							<ul class="small-block-grid-1 large-block-grid-4 columns">
 								[[+playlist-items]]
 							</ul>

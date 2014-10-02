@@ -52,6 +52,7 @@
                                     <p>[[+playlist-description]]</p>
                                     [[+badge-items]]
                             </div>
+						</div>
 					</div>
 					<!-- Playlist items -->
 					<div class="row">

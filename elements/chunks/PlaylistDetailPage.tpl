@@ -36,7 +36,7 @@
 					<hr>
 					<!-- playlist carrouselle -->
 					<div class="row">
-						<div class="small-12 large-10 large-centered columns carrouselle">
+						<div class="small-12 large-10 large-centered columns carrouselle clearfix">
 							<div class="small-1 large-1 column">
                                     <a href="#" class="middle orbit-prev"><i class="fa fa-chevron-left fa-3x"></i></a>
                             </div>

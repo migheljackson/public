@@ -13,7 +13,7 @@ require_once $core_path.'col-library/col_user.php';
 
 $response = COL_User::update_account( $_REQUEST["id"], $_REQUEST["username"], $_REQUEST["full_name"],
     $_REQUEST["dob"],$_REQUEST["password"],$_REQUEST["email_address"], $_REQUEST["guardian_email_address"], 
-    $_REQUEST["guardian_name"], $_REQUEST["guardian_phone"]
+    $_REQUEST["guardian_name"], $_REQUEST["guardian_phone"], $_REQUEST["custom_question_answers"]
   );
 
 return JWT::jsonEncode($response);

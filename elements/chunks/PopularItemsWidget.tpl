@@ -11,7 +11,7 @@
 </div>
 <div class="small-12 medium-6 large-6 column">
 <p class="show-for-small-only" style="margin-bottom:3px">Popular Activities<span style="font-size:0.7em"> (swipe or click arrows)</span></p>
-<p class="show-for-medium-up" style="margin-bottom:3px">Popular Topics</p>
+<p class="show-for-medium-up" style="margin-bottom:3px">Popular Activities</p>
 [[+activity_list]]
 <div class="small-12" style="position:relative">
 [[+activity_slider]]

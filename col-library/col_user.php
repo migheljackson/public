@@ -75,7 +75,7 @@ class COL_User {
   }
 
   public static function update_account( $id, $username, $full_name, $dob, $password, $email_address,
-    $guardian_email_address, $guardian_name, $guardian_phone ) {
+    $guardian_email_address, $guardian_name, $guardian_phone, $custom_question_answers ) {
     $params = array( 'user' => array( 'id' => $id ,
         'username' =>  $username,
         'full_name' => $full_name,
@@ -84,8 +84,8 @@ class COL_User {
         'guardian_email_address' => $guardian_email_address,
         'email_address' => $email_address,
         'guardian_name' => $guardian_name,
-        'guardian_phone' => $guardian_phone
-
+        'guardian_phone' => $guardian_phone,
+        'custom_question_answers' => $custom_question_answers
       ) );
 
     $response = COL::put( '/users/'.strval( $id ).'.json', $params );

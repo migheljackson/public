@@ -2,6 +2,8 @@
 @name MyAccountPage
 @description Page User Account
 -->
+<!--<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.css"></link>-->
+<link rel="stylesheet" type="text/css" href="[[++col_public.assets_url]]css/select2-foundation.css"></link>
 [[!fe_get_profile]]
 <div class="profile">
   <div class="small-12 columns">
@@ -61,6 +63,10 @@
           <input name="email_address" id="email_address" type="text" placeholder="" value="[[+email_address]]">
         </label>
         </div>
+        
+        [[+custom_questions]] 
+        
+        <div class="clearfix"></div>
          <div class="row">
           <a href="#" id="do_change_password">Change password</a>
         </div>
@@ -112,7 +118,9 @@
           <input name="guardian_email_address" type="text" placeholder="" value="[[+guardian_email_address]]">
         </label>
         </div>
-       
+
+
+      
               <input id ="update_account_submit" type="submit" class="button small radius expand" value="UPDATE MY INFO">
             <br><br>
       </form>
@@ -142,6 +150,9 @@
 <script type="text/javascript" src="[[++col_public.assets_url]]js/handlebars-v1.3.0.js"></script>
 <script type="text/javascript" src="[[++col_public.assets_url]]js/jquery.mask.js"></script>
 <script type="text/javascript" src="[[++col_public.assets_url]]js/moment.js"></script>
+<script type="text/javascript" src="[[++col_public.assets_url]]js/expanding.js"></script>
+<script type="text/javascript" src="[[++col_public.assets_url]]js/select2.min.js"></script>
+<!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2.min.js"></script>-->
 <script id="tpl_claim_code_input" type="text/x-handlebars-template">
 <div class="clearfix"></div>
 <a id="claim_codes_link"></a>
@@ -364,7 +375,7 @@ $(function() {
   var source = $("#tpl_claim_code_input").html();
   template = Handlebars.compile(source);
   add_code();
-
+  $("select").select2();
   show_appropriate_fields();
 
   var result_source = $("#tpl_claim_code_result").html();

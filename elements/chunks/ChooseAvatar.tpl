@@ -14,7 +14,7 @@
 }
 </style>
 <div class="sign-up-page">
-    <div class="row">
+    <div class="row" id="avatar_setup">
         <div class="small-12 large-centered large-9 columns">
             <h2 id="page_header"  class="text-center">[[+page_header]]</h2>
             
@@ -35,10 +35,42 @@
             </div>
         </div>
     </div>
+    <div id="custom_questions" class="row"  style="display:none;">
+<div class="small-12 large-centered large-9 columns">
+            <h2 id="page_header"  class="text-center">ALMOST DONE......</h2>
+            <hr>
+            <h4 class="text-center">Answer a few more questions so that we can learn more about you.<i>They are optional.</i></h4>
+            <form id="custom_questions_form">
+              <div class="row">
+                <div class="small-12 large-centered large-9 columns">
+                [[+custom_questions]]
+              </div>
+              </div>
+              <div class="small-12 large-6 columns">
+                <a id="custom_question_answers_submit" href="#" class="button small expand radius next-step">Submit & start exploring activities</a>
+              </div>
+              <div class="small-12 large-6 columns">
+                Not interested in filling this out now?
+                <br>
+                <a id="custom_question_answers_skip" href="#" class="">Skip this and start exploring activities now ></a>
+              </div>
+            </form>
+            
+            
+    </div>
 </div>
 
 <script type="text/javascript">
 var hide_next_steps = [[+enforce_choice]];
+var has_custom_questions = [[+has_custom_questions]];
+
+var redirect_to_page = function(redirect_to){
+  var o_redirect = $.getUrlVar("r");
+          if (o_redirect && o_redirect !== undefined && o_redirect.length > 0) {
+              redirect_to = decodeURIComponent(o_redirect);
+          }
+  window.location = redirect_to;
+};
 
 $(function(){
   if (!hide_next_steps) {
@@ -50,6 +82,45 @@ $(function(){
     $('#next_steps').hide();
   }
 });
+
+$(document).on('click', '#custom_question_answers_skip', function(e){
+  e.preventDefault();
+  redirect_to_page('/explore');
+  return false;
+});
+
+$(document).on('click', '#custom_question_answers_submit', function(e){
+  e.preventDefault();
+  var custom_question_answers = {}
+
+  var answers = $('#custom_questions_form').serializeArray();
+  for (var i = answers.length - 1; i >= 0; i--) {
+    var a_data = answers[i];
+    var key = a_data.name.replace("custom_question_answers[ ", "").replace(" ]", "");
+    var value = a_data.value;
+    custom_question_answers[key] = value;
+  };
+
+  $.ajax({
+    dataType: "JSON",
+    url: 'fe-ajax-json-passthrough',
+    data: {
+      endpoint: "/users/custom_question_answers.json",
+      payload: {custom_question_answers: custom_question_answers},
+      method: "post"
+    },
+    error: function(xhr, txtStatus, error ) {
+      debugger;
+      }, 
+    success: function(data) {
+      if (data.status==200 || data.status == 201) {
+        redirect_to_page("/explore");
+      }
+    }
+  });
+  return false;
+});
+
 
 $(document).on('click', '.avatar_item', function(e){
   $(this).parent().children('li').children('input').removeAttr("checked");
@@ -68,14 +139,16 @@ $(document).on('click', '.avatar_item', function(e){
 
         if (json.status == 200 || json.status == 201) {
           $('#page_header').text("Your Avatar has been set!");
-          redirect_to = 'my-profile';
-          var o_redirect = $.getUrlVar("r");
-          if (o_redirect && o_redirect !== undefined && o_redirect.length > 0) {
-              redirect_to = decodeURIComponent(o_redirect);
+          
+          if (has_custom_questions) {
+            $("#avatar_setup").fadeOut();
+            $("#custom_questions").fadeIn();
+          } else {
+            redirect_to_page('my-profile');
+            $('#next_steps').show();
           }
-
-          $('#next_steps').show();
-          window.location = redirect_to;
+          
+          
 
         } else {
           $('#next_steps').show();

@@ -36,24 +36,22 @@
 					<hr>
 					<!-- playlist carrouselle -->
 					<div class="row">
-						<div class="small-12 large-10 large-centered columns carrouselle">
-							<div class="large-1 show-for-medium-up columns">
-								<a href="#" class="middle orbit-prev"><i class="fa fa-chevron-left fa-3x"></i></a>
-							</div>
-							<div class="large-5 small-12 columns">
-								<div id="playlist_media" class="" style="max-height:280px important!">
-									
-									[[+media-items]]
-																									
-								</div>
-							</div>
-							<div class="large-1 show-for-medium-up columns">
-								<a href="#" class="middle orbit-next"><i class="fa fa-chevron-right fa-3x"></i></a>
-							</div>							
-							<div class="small-12 large-5 columns">
-								<p>[[+playlist-description]]</p>
-								[[+badge-items]]
-							</div>
+						<div class="small-12 large-10 large-centered columns carrouselle clearfix">
+							<div class="small-1 large-1 column">
+                                    <a href="#" class="middle orbit-prev"><i class="fa fa-chevron-left fa-3x"></i></a>
+                            </div>
+                            <div class="small-9 large-5 columns">
+                                    <div id="playlist_media" class="" style="max-height:280px important!">
+                                            [[+media-items]]
+                                    </div>
+                            </div>
+                            <div class="small-1 large-1 columns">
+                                    <a href="#" class="middle orbit-next"><i class="fa fa-chevron-right fa-3x"></i></a>
+                            </div>
+                            <div class="medium-5 small-12 large-5 columns">
+                                    <p>[[+playlist-description]]</p>
+                                    [[+badge-items]]
+                            </div>
 						</div>
 					</div>
 					<!-- Playlist items -->
@@ -65,7 +63,6 @@
 						</div>
 					</div>
 				</div>
-				<!--<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.3.6/slick.min.js"></script>-->
 				<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.2/owl.carousel.min.js"></script>
 				
 				<script>

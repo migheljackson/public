@@ -1,6 +1,6 @@
 <li class="item">
 	<div class="panel clearfix">
-		<div class="item-img">
+		<div class="item-img small-7">
 			<a href="/challenges?id=[[+id]]" title="[[+name]]">
 				<img src="assets/images/[[+pathway_type]].png" class="item-type" alt="">
 				<img src="[[+logo_url]]" alt="[[+name]]" class="center-text th">

@@ -10,7 +10,7 @@
 $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'components/col_public/' );
 require_once $core_path.'col-library/col.php';
 
-$param_data_keys = ['artifact_id', 'artifact_type', "extra_params", "artifact_title"];
+$param_data_keys = array('artifact_id', 'artifact_type', "extra_params", "artifact_title");
 
 $log_parameters = array();
 

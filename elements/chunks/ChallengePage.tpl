@@ -38,5 +38,15 @@ window.addEventListener('message',function(event) {
           var msg = {type: "scroll_height", w: w, h: h, iframe_st: iframe_st, sx: sx, sy: sy};
           document.getElementById('main_iframe').contentWindow.postMessage(msg, '*');
         }
+
+        if (msg_data.type == "log_action") {
+          
+          $.ajax({
+            url: 'fe-do-log-action',
+            data: msg_data,
+            dataType: "JSON",
+            success: function(data) { }
+          });
+        }
 },false);
 </script>

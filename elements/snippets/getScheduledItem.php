@@ -250,8 +250,9 @@ $minAge = $workshop["min_age"];
 $maxAge = $workshop["max_age"];
 $ageHtml = "Recommended Ages: " . $minAge . "&mdash;" . $maxAge . "";
 
-if($workshop['meeting_type']="online"){
-	$workshop['hide_map']="display:none";
+if($workshop['meeting_type']=="workshop"){
+	$mapHtml = '<li style="[[+hide_map]]"><h4 class="event-block-title center">map</h4><div id="map-canvas" class="event-block small-map clearfix"></div></li>';
+	$workshop['mapHtml'] = $mapHtml;
 }
 
 $modx->setPlaceholders($workshop);

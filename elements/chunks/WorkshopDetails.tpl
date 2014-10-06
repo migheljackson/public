@@ -58,10 +58,7 @@
               </div>
             </div>
           </li>
-          <li style="[[+hide_map]]">
-            <h4 class="event-block-title center">map</h4>
-            <div id="map-canvas" class="event-block small-map clearfix"></div>
-          </li>
+          [[+mapHtml]]
           [[+nearbyHtml]]
           <li>
             <h4 class="event-block-title center">workshop info</h4>

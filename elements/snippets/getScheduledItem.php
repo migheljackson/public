@@ -204,7 +204,7 @@ if ( $workshop['contact_name']!=null || $workshop['contact_email']!=null || $wor
 	}
 
 	if ( $workshop['program_url'] ) {
-		$workshopContact .= $modx->getChunk($contactChunk, array( 'contact_info' => $workshop['contact_url'],  'contact_type' => "ct_url"));
+		$workshopContact .= $modx->getChunk($contactChunk, array( 'contact_info' => $workshop['program_url'],  'contact_type' => "ct_url"));
 	}
 
 	$workshop["contactHtml"] = $workshopContact;
@@ -249,6 +249,10 @@ if($workshop['badges']!=null) {
 $minAge = $workshop["min_age"];
 $maxAge = $workshop["max_age"];
 $ageHtml = "Recommended Ages: " . $minAge . "&mdash;" . $maxAge . "";
+
+if($workshop['meeting_type']="online"){
+	$workshop['hide_map']="display:none";
+}
 
 $modx->setPlaceholders($workshop);
 return $workshop;

@@ -58,7 +58,7 @@
               </div>
             </div>
           </li>
-          <li>
+          <li style="[[+hide_map]]">
             <h4 class="event-block-title center">map</h4>
             <div id="map-canvas" class="event-block small-map clearfix"></div>
           </li>

@@ -255,5 +255,7 @@ if($workshop['meeting_type']=="workshop"){
 	$workshop['mapHtml'] = $mapHtml;
 }
 
+$seoTitle = $workshop['name'] . " by " . $workshop['org_name'];
+$modx->setPlaceholder("dyn_page_title",$seoTitle);
 $modx->setPlaceholders($workshop);
 return $workshop;

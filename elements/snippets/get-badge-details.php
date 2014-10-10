@@ -89,4 +89,7 @@ if (!$badge_is_meta && !$badge_is_challenge) {
 	$modx->setPlaceholder("duration", $duration);
 }
 
+$seoTitle = $workshop['name'] . " by " . $workshop['issuer'];
+$modx->setPlaceholder("dyn_page_title",$seoTitle);
+
 return;

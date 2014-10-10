@@ -69,6 +69,8 @@ if (!$badge_is_meta && !$badge_is_challenge) {
 	$issuer_output = '<h5 class="text-center"><strong>Issuer:</strong></h5><img src="'.$org["logo_url"].'" style="max-height:50px" class="left"/> <p class="text-center">'.$org["name"].
 '<br/><a href="'.$org["url"].'" title="'.$org["description"].'">'.$org["url"].'</a></p>';
 	$modx->setPlaceholder("issuer", $issuer_output);
+	$seoTitle = $badge['name'] . " by " . $org['name'];
+	$modx->setPlaceholder("dyn_page_title",$seoTitle);
 
 
 	$criteria = $badge["badge_criteria"];
@@ -87,9 +89,10 @@ if (!$badge_is_meta && !$badge_is_challenge) {
 
 	$duration = "<p class='text-center'><strong>Expected Duration:</strong> ".$badge["duration"]."</p>";
 	$modx->setPlaceholder("duration", $duration);
+} else {
+	$seoTitle = $badge['name'];
+        $modx->setPlaceholder("dyn_page_title",$seoTitle);
 }
 
-$seoTitle = $workshop['name'] . " by " . $workshop['issuer'];
-$modx->setPlaceholder("dyn_page_title",$seoTitle);
 
 return;

@@ -8,10 +8,10 @@
 
 				<!-- playlist start -->
 				<div class="small-12 columns playlists">
-					<h3>LEARNING PLAYLISTS</h3>
+					<h3>PLAYLIST</h3>
 					<!-- breadcrumbs -->
 					<ul class="breadcrumbs">
-						<li><a href="#">EXPLORE</a></li>
+						<li><a href="/explore">EXPLORE</a></li>
 						<li><a href="#">PLAYLISTS</a></li>
 						<li class="current"><a href="#">DETAIL</a></li>
 					</ul>

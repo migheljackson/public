@@ -37,8 +37,8 @@
             </div>
         </div>
         <br>
-        <div class="small-centered small-12 large-4 columns">
-            <ul id="badge_items" class="small-block-grid-2 large-block-grid-3 text-center">
+        <div class="small-centered small-12 large-10 columns">
+            <ul id="badge_items" class="small-block-grid-2 large-block-grid-8 text-center">
                 [[+badge_items]]
             </ul>
         </div>

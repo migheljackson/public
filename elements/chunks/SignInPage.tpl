@@ -25,7 +25,7 @@
             <div class="small-12 large-12 columns">
                 <input type="submit" class="button small expand radius next-step" value="Log in" /><br><br>
                 <div class="small-12 large-12 columns text-center">
-                    <a href="/sign-up" class="link text-center" title="new">I don't have an account</a>
+                    <a id="sign_up_link" href="/sign-up" class="link text-center" title="new">I don't have an account</a>
                 </div>
                 <div class="small-6 columns">
                     <a href="forgotten-password" class="link text-center">forgot your password?</a>
@@ -44,6 +44,13 @@
 </section>
 
 <script type="text/javascript">
+$(function(){
+    var o_redirect = $.getUrlVar("r");
+    if (o_redirect && o_redirect !== undefined && o_redirect.length > 0) {
+        var href = $('#sign_up_link').attr("href") + "?r=" + o_redirect;
+        $('#sign_up_link').attr("href", href); 
+    }
+});
 $(document).on('submit', '#direct_signin', function(e) {
     e.preventDefault();
     $.validity.start();

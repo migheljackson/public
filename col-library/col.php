@@ -681,6 +681,107 @@ curl -XPUT 'http://localhost:9200/dallas/ScheduledProgram/_mapping' -d '
 
 }'
 
+curl -XDELETE 'http://localhost:9200/chicago/_mapping/Badge'
+curl -XPUT 'http://localhost:9200/chicago/Badge/_mapping' -d '
+ {
+            "properties": {
+               "activities": {
+                  "properties": {
+                    "id" : {"type": "string", "index": "no", store: false, "boost": 0.1},
+                    "name" : {"type": "string", "index": "no", store: false, "boost": 0.1},
+                    "activity_type" : {"type": "string", "index": "no", store: false, "boost": 0.1},
+                    "logo_url" : {"type": "string", "index": "no", store: false, "boost": 0.1},
+                    "blurb" : {"type": "string", "index": "no", store: false, "boost": 0.1},
+                    "description" : {"type": "string", "index": "no", store: false, "boost": 0.1},
+                    "pathway_type" : {"type": "string", "index": "no", store: false, "boost": 0.1},
+                    "start_date" :{ "type": "date", "format": "dateOptionalTime" },
+                    "end_date" :{ "type": "date", "format": "dateOptionalTime" },
+                    "price": {"type":"long"},
+                    "categories": {
+                        "properties": {
+                            "id": {"type": "long"},
+                            "name": {"type": "string", "index": "no", store: false, "boost": 0.1},
+                            "description": {"type": "string", "index": "no", store: false, "boost": 0.1}
+                        }
+                     }
+                  }
+               },
+               "badge_type": {
+                  "type": "string"
+               },
+               "categories": {
+                  "properties": {
+                     "description": {
+                        "type": "string"
+                     },
+                     "id": {
+                        "type": "long"
+                     },
+                     "name": {
+                        "type": "string"
+                     }
+                  }
+               },
+               "created_at": {
+                  "type": "date",
+                  "format": "dateOptionalTime"
+               },
+               "description": {
+                  "type": "string"
+               },
+               "id": {
+                  "type": "long"
+               },
+               "image_url": {
+                  "type": "string"
+               },
+               "issue_count": {
+                  "type": "long"
+               },
+               "minimum_rulesets_req": {
+                  "type": "long"
+               },
+               "minimum_badges_req": {
+                  "type": "long"
+               },
+               "name": {
+                  "type": "string"
+               },
+               "publish_state": {
+                  "type": "string"
+               },
+               "rulesets": {
+                "properties": {
+                  "id": {"type": "long"},
+                  "minimum_rules": {"type": "long"},
+                  "name": {"type": "string", "index": "no", store: false, "boost": 0.1},
+                  "rules": {
+                    "properties": {
+                      "id": {"type": "long"},
+                      "number_badges": {"type": "long"},
+                      "of_type": {"type": "long"},
+                      "from_categories": {
+                        "properties": {
+                          "id": {"type": "long"},
+                          "name": {"type": "string", "index": "no", store: false, "boost": 0.1}
+                            
+                        }
+                      },
+                      "from_badges": {
+                          "properties": {
+                          "id": {"type": "long"},
+                          "name": {"type": "string", "index": "no", store: false, "boost": 0.1},
+                          "image_url": {"type": "string", "index": "no", store: false, "boost": 0.1}
+                            
+                        }
+                      }
+                    }
+                  }
+                }
+               }
+            }
+         }'
+
 
 http://loadimpact.com/load-test/chicagocityoflearning.org-faa2d0acc5401cdc4cda72a6766d0636
 

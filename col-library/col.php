@@ -681,8 +681,8 @@ curl -XPUT 'http://localhost:9200/dallas/ScheduledProgram/_mapping' -d '
 
 }'
 
-curl -XDELETE 'http://localhost:9200/chicago/_mapping/Badge'
-curl -XPUT 'http://localhost:9200/chicago/Badge/_mapping' -d '
+curl -XDELETE 'http://localhost:9200/chicago,la,pitt,dallas/_mapping/Badge'
+curl -XPUT 'http://localhost:9200/chicago,la,pitt,dallas/Badge/_mapping' -d '
  {
             "properties": {
                "activities": {

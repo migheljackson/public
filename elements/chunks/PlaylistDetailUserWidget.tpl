@@ -76,7 +76,7 @@ $.ajax({
 
         
       } else if(data.status == 403) {
-        $("#start_button_label").text("Login to get started");
+        $("#start_button_label").text("Log In to Get Started");
         $("#next_step_link").attr("href", "/sign-in?r="+window.location);
       } else {
         alert(data.errors);

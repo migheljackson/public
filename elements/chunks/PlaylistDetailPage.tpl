@@ -29,7 +29,7 @@
 						<div class="large-9 small-12 columns">
 							<h4>[[+playlist-name]]</h4>
 							<p>[[+playlist-blurb]]</p>
-							[[$PlaylistDetailUserWidget?playlist_id=[[+playlist_id]]]]
+							[[$PlaylistDetailUserWidget?playlist_id=[[+play_id]]]]
 							
 						</div>
 					</div>

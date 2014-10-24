@@ -21,6 +21,7 @@ $modx->setplaceholder( "playlist-name", $playlist->name );
 $modx->setplaceholder( "playlist-blurb", $playlist->blurb );
 $modx->setplaceholder( "playlist-description", $playlist->description );
 $modx->setplaceholder( "playlist-logo", $playlist->image_url );
+$modx->setplaceholder("play_id", $playlist_id);
 
 $document_ids = array();
 

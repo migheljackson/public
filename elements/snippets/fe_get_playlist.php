@@ -11,6 +11,7 @@
 $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'components/col_public/' );
 require_once $core_path.'col-library/col.php';
 
+$playlist_id = isset($_REQUEST["id"]) ? $_REQUEST["id"] : $playlist_id;
 $playlist_response = COL::get( "/playlists/".$playlist_id.".json" );
 $playlist = $playlist_response->result;
 

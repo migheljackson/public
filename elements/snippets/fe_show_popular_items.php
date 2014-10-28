@@ -33,8 +33,8 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
       $category_list_slider = '<div id="topics_slider" class="show-for-small-only small-12 column">';
       foreach ( $pop_items->categories as $category ) {
         // var_dump($category);
-        $category_list .= "<li data-tooltip aria-haspopup=\"true\" class=\"has-tip\" title=\"Click to see all the " . $category->category->name ." activities\"><a href='/explore/?query=&cat_ids%5B%5D=". $category->category->item_id."'>".$category->category->name."</a></li>";
-        $category_list_slider .= "<div class='small-12 small-centered'><a href='/explore/?query=&cat_ids%5B%5D=". $category->category->item_id."'>".$category->category->name."</a></div>";
+        $category_list .= "<li data-tooltip aria-haspopup=\"true\" class=\"has-tip\" title=\"Click to see all the " . $category->category->name ." activities\"><a href='/explore/?query=&cat_ids%5B%5D=". $category->category->item_id."&ref=popular'>".$category->category->name."</a></li>";
+        $category_list_slider .= "<div class='small-12 small-centered'><a href='/explore/?query=&cat_ids%5B%5D=". $category->category->item_id."'&ref=popular>".$category->category->name."</a></div>";
       }
       $category_list .= '</ul>';
       $category_list_slider .= '</div>';
@@ -83,8 +83,8 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
           $href_details = '/challenges?id='.substr($doc["_id"],8);
         }
         
-        $activity_list .= "<li data-tooltip aria-haspopup=\"true\" class=\"has-tip\" title=\"" .$doc_details["name"]. "\"><a href='".$href_details."'><img style='max-width:75px;' src='".$doc_details["logo_url"]."' alt='".$doc_details["name"]."'/></a></li>";
-        $activity_list_slider .= "<div><a href='".$href_details."'><img style='max-height:12rem;' src='".$doc_details["logo_url"]."' alt='".$doc_details["name"]."' title='".$doc_details["name"]."'/></a></div>";
+        $activity_list .= "<li data-tooltip aria-haspopup=\"true\" class=\"has-tip\" title=\"" .$doc_details["name"]. "\"><a href='".$href_details."&ref=popular'><img style='max-width:75px;' src='".$doc_details["logo_url"]."' alt='".$doc_details["name"]."'/></a></li>";
+        $activity_list_slider .= "<div><a href='".$href_details."&ref=popular'><img style='max-height:12rem;' src='".$doc_details["logo_url"]."' alt='".$doc_details["name"]."' title='".$doc_details["name"]."'/></a></div>";
       }
     }
     $activity_list .= "</ul>";

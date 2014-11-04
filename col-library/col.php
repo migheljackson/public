@@ -131,6 +131,38 @@ class COL {
     return $decoded;
   }
 
+  public static function getMetaBadges() {
+    $searchParams['index'] = self::SEARCH_INDEX;
+    $searchParams['type']  = "Badge";
+    $searchParams["size"] = -1;
+    
+    $aQueryString["query_string"]["query"] = "meta";
+    $aQueryString["query_string"]["fields"] = array( "badge_type" );
+    
+    $searchParams['body']['query']['filtered']['query']['bool']['must'] = array( $aQueryString );
+    $client = self::connect();
+    $searchResults= $client->search($searchParams);
+	return $searchResults;
+  }
+  
+  /* retrieves all org/challenge badges */
+  public static function getAllBadges() {
+  	$searchParams['index'] = self::SEARCH_INDEX;
+  	$searchParams['type']  = "Badge";
+  	$searchParams["size"] = 100;
+  
+  	$aQueryString["query_string"]["query"] = "NOT meta";
+  	$aQueryString["query_string"]["fields"] = array( "badge_type" );
+  
+  	$searchParams['body']['query']['filtered']['query']['bool']['must'] = array( $aQueryString );
+  	// $searchParams['badge_type'] = "meta";
+  
+  	// var_dump(JWT::jsonEncode($searchParams));
+  	$client = self::connect();
+  	$searchResults= $client->search($searchParams);
+  	return $searchResults;
+  }
+
   /*
    *  @name search
    *  @param $sQuery - String of test to search for

@@ -12,6 +12,8 @@ $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'compo
 require_once $core_path.'col-library/col.php';
 require_once $core_path.'col-library/col_user.php';
 
+COL::getAllBadges();
+
 $badgeId = $_GET["id"];
 $badgeMeta = COL::get_badge($badgeId);
 // $modx->setPlaceholder("badge",$badgeMeta);

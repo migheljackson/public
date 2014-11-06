@@ -134,7 +134,7 @@ class COL {
   public static function getMetaBadges() {
     $searchParams['index'] = self::SEARCH_INDEX;
     $searchParams['type']  = "Badge";
-    $searchParams["size"] = -1;
+    $searchParams["size"] = 25;
     
     $aQueryString["query_string"]["query"] = "meta";
     $aQueryString["query_string"]["fields"] = array( "badge_type" );

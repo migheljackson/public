@@ -11,18 +11,36 @@ $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'compo
 require_once $core_path.'col-library/col.php';
 
 $metaBadgesResults = COL::getMetaBadges();
-// var_dump($metaBadgesResults);
+$allBadgesResults = COL::getAllBadges();
+
+/* construct meta badges */
 $relatedTpl = $modx->getOption( 'tpl', $scriptProperties, 'BadgeCityItem' );
-//echo "Search Results count: " . $allBadgesResults['hits']['total'] ;
 $cityBadgeList = "";
 foreach ($metaBadgesResults['hits']['hits'] as $badgeItem ) {
-	$badge = $badgeItem['_source'];
-	/*echo "<br/><br/>Badge" . $badge["name"] . " " . $badge["id"] . " " . $badge["image_url"] 
-		. " " . $badge["blurb"];*/
-	$cityBadgeList .= $modx->getChunk( $relatedTpl, $badge );
+        $badge = $badgeItem['_source'];
+        $cityBadgeList .= $modx->getChunk( $relatedTpl, $badge );
 }
 
-$modx->setPlaceholder("cityBadgeTotal", count($metaBadgesResults['hits']['hits']));
+$modx->setPlaceholder("cityBadgeTotal", $metaBadgesResults['hits']['total']);
 $modx->setPlaceholder("cityBadgeList", $cityBadgeList);
+
+/* construct other badges */
+$badgeTpl = $modx->getOption( 'tpl', $scriptProperties, 'BadgeItem' );
+$badgeList = "";
+foreach ($allBadgesResults['hits']['hits'] as $badgeItem) {
+        $badge = $badgeItem['_source'];
+        $badge["informal_description"]
+                = $badge["informal_description"]=="" ? $badge["description"] : $badge["informal_description"];
+        $output = $modx->getChunk($badgeTpl, $badge);
+        $badgeList .=$output;
+}
+
+$modx->setPlaceholder("badgeTotal", $allBadgesResults['hits']['total']);
+$modx->setPlaceholder("badgeList", $badgeList);
+
+$iTotalPages = intval( ceil( $allBadgesResults['hits']['total'] / 12 ) );
+$paging = COL::build_pagination($modx, $iTotalPages);
+
+$modx->setPlaceholder("paging", $paging);
 
 return;

@@ -139,7 +139,9 @@ if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
 
               $fi_detail = $modx->getChunk( $fiChallenge, $doc_details );
               array_push( $fi_snippets, $fi_detail );
-            }
+          } else if($doc["_type"] == "Playlist") {
+          	var_dump( $doc_details );
+          }
 
         }
       }

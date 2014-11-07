@@ -146,16 +146,16 @@ class COL {
   }
   
   /* retrieves all org/challenge badges */
-  public static function getAllBadges() {
+  public static function getAllBadges($iCurrentPage=0) {
   	$searchParams['index'] = self::SEARCH_INDEX;
   	$searchParams['type']  = "Badge";
-  	$searchParams["size"] = 100;
+  	$searchParams["size"] = 16;
+  	$searchParams["from"] = $iCurrentPage * 16;
   
   	$aQueryString["query_string"]["query"] = "NOT meta";
-  	$aQueryString["query_string"]["fields"] = array( "badge_type" );
+  	$aQueryString["query_string"]["fields"] = array("badge_type");
   
-  	$searchParams['body']['query']['filtered']['query']['bool']['must'] = array( $aQueryString );
-  	// $searchParams['badge_type'] = "meta";
+  	$searchParams['body']['query']['filtered']['query']['bool']['must'] = array($aQueryString);
   
   	// var_dump(JWT::jsonEncode($searchParams));
   	$client = self::connect();
@@ -552,6 +552,64 @@ class COL {
   	$response = COL::get("/orgs.json");
   	// print_r($response);
   	return $response;
+  }
+  
+  /* pagination of any search results */
+  public static function build_pagination($modx, $iTotalPages, $iCurrentPage=0) {
+  
+  	$plChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultsPagingLink' );
+  	$cplChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultsPagingCurrent' );
+  	$plsChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultsPaging' );
+  
+  	// $iCurrentPage = 0;
+  	$aPageLinks = array();
+  	if ( $iCurrentPage == 0 ) {
+  
+  	} else {
+  		// subtract 1 from the page number and create link and add to pagelinks
+  		$iBackPage = $iCurrentPage - 1;
+  		$l =  $modx->getChunk( $plChunk, array( 'page_num' => $iBackPage, 'page_num_title' => "Prev" ) );
+  		array_push( $aPageLinks , $l );
+  	}
+  
+  	$initialPageNum = 0;
+  	// if page number is greater than 6
+  	if ( $iCurrentPage > 5 ) {
+  		// set first page num to page - 5
+  		$initialPageNum = $iCurrentPage - 5;
+  	}
+  
+  	$iFinalPageNum = $initialPageNum + 10;
+  	// for 10 links
+  	for ( $i = $initialPageNum; $i < $iFinalPageNum; ++$i ) {
+  		// if we are on the current page
+  		if ( $iCurrentPage==$i ) {
+  			// create a current page link
+  			$l = $modx->getChunk( $cplChunk, array( 'page_num' => $i, 'page_num_title' => strval( $i+1 ) ) );
+  			array_push( $aPageLinks , $l );
+  		} else {
+  			// if the page is less than the total pages
+  			// create page link
+  			// add to links array
+  			if ( $i < $iTotalPages ) {
+  				$l =  $modx->getChunk( $plChunk, array( 'page_num' => $i, 'page_num_title' => strval( $i+1 ) ) );
+  				array_push( $aPageLinks , $l );
+  			} else {
+  				break;
+  			}
+  		}
+  	}
+  
+  	// if we are not on the last page
+  	// add next page link
+  
+  	if ( $iCurrentPage != ( $iTotalPages-1 ) ) {
+  		$l =  $modx->getChunk( $plChunk, array( 'page_num' => $iCurrentPage+1, 'page_num_title' => "Next" ) );
+  		array_push( $aPageLinks , $l );
+  	}
+  
+  	$paging = $modx->getChunk( $plsChunk, array( "paging_link_items" => implode( "", $aPageLinks ) ) );
+  	return $paging;
   }
 }
 

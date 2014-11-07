@@ -38,7 +38,7 @@ foreach ($allBadgesResults['hits']['hits'] as $badgeItem) {
 $modx->setPlaceholder("badgeTotal", $allBadgesResults['hits']['total']);
 $modx->setPlaceholder("badgeList", $badgeList);
 
-$iTotalPages = intval( ceil( $allBadgesResults['hits']['total'] / 12 ) );
+$iTotalPages = intval( ceil( $allBadgesResults['hits']['total'] / 16 ) );
 $paging = COL::build_pagination($modx, $iTotalPages);
 
 $modx->setPlaceholder("paging", $paging);

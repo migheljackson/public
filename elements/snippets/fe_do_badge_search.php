@@ -11,7 +11,8 @@ $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'compo
 require_once $core_path.'col-library/col.php';
 
 $pg = isset($_REQUEST["pg"]) ? $_REQUEST["pg"] : 0;
-$allBadgesResults = COL::getAllBadges($pg);
+$catId = isset($_REQUEST["catId"]) ? $_REQUEST["catId"] : 0;
+$allBadgesResults = COL::getAllBadges($pg, $catId);
 
 /* construct other badges */
 $badgeTpl = $modx->getOption( 'tpl', $scriptProperties, 'BadgeItem' );

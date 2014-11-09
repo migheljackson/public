@@ -146,7 +146,7 @@ class COL {
   }
   
   /* retrieves all org/challenge badges */
-  public static function getAllBadges($iCurrentPage=0) {
+  public static function getAllBadges($iCurrentPage=0, $catId=0) {
   	$searchParams['index'] = self::SEARCH_INDEX;
   	$searchParams['type']  = "Badge";
   	$searchParams["size"] = 16;
@@ -155,8 +155,19 @@ class COL {
   	$aQueryString["query_string"]["query"] = "NOT meta";
   	$aQueryString["query_string"]["fields"] = array("badge_type");
   
+  	$aFiltersParameters = array();
+  	if($catId>0) {
+	  	$catFilter = array();
+	  	$catFilter['or'] =  array( 'filters' =>array() );
+	  	$term = array( 'term' => array("categories.id" => intval($catId)));
+	  	array_push( $catFilter['or']['filters'], $term );
+	  	array_push( $aFiltersParameters, $catFilter );
+	  	$searchParams['body']['query']['filtered']['filter']['bool']['must'] = $aFiltersParameters;
+  	}
+  	
   	$searchParams['body']['query']['filtered']['query']['bool']['must'] = array($aQueryString);
-  
+  	
+  	
   	// var_dump(JWT::jsonEncode($searchParams));
   	$client = self::connect();
   	$searchResults= $client->search($searchParams);
@@ -520,9 +531,10 @@ class COL {
     $params['hosts'] = $searchServers;
 
     // TODO Drop LOGGING down to WARN
-    $params['logging'] = true;
-    $params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
-    $params['logLevel'] = Psr\Log\LogLevel::INFO;
+    //$params['logging'] = true;
+    //$params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
+    //$params['logPath'] = '/var/www/beta.explorechi.com/public_html/core/cache/logs/error.log';
+    //$params['logLevel'] = Psr\Log\LogLevel::INFO;
 
     $client = new Elasticsearch\Client( $params );
 
@@ -556,7 +568,6 @@ class COL {
   
   /* pagination of any search results */
   public static function build_pagination($modx, $iTotalPages, $iCurrentPage=0) {
-  
   	$plChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultsPagingLink' );
   	$cplChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultsPagingCurrent' );
   	$plsChunk = $modx->getOption( 'tpl', $scriptProperties, 'ExploreSearchResultsPaging' );
@@ -571,7 +582,7 @@ class COL {
   		$l =  $modx->getChunk( $plChunk, array( 'page_num' => $iBackPage, 'page_num_title' => "Prev" ) );
   		array_push( $aPageLinks , $l );
   	}
-  
+
   	$initialPageNum = 0;
   	// if page number is greater than 6
   	if ( $iCurrentPage > 5 ) {
@@ -599,10 +610,10 @@ class COL {
   			}
   		}
   	}
-  
+
   	// if we are not on the last page
   	// add next page link
-  
+
   	if ( $iCurrentPage != ( $iTotalPages-1 ) ) {
   		$l =  $modx->getChunk( $plChunk, array( 'page_num' => $iCurrentPage+1, 'page_num_title' => "Next" ) );
   		array_push( $aPageLinks , $l );
@@ -610,6 +621,11 @@ class COL {
   
   	$paging = $modx->getChunk( $plsChunk, array( "paging_link_items" => implode( "", $aPageLinks ) ) );
   	return $paging;
+  }
+  
+  public static function list_categories() {
+  	$response = COL::get("/categories.json");
+  	return $response;
   }
 }
 
@@ -771,8 +787,8 @@ curl -XPUT 'http://localhost:9200/dallas/ScheduledProgram/_mapping' -d '
 
 }'
 
-curl -XDELETE 'http://localhost:9200/chicago,la,pitt,dallas/_mapping/Badge'
-curl -XPUT 'http://localhost:9200/chicago,la,pitt,dallas/Badge/_mapping' -d '
+curl -XDELETE 'http://localhost:9200/chicago/_mapping/Badge'
+curl -XPUT 'http://localhost:9200/chicago/Badge/_mapping' -d '
  {
             "properties": {
                "activities": {

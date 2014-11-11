@@ -166,9 +166,45 @@ class COL {
   	}
   	
   	$searchParams['body']['query']['filtered']['query']['bool']['must'] = array($aQueryString);
+
+  	$client = self::connect();
+  	$searchResults= $client->search($searchParams);
+  	return $searchResults;
+  }
+  
+  public static function getBadgesById($name) {
+  	$searchParams['index'] = self::SEARCH_INDEX;
+  	$searchParams['type']  = "Badge";
+  	$searchParams["size"] = 1;
+  
+  	$aQueryString["query_string"]["query"] = $name;
+  	$aQueryString["query_string"]["fields"] = array("id");
+  
+  	$searchParams['body']['query']['filtered']['query']['bool']['must'] = array( $aQueryString );
+  	$client = self::connect();
+  	$searchResults= $client->search($searchParams);
+  	return $searchResults;
+  }
+  
+  public static function getBadgesByCategories($catIdList) {
+  	$searchParams['index'] = self::SEARCH_INDEX;
+  	$searchParams['type']  = "Badge";
+  	$searchParams["size"] = 4;
+  
+  	$aQueryString["query_string"]["query"] = "NOT meta";
+  	$aQueryString["query_string"]["fields"] = array("badge_type");
   	
+  	$aFiltersParameters = array();
+  	$catFilter = array();
+  	$catFilter['or'] =  array( 'filters' =>array() );
+  	foreach ($catIdList as $catId) {
+  		$term = array('term' => array( "categories.id" => intval($catId)));
+  		array_push($catFilter['or']['filters'], $term);
+  		array_push($aFiltersParameters, $catFilter);
+  	}
   	
-  	// var_dump(JWT::jsonEncode($searchParams));
+  	$searchParams['body']['query']['filtered']['filter']['bool']['must'] = $aFiltersParameters;
+  	$searchParams['body']['query']['filtered']['query']['bool']['must'] = array( $aQueryString );
   	$client = self::connect();
   	$searchResults= $client->search($searchParams);
   	return $searchResults;

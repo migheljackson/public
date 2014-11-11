@@ -12,13 +12,20 @@ $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'compo
 require_once $core_path.'col-library/col.php';
 require_once $core_path.'col-library/col_user.php';
 
-COL::getAllBadges();
+// COL::getAllBadges();
 
 $badgeId = $_GET["id"];
-$badgeMeta = COL::get_badge($badgeId);
+// $badgeMeta = COL::get_badge($badgeId);
+// var_dump($badgeMeta);
+
 // $modx->setPlaceholder("badge",$badgeMeta);
 $badgeMeta = json_decode(json_encode($badgeMeta), true);
 $badge = $badgeMeta['result'];
+// $searchResults = COL::getBadgesById($badge["name"]);
+$searchResults = COL::getBadgesById($badgeId);
+$badge2 = $searchResults['hits']['hits'];
+// var_dump($badge2[0]["_source"]);
+$badge = $badge2[0]["_source"];
 $badge_is_meta = false;
 
 if ($badge["badge_type"] == "meta") {
@@ -74,27 +81,60 @@ if (!$badge_is_meta && !$badge_is_challenge) {
 	$seoTitle = $badge['name'] . " by " . $org['name'];
 	$modx->setPlaceholder("dyn_page_title",$seoTitle);
 
-
 	$criteria = $badge["badge_criteria"];
 	if(isset($criteria)) {
-		$output = "<p class=\"text-center\" style=\"margin-bottom: 0px;\"><strong>Critera</strong></p><ul class=\"text-center\" style=\"list-style:none\">";
+		$output = "<p style=\"margin-bottom:.1em\"><strong>Critera</strong></p><ol>";
 		foreach($criteria as $item) {
 			$output.="<li>";
-			if($item["badge_criterium"]["required"]==true){
+			if($item["required"]==true){
 				$output.="[required] ";
 			}
-			$output.= $item["badge_criterium"]["description"]."</li>";
+			$output.= $item["description"]."</li>";
 		}
-		$output.="</ul>";
+		$output.="</ol>";
 		$modx->setPlaceholder("criteria", $output);
 	}
 
-	$duration = "<p class='text-center'><strong>Expected Duration:</strong> ".$badge["duration"]."</p>";
+	$duration = "<p><strong>Expected Duration:</strong> ".$badge["duration"]."</p>";
 	$modx->setPlaceholder("duration", $duration);
 } else {
 	$seoTitle = $badge['name'];
         $modx->setPlaceholder("dyn_page_title",$seoTitle);
 }
 
+// load activities
+if(count($badge["activities"])>0) {
+	$badgeActivity = $modx->getOption( 'tpl', $scriptProperties, 'BadgeActivity');
+	$activityHtml = "<p><strong>Earn by participating in:</strong></p>";
+	foreach($badge["activities"] as $activity) {
+		$activityHtml .=  $modx->getChunk($badgeActivity, $activity);
+	}
+	$modx->setPlaceholder("activityList", $activityHtml);
+}
+
+// load related badges
+//build cat list
+$catList = array();
+foreach($badge["categories"] as $category) {
+	$catList[$category["id"]] = $category["id"];
+}
+// print_r($catList);
+echo "<br/><br/>";
+$relatedBadgesResults = COL::getBadgesByCategories($catList);
+// var_dump($relatedBadgesResults);
+
+/* construct other badges */
+$badgeTpl = $modx->getOption( 'tpl', $scriptProperties, 'BadgeItem' );
+$badgeList = "";
+foreach ($relatedBadgesResults['hits']['hits'] as $badgeItem) {
+	// var_dump($badgeItem);
+	$badge = $badgeItem['_source'];
+	$badge["informal_description"]
+	= $badge["informal_description"]=="" ? $badge["description"] : $badge["informal_description"];
+	$output = $modx->getChunk($badgeTpl, $badge);
+	$badgeList .=$output;
+}
+
+$modx->setPlaceholder("badgeList", $badgeList);
 
 return;

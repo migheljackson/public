@@ -9,6 +9,6 @@
       <h5>[[+name]]</h5>
       <p>[[+blurb]]</p>
     </div>
-    <a href="chicago-badge-details?id=[[+id]]&ref=bad-lib" class="button radius" style="position:absolute; bottom:10px; left:10px; right:10px">LEARN MORE</a>
+    <a href="badge-details?id=[[+id]]&ref=bad-lib" class="button radius" style="position:absolute; bottom:10px; left:10px; right:10px">LEARN MORE</a>
   </div>
 </div>

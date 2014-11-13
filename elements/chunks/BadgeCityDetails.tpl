@@ -1,8 +1,12 @@
 <!--
-@name badgeDetails
+@name badgeCityDetails
 @description source for workshop details view
 -->
 
+
+<style>
+ul.inline li {display:inline-block;margin-right:12px;}
+</style>
 <div class="small-12 left playlists">
   <h3><strong>EXPLORE</strong></h3>
 </div>  
@@ -23,26 +27,24 @@
   </div>
   <div class="row">
     <div class="small-12 large-centered large-7 columns badge-resume">
-      <p>[[+description]]</p>
-        <p><strong>Badge Type:</strong> [[+badge_type]]</p>
-        [[+duration]]
-        [[+criteria]]      
-        [[+activityList]]
-          
-                     
-        </div>
-      </div>
+      <p>[[+informal_description]]</p>
     </div>
-    <div class="small-12 clearfix left">
-      <div class="central-panel badge-panel small-12 left">
-        <div class="row">
-          <div class="small-12 columns">
-            <h5 class="title-slide">EXPLORE SIMILAR BADGES</h5>
-            <ul class="small-block-grid-1 large-block-grid-4 columns">
-              [[+badgeList]]
-                                 
-            </ul>
-          </div>
-        </div>
-      </div>
+    <div class="small-12 large-centered large-7 columns badge-resume">
+      <p>[[+totalBadgeRequirement]]</p>
+      
+      [[+ruleSetHtml]]
+      
     </div>
+  </div>
+	<div class="small-12 clearfix left">
+	  <div class="central-panel badge-panel small-12 left">
+	    <div class="row">
+	      <div class="small-12 columns">
+	        <h5 class="title-slide">EXPLORE SIMILAR BADGES</h5>
+	        <ul class="small-block-grid-1 large-block-grid-4 columns">
+	          [[+badgeList]]                
+	        </ul>
+	      </div>
+	    </div>
+	  </div>
+	</div>

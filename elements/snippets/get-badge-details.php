@@ -12,20 +12,7 @@ $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'compo
 require_once $core_path.'col-library/col.php';
 require_once $core_path.'col-library/col_user.php';
 
-// COL::getAllBadges();
-
-$badgeId = $_GET["id"];
-// $badgeMeta = COL::get_badge($badgeId);
-// var_dump($badgeMeta);
-
-// $modx->setPlaceholder("badge",$badgeMeta);
-$badgeMeta = json_decode(json_encode($badgeMeta), true);
-$badge = $badgeMeta['result'];
-// $searchResults = COL::getBadgesById($badge["name"]);
-$searchResults = COL::getBadgesById($badgeId);
-$badge2 = $searchResults['hits']['hits'];
-// var_dump($badge2[0]["_source"]);
-$badge = $badge2[0]["_source"];
+$badge = $badgeResult[0]["_source"];
 $badge_is_meta = false;
 
 if ($badge["badge_type"] == "meta") {
@@ -40,7 +27,7 @@ if ($badge["badge_type"] == "challenge") {
 	$badge["badge_type"] = "Challenge";
 }
 
-$modx->setPlaceholders($badge);
+// $modx->setPlaceholders($badge);
 //get user if available
 if (isset($badge["issued_badges"])) {
 	if($badge["issued_badges"]) {
@@ -49,6 +36,7 @@ if (isset($badge["issued_badges"])) {
 				$date = new DateTime($ibadge["awarded_at"]);
 				$issueDateHtml='<h5 class="text-center"><strong>Date issued:</strong></h5><p class="text-center">'.$date->format('m/d/Y').'</p>';
 				$modx->setPlaceholder("issuedate",$issueDateHtml);
+				$badge["issuedate"] = $issueDateHtml;
 			}
 			if(!empty($ibadge["evidences"])) {
 				$evidenceHtml ="<h5 class='text-center'><strong>Evidence:</strong></h5><p class='text-center'>";
@@ -63,6 +51,7 @@ if (isset($badge["issued_badges"])) {
 				}
 
 				$modx->setPlaceholder("evidence",$evidenceHtml);
+				$badge["evidence"] = $evidenceHtml;
 			}
 		}
 	}
@@ -78,6 +67,7 @@ if (!$badge_is_meta && !$badge_is_challenge) {
 	$issuer_output = '<h5 class="text-center"><strong>Issuer:</strong></h5><img src="'.$org["logo_url"].'" style="max-height:50px" class="left"/> <p class="text-center">'.$org["name"].
 '<br/><a href="'.$org["url"].'" title="'.$org["description"].'">'.$org["url"].'</a></p>';
 	$modx->setPlaceholder("issuer", $issuer_output);
+	$badge["issuer"] = $issuer_output;
 	$seoTitle = $badge['name'] . " by " . $org['name'];
 	$modx->setPlaceholder("dyn_page_title",$seoTitle);
 
@@ -93,10 +83,12 @@ if (!$badge_is_meta && !$badge_is_challenge) {
 		}
 		$output.="</ol>";
 		$modx->setPlaceholder("criteria", $output);
+		$badge["criteria"] = $output;
 	}
 
 	$duration = "<p><strong>Expected Duration:</strong> ".$badge["duration"]."</p>";
 	$modx->setPlaceholder("duration", $duration);
+	$badge["duration"] = $duration;
 } else {
 	$seoTitle = $badge['name'];
         $modx->setPlaceholder("dyn_page_title",$seoTitle);
@@ -110,6 +102,7 @@ if(count($badge["activities"])>0) {
 		$activityHtml .=  $modx->getChunk($badgeActivity, $activity);
 	}
 	$modx->setPlaceholder("activityList", $activityHtml);
+	$badge["activityList"] = $activityHtml;
 }
 
 // load related badges
@@ -118,23 +111,23 @@ $catList = array();
 foreach($badge["categories"] as $category) {
 	$catList[$category["id"]] = $category["id"];
 }
-// print_r($catList);
-echo "<br/><br/>";
+
 $relatedBadgesResults = COL::getBadgesByCategories($catList);
-// var_dump($relatedBadgesResults);
 
 /* construct other badges */
 $badgeTpl = $modx->getOption( 'tpl', $scriptProperties, 'BadgeItem' );
 $badgeList = "";
 foreach ($relatedBadgesResults['hits']['hits'] as $badgeItem) {
 	// var_dump($badgeItem);
-	$badge = $badgeItem['_source'];
-	$badge["informal_description"]
-	= $badge["informal_description"]=="" ? $badge["description"] : $badge["informal_description"];
-	$output = $modx->getChunk($badgeTpl, $badge);
+	$relatedBadge = $badgeItem['_source'];
+	$relatedBadge["informal_description"]
+	= $relatedBadge["informal_description"]=="" ? $relatedBadge["description"] : $relatedBadge["informal_description"];
+	$output = $modx->getChunk($badgeTpl, $relatedBadge);
 	$badgeList .=$output;
 }
 
-$modx->setPlaceholder("badgeList", $badgeList);
+$badge["badgeList"] = $badgeList;
 
-return;
+$badgeDetailsTpl = $modx->getOption( 'tpl', $scriptProperties, 'badgeDetails' );
+$output = $modx->getChunk($badgeDetailsTpl, $badge);
+return $output;

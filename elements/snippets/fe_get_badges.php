@@ -28,13 +28,13 @@ $categorySelect .= "</select>";
 
 $modx->setPlaceholder("categorySelect", $categorySelect);
 
-
-/* construct meta badges */ 
+/* construct meta badges */
 $relatedTpl = $modx->getOption( 'tpl', $scriptProperties, 'BadgeCityItem' );
 $cityBadgeList = "";
 foreach ($metaBadgesResults['hits']['hits'] as $badgeItem ) {
-	$badge = $badgeItem['_source'];
-	$cityBadgeList .= $modx->getChunk( $relatedTpl, $badge );	
+        $badge = $badgeItem['_source'];
+        $badge["blurb"] = substr($badge['blurb'],0,80) . "...";
+        $cityBadgeList .= $modx->getChunk( $relatedTpl, $badge );
 }
 
 $modx->setPlaceholder("cityBadgeTotal", $metaBadgesResults['hits']['total']);

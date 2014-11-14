@@ -97,8 +97,19 @@ if (!$badge_is_meta && !$badge_is_challenge) {
 // load activities
 if(count($badge["activities"])>0) {
 	$badgeActivity = $modx->getOption( 'tpl', $scriptProperties, 'BadgeActivity');
+	
 	$activityHtml = "<p><strong>Earn by participating in:</strong></p>";
+	$today = new DateTime("now");
+	 
 	foreach($badge["activities"] as $activity) {
+		$programDate = new DateTime($activity["end_date"]);
+		if(isset($activity["end_date"]) && $activity["end_date"]!="" ) {
+			$activity["expiredProgram"] = $programDate < $today ? "" : "style='display:none'";
+			$activity["activeProgram"] = $programDate > $today ? "" : "style='display:none'";
+		} else{
+			$activity["expiredProgram"] = "style='display:none'";
+			$activity["activeProgram"]  = "";
+		}
 		$activityHtml .=  $modx->getChunk($badgeActivity, $activity);
 	}
 	$modx->setPlaceholder("activityList", $activityHtml);

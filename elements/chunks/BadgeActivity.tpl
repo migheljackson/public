@@ -10,11 +10,11 @@
         <h5 style="color:#555">[[+name]]</h5>
         <p class="type">[[+pathway_type]]</p>
         <p>[[+blurb]]</p>
-        <div class="small-12 large-6">
+        <div class="small-12 large-6" [[+activeProgram]]>
           <a href="#" class="button expand small radius">LEARN MORE</a>
         </div>
         <!-- MSG OF WORKSHOP NO LONGER AVAILABLE -->
-          <div class="alert-box warning small-12 columns" style="display:none;"><p>Sorry. This workshop is no longer available.</p></div>
+          <div class="alert-box warning small-12 columns" [[+expiredProgram]]><p>Sorry. This workshop is no longer available.</p></div>
         <!-- end -->
       </div>            
     </div>

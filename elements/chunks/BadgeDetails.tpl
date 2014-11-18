@@ -3,14 +3,12 @@
 @description source for workshop details view
 -->
 
-<div class="small-12 left playlists">
-  <h3><strong>EXPLORE</strong></h3>
-</div>  
+[[+page_sub_header]]
 <div class="small-12 left resume clearfix">
   <div class="small-12 large-6 large-centered columns">
     <h5 class="text-center">[[+name]]</h5>
     <div class="small-centered small-6 columns text-center">
-      <img style="max-height:225px" src="[[+image_url]]" title="[[+name]]" alt="[[+name]] class="th">
+      <img style="max-height:225px" src="[[+image_url]]" title="[[+name]]" alt="[[+name]]" class="th">
     </div>
     <div class="info-tip text-center rounded small-centered small-6 large-centered large-5 columns"><p>[[+issue_count]] learners earned this badge</p></div>
   </div>
@@ -24,11 +22,14 @@
   <div class="row">
     <div class="small-12 large-centered large-7 columns badge-resume">
       <p>[[+description]]</p>
+              [[+issuer]]
+        [[+issuedate]]
+        [[+evidence]] 
         <p><strong>Badge Type:</strong> [[+badge_type]]</p>
         [[+duration]]
         [[+criteria]]      
         [[+activityList]]
-          
+
                      
         </div>
       </div>

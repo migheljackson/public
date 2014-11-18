@@ -27,19 +27,41 @@ if ($badge["badge_type"] == "challenge") {
 	$badge["badge_type"] = "Challenge";
 }
 
+$page_sub_header = '<div class="small-12 left playlists"><h3><strong>EXPLORE</strong></h3></div>';
+
+$show_issued_badges = false;
+// check if a user is logged in
+if(COL::is_signed_in()) {
+
+	$badgeMeta = COL::get_badge($badge["id"]);
+	$badgeMeta = json_decode(json_encode($badgeMeta), true);
+	$sbadge = $badgeMeta['result'];
+	
+	if (isset($sbadge["issued_badges"])) {
+		
+		$show_issued_badges = true;
+	}
+}	
+  // if so get the badge, which should return their issued badges
+
 // $modx->setPlaceholders($badge);
 //get user if available
-if (isset($badge["issued_badges"])) {
-	if($badge["issued_badges"]) {
-		foreach($badge["issued_badges"] as $ibadge) {
+if ($show_issued_badges) {
+	
+	$issueDateHtml = '';
+	$page_sub_header = '<div class="small-12 left playlists"><p class="text-center"><!-- AddToAny BEGIN --> <div class="a2a_kit a2a_kit_size_32 a2a_default_style"> <a class="a2a_dd" href="https://www.addtoany.com/share_save"></a> <a class="a2a_button_facebook"></a> <a class="a2a_button_twitter"></a> <a class="a2a_button_google_plus"></a> <a class="a2a_button_pinterest"></a> <a class="a2a_button_myspace"></a> <a class="a2a_button_tumblr"></a> <a class="a2a_button_email"></a> </div> <script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script> <!-- AddToAny END --></p></div>'; 
+	if($sbadge["issued_badges"]) {
+
+		foreach($sbadge["issued_badges"] as $ibadge) {
 			if(empty($issueDateHtml)) {	
 				$date = new DateTime($ibadge["awarded_at"]);
-				$issueDateHtml='<h5 class="text-center"><strong>Date issued:</strong></h5><p class="text-center">'.$date->format('m/d/Y').'</p>';
+				$issueDateHtml='<p class=""><strong>Date issued:</strong> '.$date->format('m/d/Y').'</p>';
 				$modx->setPlaceholder("issuedate",$issueDateHtml);
 				$badge["issuedate"] = $issueDateHtml;
+				
 			}
 			if(!empty($ibadge["evidences"])) {
-				$evidenceHtml ="<h5 class='text-center'><strong>Evidence:</strong></h5><p class='text-center'>";
+				$evidenceHtml ="<strong>Evidence:</strong><p class=''>";
 				if (!$badge_is_meta) {
 					foreach($ibadge["evidences"] as $evidence) {
 						$evidenceHtml .= "<a href='". $evidence["url"] . "'>" . $evidence["url"] . "</a><br/>";
@@ -64,7 +86,7 @@ if (!$badge_is_meta && !$badge_is_challenge) {
 	$org = COL::get($orgEndpoint);
 	$org = json_decode(json_encode($org), true);
 	$org = $org["result"];
-	$issuer_output = '<h5 class="text-center"><strong>Issuer:</strong></h5><img src="'.$org["logo_url"].'" style="max-height:50px" class="left"/> <p class="text-center">'.$org["name"].
+	$issuer_output = '<p><strong>Issuer:</strong></p><img src="'.$org["logo_url"].'" style="max-height:50px" class="left"/> <p class="text-center">'.$org["name"].
 '<br/><a href="'.$org["url"].'" title="'.$org["description"].'">'.$org["url"].'</a></p>';
 	$modx->setPlaceholder("issuer", $issuer_output);
 	$badge["issuer"] = $issuer_output;
@@ -93,6 +115,7 @@ if (!$badge_is_meta && !$badge_is_challenge) {
 	$seoTitle = $badge['name'];
         $modx->setPlaceholder("dyn_page_title",$seoTitle);
 }
+$modx->setPlaceholder("page_sub_header",$page_sub_header);
 
 // load activities
 if(count($badge["activities"])>0) {
@@ -139,6 +162,7 @@ foreach ($relatedBadgesResults['hits']['hits'] as $badgeItem) {
 
 $badge["badgeList"] = $badgeList;
 
-$badgeDetailsTpl = $modx->getOption( 'tpl', $scriptProperties, 'badgeDetails' );
+$badgeDetailsTpl = $modx->getOption( 'tpl', $scriptProperties, 'BadgeDetails' );
+//var_dump($badge);
 $output = $modx->getChunk($badgeDetailsTpl, $badge);
 return $output;

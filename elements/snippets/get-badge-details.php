@@ -47,9 +47,15 @@ if(COL::is_signed_in()) {
 // $modx->setPlaceholders($badge);
 //get user if available
 if ($show_issued_badges) {
+	$user_is_over_13 = COL::_get_is_over_13();
 	
 	$issueDateHtml = '';
-	$page_sub_header = '<div class="small-12 left playlists"><p class="text-center"><!-- AddToAny BEGIN --> <div class="a2a_kit a2a_kit_size_32 a2a_default_style"> <a class="a2a_dd" href="https://www.addtoany.com/share_save"></a> <a class="a2a_button_facebook"></a> <a class="a2a_button_twitter"></a> <a class="a2a_button_google_plus"></a> <a class="a2a_button_pinterest"></a> <a class="a2a_button_myspace"></a> <a class="a2a_button_tumblr"></a> <a class="a2a_button_email"></a> </div> <script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script> <!-- AddToAny END --></p></div>'; 
+	if ($user_is_over_13) {
+		$page_sub_header = '<div class="small-12 left playlists"><h5> <!-- AddToAny BEGIN --> <div id="share_buttons" class="a2a_kit a2a_kit_size_32 a2a_default_style" style="margin: 0 auto;width: 400px;"> <p style="float: left;">Share your badge</p>  <a class="a2a_button_facebook"></a> <a class="a2a_button_twitter"></a> <a class="a2a_button_google_plus"></a> <a class="a2a_button_pinterest"></a> <a class="a2a_button_myspace"></a> <a class="a2a_button_tumblr"></a> <a class="a2a_button_email"></a> </div> <script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script> <!-- AddToAny END --></h5></div>'; 
+		
+	} else {
+		$page_sub_header = '<div class="small-12 left playlists"><h5>'.$sbadge["name"].'</h5></div>';
+	}
 	if($sbadge["issued_badges"]) {
 
 		foreach($sbadge["issued_badges"] as $ibadge) {

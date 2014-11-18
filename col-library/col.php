@@ -61,6 +61,12 @@ class COL {
     return $au_cookie->username;
   }
 
+  public static function _get_is_over_13() {
+    $au_cookie = JWT::decode( $_COOKIE[self::COOKIE_NAME_AU], self::KEY );
+    $prop ="is_over_13?" ;
+    return $au_cookie->$prop;
+  }
+
   public static function get( $endpoint ) {
     $aResponse = array();
 
@@ -671,12 +677,16 @@ class COL {
 curl -XDELETE 'http://localhost:9200/dev'
 curl -XPUT 'http://localhost:9200/dev'
 
+curl -XDELETE 'http://localhost:9200/chicago'
+curl -XPUT 'http://localhost:9200/chicago'
+
+
 curl -XDELETE 'http://localhost:9200/pitt'
 curl -XPUT 'http://localhost:9200/pitt'
 
 
 // setting up the geo point for location
-curl -XPUT 'http://localhost:9200/pitt/ScheduledProgram/_mapping' -d '
+curl -XPUT 'http://localhost:9200/chicago/ScheduledProgram/_mapping' -d '
 {
 
   "properties": {

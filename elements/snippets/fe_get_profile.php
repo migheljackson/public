@@ -142,6 +142,15 @@ if (COL::is_signed_in()) {
     }
     //var_dump($custom_questions_text);
 
+    $user_is_over_13 = COL::_get_is_over_13();
+
+    $sharing_instructions = "";
+    if ($user_is_over_13) {
+      $sharingInstructionsChunk = $modx->getOption( 'tpl', $scriptProperties, 'ProfileBadgeSharingInstructions');
+      $sharing_instructions = $modx->getChunk($sharingInstructionsChunk);
+      
+    }
+
     $placeholders = array('username' => $response->result->username,
       'preset_avatar_url' => $response->result->preset_avatar_url,
       'badge_count' => strval($badge_count),
@@ -155,7 +164,8 @@ if (COL::is_signed_in()) {
       'guardian_name' => $response->result->guardian_name, 
       'guardian_email_address' => $response->result->guardian_email_address, 
       'guardian_phone' => $response->result->guardian_phone,
-      'custom_questions' => $custom_questions_text
+      'custom_questions' => $custom_questions_text,
+      'sharing_instructions' => $sharing_instructions
       );
 
     $modx->setPlaceholders($placeholders);

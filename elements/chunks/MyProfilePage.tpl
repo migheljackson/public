@@ -23,7 +23,8 @@
             <hr class="line">
         </div>
         <div class="row">
-            <div class="small-centered small-12 large-5 columns stats">
+            [[+sharing_instructions]]
+            <div class="small small-12 large-5 columns stats">
                 <div class="small-6 columns">
                     <p class="text-center">[[+badge_count]] Badges</p>
                 </div>

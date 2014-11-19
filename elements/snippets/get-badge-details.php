@@ -30,10 +30,11 @@ if ($badge["badge_type"] == "challenge") {
 $page_sub_header = '<div class="small-12 left playlists"><h3><strong>EXPLORE</strong></h3></div>';
 
 $show_issued_badges = false;
+$sbadge = null;
 // check if a user is logged in
 if(COL::is_signed_in()) {
 
-	$badgeMeta = COL::get_badge($badge["id"]);
+	$badgeMeta = COL::get_badge($_REQUEST["id"]);
 	$badgeMeta = json_decode(json_encode($badgeMeta), true);
 	$sbadge = $badgeMeta['result'];
 	
@@ -46,18 +47,14 @@ if(COL::is_signed_in()) {
 
 // $modx->setPlaceholders($badge);
 //get user if available
+//var_dump($show_issued_badges);
 if ($show_issued_badges) {
 	$user_is_over_13 = COL::_get_is_over_13();
 	
 	$issueDateHtml = '';
-	if ($user_is_over_13) {
-		$page_sub_header = '<div class="small-12 left playlists"><h5> <!-- AddToAny BEGIN --> <div id="share_buttons" class="a2a_kit a2a_kit_size_32 a2a_default_style" style="margin: 0 auto;width: 400px;"> <p style="float: left;">Share your badge</p>  <a class="a2a_button_facebook"></a> <a class="a2a_button_twitter"></a> <a class="a2a_button_google_plus"></a> <a class="a2a_button_pinterest"></a> <a class="a2a_button_myspace"></a> <a class="a2a_button_tumblr"></a> <a class="a2a_button_email"></a> </div> <script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script> <!-- AddToAny END --></h5></div>'; 
-		
-	} else {
-		$page_sub_header = '<div class="small-12 left playlists"><h5>'.$sbadge["name"].'</h5></div>';
-	}
+	//var_dump($sbadge);
 	if($sbadge["issued_badges"]) {
-
+		$evidence_url = "";
 		foreach($sbadge["issued_badges"] as $ibadge) {
 			if(empty($issueDateHtml)) {	
 				$date = new DateTime($ibadge["awarded_at"]);
@@ -71,6 +68,7 @@ if ($show_issued_badges) {
 				if (!$badge_is_meta) {
 					foreach($ibadge["evidences"] as $evidence) {
 						$evidenceHtml .= "<a href='". $evidence["url"] . "'>" . $evidence["url"] . "</a><br/>";
+						$evidence_url = $evidence["url"];
 					}
 				} else {
 					foreach($ibadge["evidences"] as $evidence) {
@@ -82,7 +80,30 @@ if ($show_issued_badges) {
 				$badge["evidence"] = $evidenceHtml;
 			}
 		}
-	}
+		 // leaving these out of the condition to handle the other types of badges to share
+		$share_options = array("share_label" => "Share your badge");
+		$share_options["facebook_title"] = "I earned ".$sbadge["name"]." badge";
+		$share_options["facebook_content"] = "I earned ".$sbadge["name"]." through @ChicagoCityofLearning. #CCOL connects me with fun programs around the city and online activities that let me explore my interest. It’s just for youth and you can join CCOL for free.";
+		$share_options["twitter_content"] = "I earned through #CCOL. See what I learned - and @ExploreChi with me! Join CCOL now so you can learn and earn. #myccolbadge";
+		$share_options["pinterest_content"] = "I earned ".$sbadge["name"]." through ChicagoCityofLearning (CCOL). #CCOL connects me with fun programs around the city and online activities that let me explore my interest. It’s just for youth and you can join CCOL for free. #myccolbadge through #CCOL. See what I learned - and @ExploreChi with me! Join CCOL now so you can learn and earn. #myccolbadge";
+		$share_options["tumbler_content"] = "I earned ".$sbadge["name"]." through ChicagoCityofLearning (CCOL). I get connected to fun things to do that let me explore my interest. It’s just for youth and you can join CCOL for free. ";
+		$share_options["email_content"] = " Hi! Check out  ".$sbadge["name"]." badge I earned through Chicago City of Learning. I wanted to share it with you so you can see what I’ve been up to. At <a href='https://www.ChicagoCityofLearning.org'>www.ChicagoCityofLearning.org</a> I can find online activities and programs around the city that let me explore my interest. After I learn something cool, I earn a digital badge that shows my achievement and what I did to earn it. through ChicagoCityofLearning(CCOL). #CCOL connects me with fun programs around the city and online activities that let me explore my interest. It’s just for youth and you can join CCOL for free. #myccolbadge through #CCOL. See what I learned - and @ExploreChi with me! Join CCOL now so you can learn and earn. #myccolbadge";
+		$share_options["email_title"] = " Hi! Check out  ".$sbadge["name"]." badge I earned through Chicago City of Learning.";
+		$share_options["image_url"] = $sbadge["image_url"];
+		if ($user_is_over_13 && $badge_is_challenge ) {
+			$share_options['share_url'] = $evidence_url;
+			$sbChunk = $modx->getOption( 'tpl', $scriptProperties, 'ShareButtons' );
+			$share_buttons=  $modx->getChunk($sbChunk, $share_options);
+
+			$page_sub_header = '<div class="small-12 left playlists"><h5>'.$share_buttons.'</h5></div>'; 
+			
+		} else {
+			$page_sub_header = '<div class="small-12 left playlists"><h5>'.$sbadge["name"].'</h5></div>';
+		}
+		$ogmtChunk = $modx->getOption( 'tpl', $scriptProperties, 'OpenGraphMetaTags' );
+		$ogmt_content=  $modx->getChunk($ogmtChunk, $share_options);
+		$modx->regClientStartupHTMLBlock($ogmt_content);
+	}	
 	
 }
 

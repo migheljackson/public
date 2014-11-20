@@ -296,7 +296,8 @@ class COL {
                 var_dump($latitude);var_dump($distance);var_dump($longitude);
 */
     if ( isset( $latitude ) && isset( $longitude ) && isset( $distance ) ) {
-
+      
+      $type_filter = array('type' => array('value' => 'Pathway'), );
       $geo_distance = array();
       $geo_distance["geo_distance"] = array();
       $geo_distance["geo_distance"]["distance"] = $distance;
@@ -304,7 +305,9 @@ class COL {
       $geo_distance["geo_distance"]["location_point"]["lon"] = floatval( $longitude );
       //var_dump($geo_distance);
 
-      array_push( $aFiltersParameters, $geo_distance );
+      $bool_filter  = array('or' => array($type_filter, $geo_distance));
+      //array_push( $aFiltersParameters, $geo_distance );
+      array_push( $aFiltersParameters, $bool_filter );
 
       $searchParams["sort"] = array( array( '_geo_distance' => array( 'location_point' => array( floatval( $longitude ),  floatval( $latitude ) ), "order" => "asc", "unit" => "km" ) , ) );
     }
@@ -568,12 +571,13 @@ class COL {
     $params = array();
     
     //$searchServers = array("gopher.col-engine.c66.me:9200");
-    // $searchServers = array("dragon.staging-col-engine.staging.c66.me:9200");
-    $searchServers = array("localhost:9200");
+    //$searchServers = array("bobcat.staging-col-engine-b.staging.c66.me:9200");
+    $searchServers = array( "localhost:9200" );
+
     $params['hosts'] = $searchServers;
 
     // TODO Drop LOGGING down to WARN
-    //$params['logging'] = true;
+    $params['logging'] = true;
     //$params['logPath'] = '/Applications/MAMP/logs/apache_error.log';
     //$params['logPath'] = '/var/www/beta.explorechi.com/public_html/core/cache/logs/error.log';
     //$params['logLevel'] = Psr\Log\LogLevel::INFO;

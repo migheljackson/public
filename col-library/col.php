@@ -720,9 +720,11 @@ curl -XPUT 'http://localhost:9200/chicago/ScheduledProgram/_mapping' -d '
 
 }'
 
+curl -XDELETE 'http://localhost:9200/chicago/Pathway/_mapping'
 curl -XPUT 'http://localhost:9200/chicago/Pathway/_mapping' -d '
 {
   "properties":{
+    "badges":{"properties":{"id":{"type": "long"}, "name":{"type":"string", "index": "not_analyzed"}}},
     "blurb": 
       {"type":"string",
       "index": "analyzed",

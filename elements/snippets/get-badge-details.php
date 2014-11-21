@@ -150,7 +150,6 @@ if(count($badge["activities"])>0) {
 	
 	$activityHtml = "<p><strong>Earn by participating in:</strong></p>";
 	$today = new DateTime("now");
-	 
 	foreach($badge["activities"] as $activity) {
 		$programDate = new DateTime($activity["end_date"]);
 		if(isset($activity["end_date"]) && $activity["end_date"]!="" ) {
@@ -160,7 +159,14 @@ if(count($badge["activities"])>0) {
 			$activity["expiredProgram"] = "style='display:none'";
 			$activity["activeProgram"]  = "";
 		}
+		if($activity["activity_type"]=="Pathway") {
+			
+			$activity["link"] = "challenges?id=" . substr($activity["id"],8);
+		} else {
+			$activity["link"] = "workshop-detail?id=" . $activity["id"];
+		}
 		$activityHtml .=  $modx->getChunk($badgeActivity, $activity);
+		var_dump($activity);
 	}
 	$modx->setPlaceholder("activityList", $activityHtml);
 	$badge["activityList"] = $activityHtml;

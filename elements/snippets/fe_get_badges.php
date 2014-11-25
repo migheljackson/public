@@ -19,7 +19,7 @@ $categoriesData = COL::list_categories();
 
 $categories = $categoriesData->result;
 
-$categorySelect = "<select id='categoryFilter' class='drop-item small-3 columns end'><option id='0'>Filter By Category</option>";
+$categorySelect = "<select id='categoryFilter' class='drop-item small-8 medium-6 large-4 columns end'><option id='0'>Filter By Category</option>";
 foreach($categories as $category) {
 	$selected = $category->id == $catId ? "selected" : "";
 	$categorySelect .="<option ". $selected ." value='" . $category->id . "'>" . $category->name . "</option>";			

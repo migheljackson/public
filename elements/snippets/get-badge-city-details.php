@@ -40,6 +40,7 @@ if(count($badge["rule_sets"]) == 1) {
 	$ruleComplete = "";
 	$ruleCount = count($ruleset["rules"]);
 	$classSize = floor(12/$ruleCount);
+	$catIdList = array();
 	foreach($ruleset["rules"] as $rule){
 		// count total badges required all rules
 		$badgeRequiredCount += $rule["number_badges"];
@@ -53,13 +54,14 @@ if(count($badge["rule_sets"]) == 1) {
 		$rule_list_html = count($ruleset["rules"])==1 ? "<ul class='inline'>" : "<ul style='list-style:none;margin-left:0' >";		
 		// rule based on category
 		foreach($rule["from_categories"] as $category) {
-			$rule_list_html .= '<li><p class="badge-title">' . $category["name"]  . ' <img src="http://www.placehold.it/25x25" class="right " alt=""></p><a href="#">View badges</a></li>'; 
-			// var_dump($category["name"]);
+			$rule_list_html .= '<li><p class="badge-title">' . $category["name"]  . '</p><a href="digital-badge-library?catId=' . $category['id'] . '">View badges</a></li>'; 
+			$catIdList[] = $category['id'];
 		}
+		
 		// rule based on type
 		if($rule["of_type"] != 0) {
 			$badgeType = $rule["of_type"];
-			$rule_list_html .= '<li><p class="badge-title">' . $badgeTypes[$badgeType]  . ' <img src="http://www.placehold.it/25x25" class="right " alt=""></p><a href="#">View badges</a></li>'; 
+			$rule_list_html .= '<li><p class="badge-title">' . $badgeTypes[$badgeType]  . '</p><a href="#">View badges</a></li>'; 
 			// var_dump($category["name"]);
 		}
 		$rule_list_html .= "</ul>";
@@ -70,9 +72,25 @@ if(count($badge["rule_sets"]) == 1) {
 	$ruleSetComplete = $total . $ruleSetComplete . $ruleComplete . "</div>";	
 }
 
+// search for all programs
+
+if(!empty($catIdList)) {
+	$activities = COL::search("", $catIdList, 4, 100, null, array(), 0, 15, null, null, null, "ScheduledProgram,Pathway");
+	// var_dump($activities);
+	$activityTile = $modx->getOption( 'tpl', $scriptProperties, 'TileItem' );
+	$activityHtml = "";
+	foreach($activities["hits"]["hits"] as $activitySource) {
+		// var_dump($activitySource["_source"]);
+		$activity = $activitySource["_source"];
+		$activityHtml .= $modx->getChunk($activityTile, $activity);
+	}
+	
+}
+
 $modx->setPlaceholders($badge);
 $badge["totalBadgeRequirement"] = $totalBadgeRequirement;
 $badge["ruleSetHtml"] = $ruleSetComplete;
+$badge["activityHtml"] = $activityHtml;
 
 // $modx->setPlaceholder("totalBadgeRequirement", $totalBadgeRequirement);
 // $modx->setPlaceholder("ruleSetHtml", $ruleSetComplete);

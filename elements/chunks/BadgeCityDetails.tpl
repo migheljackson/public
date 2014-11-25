@@ -40,9 +40,9 @@ ul.inline li {display:inline-block;margin-right:12px;}
 	  <div class="central-panel badge-panel small-12 left">
 	    <div class="row">
 	      <div class="small-12 columns">
-	        <h5 class="title-slide">EXPLORE SIMILAR BADGES</h5>
-	        <ul class="small-block-grid-1 large-block-grid-4 columns">
-	          [[+badgeList]]                
+	        <h5 class="title-slide">EXPLORE RELATED ACTIVITIES</h5>
+	        <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4 columns">
+	          [[+activityHtml]]                
 	        </ul>
 	      </div>
 	    </div>

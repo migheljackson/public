@@ -262,7 +262,9 @@ class COL {
       array_push( $aFiltersParameters, $catFilter );
     }
 
-    if ( isset( $aLocations )  && count( $aLocations )>0 ) {
+    if (strpos($types, "ScheduledProgram") !== false && isset( $aLocations )  && count( $aLocations )>0 ) {
+      $type_filter = array('type' => array('value' => 'Pathway'), );
+
       $location_shapes = array();
       foreach ( $aLocations as $locationSlug ) {
         $l = self::get_location( $locationSlug );
@@ -282,7 +284,11 @@ class COL {
           array_push( $locationOrFilter["or"]["filters"], $locationShape );
         }
 
-        array_push( $aFiltersParameters, $locationOrFilter );
+        $bool_filter  = array('or' => array($type_filter, $locationOrFilter));
+      //array_push( $aFiltersParameters, $geo_distance );
+      array_push( $aFiltersParameters, $bool_filter );
+
+        //array_push( $aFiltersParameters, $locationOrFilter );
       }
 
     }
@@ -295,7 +301,7 @@ class COL {
                 }
                 var_dump($latitude);var_dump($distance);var_dump($longitude);
 */
-    if ( isset( $latitude ) && isset( $longitude ) && isset( $distance ) ) {
+    if ( strpos($types, "ScheduledProgram") !== false && isset( $latitude ) && isset( $longitude ) && isset( $distance ) ) {
       
       $type_filter = array('type' => array('value' => 'Pathway'), );
       $geo_distance = array();

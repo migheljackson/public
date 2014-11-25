@@ -8,30 +8,27 @@
     <div class="small-12 large-centered large-9 columns">
       <h2 class="text-center">DELETE ACCOUNT</h2>
       <hr>
-      <h4 class="text-center" id="status">Delete my child’s account.</h4>
+      <h4 class="text-center" id="status">[[+form_title]]</h4>
       <div class="small-12 large-centered large-6 columns" >
         <form action="fe-do-delete-account" id="delete_account">
           <input type="hidden" name="veto_token" value="[[+veto_token]]" />
           <input type="hidden" name="username" value="[[+username]]" />
-          <input type="hidden" name="origin" value="parent" />
+          <input type="hidden" name="origin" value="[[+origin]]" />
           <label for="yes">
             <input type="radio" id="yes" name="confirm" value="yes">
-            Yes, delete their account.
+            [[+yes_label]]
           </label>
           <label for="no">
             <input type="radio" id="no" name="confirm" value="no">
-            No, I want my child to keep their account.
+            [[+no_label]]
           </label>
           <div class="" id="reason_yes" style="display:none;">
             <label for="">
-              Optional: You want to delete their account because:
+              [[+reasons_title]]
               <br>
               (Select all that apply)
             </label>
-            <label for="opt1">
-              <input type="checkbox" name="reasons[]" value="I do not allow my child to have accounts of their own." id="opt1" style="visibility:visible">
-              I do not allow my child to have accounts of their own.
-            </label>
+            [[+extra_option]]
             <label for="opt2">
               <input type="checkbox" name="reasons[]" value="I need more information on Chicago City of Learning." id="opt2" style="visibility:visible">
               I need more information on Chicago City of Learning.

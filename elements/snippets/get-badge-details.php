@@ -65,7 +65,13 @@ if ($show_issued_badges) {
 			}
 			if(!empty($ibadge["evidences"])) {
 				$evidenceHtml ="<strong>Evidence:</strong><p class=''>";
-				if (!$badge_is_meta) {
+				if ($badge_is_challenge) {
+						$evidence_url = $ibadge["evidences"][0]["url"];
+						$site_url = $modx->getOption('site_url');
+						$full_evidence_url = $site_url . "shared-challenge-badge?e=" . urlencode($evidence_url);
+						$evidenceHtml .= "<a target='_blank' href='". $full_evidence_url . "'>".$full_evidence_url."</a><br/>";
+				}
+				else if (!$badge_is_meta) {
 					foreach($ibadge["evidences"] as $evidence) {
 						$evidenceHtml .= "<a href='". $evidence["url"] . "'>" . $evidence["url"] . "</a><br/>";
 						$evidence_url = $evidence["url"];
@@ -91,7 +97,7 @@ if ($show_issued_badges) {
 		$share_options["email_title"] = " Hi! Check out  ".$sbadge["name"]." badge I earned through Chicago City of Learning.";
 		$share_options["image_url"] = $sbadge["image_url"];
 		if ($user_is_over_13 && $badge_is_challenge ) {
-			$share_options['share_url'] = $evidence_url;
+			$share_options['share_url'] = $site_url . "shared-challenge-badge?e=" . urlencode($evidence_url);
 			$sbChunk = $modx->getOption( 'tpl', $scriptProperties, 'ShareButtons' );
 			$share_buttons=  $modx->getChunk($sbChunk, $share_options);
 

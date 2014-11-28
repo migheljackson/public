@@ -830,6 +830,13 @@ curl -XPUT 'http://localhost:9200/dallas/ScheduledProgram/_mapping' -d '
          "location_point": {
              "type": "geo_point"
          },
+         "badges": {
+          "properties": {
+                "id": {"type": "long"},
+                "name": {"type": "string", "index": "no", store: false, "boost": 0.1},
+                "description": {"type": "string", "index": "no", store: false, "boost": 0.1}
+            }
+         },
          "categories": {
             "properties": {
                 "id": {"type": "long"},

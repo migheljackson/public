@@ -68,12 +68,12 @@ if ($show_issued_badges) {
 				if ($badge_is_challenge) {
 						$evidence_url = $ibadge["evidences"][0]["url"];
 						$site_url = $modx->getOption('site_url');
-						$full_evidence_url = $site_url . "shared-challenge-badge?e=" . urlencode($evidence_url);
-						$evidenceHtml .= "<a target='_blank' href='". $full_evidence_url . "'>".$full_evidence_url."</a><br/>";
+						$full_evidence_url = $site_url . "shared-challenge-badge?b=".$_REQUEST["id"]."&e=" . urlencode($evidence_url);
+						$evidenceHtml .= "<a target='_blank' href='". $full_evidence_url . "'>View Evidence Submission</a><br/>";
 				}
 				else if (!$badge_is_meta) {
 					foreach($ibadge["evidences"] as $evidence) {
-						$evidenceHtml .= "<a href='". $evidence["url"] . "'>" . $evidence["url"] . "</a><br/>";
+						$evidenceHtml .= "<a href='". $evidence["url"] . "'>View Evidence Submission</a><br/>";
 						$evidence_url = $evidence["url"];
 					}
 				} else {
@@ -88,23 +88,24 @@ if ($show_issued_badges) {
 		}
 		 // leaving these out of the condition to handle the other types of badges to share
 		$share_options = array("share_label" => "Share your badge");
-		$share_options["facebook_title"] = "I earned ".$sbadge["name"]." badge";
-		$share_options["facebook_content"] = "I earned ".$sbadge["name"]." through @ChicagoCityofLearning. #CCOL connects me with fun programs around the city and online activities that let me explore my interest. It’s just for youth and you can join CCOL for free.";
+		$share_options["facebook_title"] = "I earned the ".$sbadge["name"]." badge";
+		$share_options["facebook_content"] = "I earned the ".$sbadge["name"]." badge through @ChicagoCityofLearning. #CCOL connects me with fun programs around the city and online activities that let me explore my interest. It’s just for youth and you can join CCOL for free.";
 		$share_options["twitter_content"] = "I earned a digital badge through #CCOL. Join CCOL now and @ExploreChi with me! #myccolbadge";
-		$share_options["pinterest_content"] = "I earned ".$sbadge["name"]." through ChicagoCityofLearning (CCOL). #CCOL connects me with fun programs around the city and online activities that let me explore my interest. It’s just for youth and you can join CCOL for free. #myccolbadge through #CCOL. See what I learned - and @ExploreChi with me! Join CCOL now so you can learn and earn. #myccolbadge";
-		$share_options["tumbler_content"] = "I earned ".$sbadge["name"]." through ChicagoCityofLearning (CCOL). I get connected to fun things to do that let me explore my interest. It’s just for youth and you can join CCOL for free. ";
-		$share_options["email_content"] = " Hi! Check out  ".$sbadge["name"]." badge I earned through Chicago City of Learning. I wanted to share it with you so you can see what I’ve been up to. At <a href='https://www.ChicagoCityofLearning.org'>www.ChicagoCityofLearning.org</a> I can find online activities and programs around the city that let me explore my interest. After I learn something cool, I earn a digital badge that shows my achievement and what I did to earn it. through ChicagoCityofLearning(CCOL). #CCOL connects me with fun programs around the city and online activities that let me explore my interest. It’s just for youth and you can join CCOL for free. #myccolbadge through #CCOL. See what I learned - and @ExploreChi with me! Join CCOL now so you can learn and earn. #myccolbadge";
-		$share_options["email_title"] = " Hi! Check out  ".$sbadge["name"]." badge I earned through Chicago City of Learning.";
+		$share_options["pinterest_content"] = "I earned the ".$sbadge["name"]." badge through ChicagoCityofLearning (CCOL). #CCOL connects me with fun programs around the city and online activities that let me explore my interest. It’s just for youth and you can join CCOL for free. #myccolbadge through #CCOL. See what I learned - and @ExploreChi with me! Join CCOL now so you can learn and earn. #myccolbadge";
+		$share_options["tumbler_content"] = "I earned the ".$sbadge["name"]." badge through ChicagoCityofLearning (CCOL). I get connected to fun things to do that let me explore my interest. It’s just for youth and you can join CCOL for free. ";
+		$share_options["linkedin_content"] = "I earned the ".$sbadge["name"]." badge through Chicago City of Learning (CCOL).  I earn digital badges when I complete in person programs around the city or online activities.";
+		$share_options["email_content"] = " Hi! Check out the ".$sbadge["name"]." badge I earned through Chicago City of Learning. I wanted to share it with you so you can see what I’ve been up to. At <a href='https://www.ChicagoCityofLearning.org'>www.ChicagoCityofLearning.org</a> I can find online activities and programs around the city that let me explore my interest. After I learn something cool, I earn a digital badge that shows my achievement and what I did to earn it. through ChicagoCityofLearning(CCOL). #CCOL connects me with fun programs around the city and online activities that let me explore my interest. It’s just for youth and you can join CCOL for free. #myccolbadge through #CCOL. See what I learned - and @ExploreChi with me! Join CCOL now so you can learn and earn. #myccolbadge";
+		$share_options["email_title"] = " Hi! Check out the ".$sbadge["name"]." badge I earned through Chicago City of Learning.";
 		$share_options["image_url"] = $sbadge["image_url"];
 		if ($user_is_over_13 && $badge_is_challenge ) {
-			$share_options['share_url'] = $site_url . "shared-challenge-badge?e=" . urlencode($evidence_url);
+			$share_options['share_url'] = $site_url . "shared-challenge-badge?b=".$_REQUEST["id"]."&e=" . urlencode($evidence_url);
 			$sbChunk = $modx->getOption( 'tpl', $scriptProperties, 'ShareButtons' );
 			$share_buttons=  $modx->getChunk($sbChunk, $share_options);
 
 			$page_sub_header = '<div class="small-12 left playlists"><h5>'.$share_buttons.'</h5></div>'; 
 			
 		} else {
-			$page_sub_header = '<div class="small-12 left playlists"><h5>'.$sbadge["name"].'</h5></div>';
+			$page_sub_header =  '';//'<div class="small-12 left playlists"><h5>'.$sbadge["name"].'</h5></div>';
 		}
 		$ogmtChunk = $modx->getOption( 'tpl', $scriptProperties, 'OpenGraphMetaTags' );
 		$ogmt_content=  $modx->getChunk($ogmtChunk, $share_options);
@@ -120,7 +121,7 @@ if (!$badge_is_meta && !$badge_is_challenge) {
 	$org = json_decode(json_encode($org), true);
 	$org = $org["result"];
 	$issuer_output = '<p><strong>Issuer:</strong></p><img src="'.$org["logo_url"].'" style="max-height:50px" class="left"/> <p class="text-center">'.$org["name"].
-'<br/><a href="'.$org["url"].'" title="'.$org["description"].'">'.$org["url"].'</a></p>';
+'<br/><a target="_blank" href="'.$org["url"].'" title="'.$org["description"].'">'.$org["url"].'</a></p>';
 	$modx->setPlaceholder("issuer", $issuer_output);
 	$badge["issuer"] = $issuer_output;
 	$seoTitle = $badge['name'] . " by " . $org['name'];

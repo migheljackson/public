@@ -216,6 +216,11 @@ class COL {
   	return $searchResults;
   }
 
+  public static function getIssuedBadgeByHash($shared_badge_hash) {
+    $response = self::system_get_encrypted_with_payload('/issued_badges.json', array("shared_badge_hash" => $shared_badge_hash));
+    return $response;
+  }
+
   /*
    *  @name search
    *  @param $sQuery - String of test to search for

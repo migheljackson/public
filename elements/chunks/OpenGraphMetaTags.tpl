@@ -12,5 +12,5 @@
 <meta property="og:site_name" content="City of Learning" />
 -->
 <script type="text/javascript">var switchTo5x=true;</script>
-<script type="text/javascript" src="//w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "44750b37-014e-44cb-85c4-5b5b09432ebd", tracking:'google'});</script>

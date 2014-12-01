@@ -26,6 +26,7 @@ if(!isset($shared_badge_hash)) {
     // if so return cached value
     return $cached_str;
   } else {
+    $site_url = $modx->getOption('site_url');
     // load the badge 
     $ibadge_result = COL::getIssuedBadgeByHash($shared_badge_hash);
     $ibadge = $ibadge_result->result;
@@ -59,6 +60,59 @@ if(!isset($shared_badge_hash)) {
 
     } else if ($ibadge->badge_details->badge_type ==="meta") {
       // load up the chunks
+      $contentsChunk = $modx->getOption( 'tpl', $scriptProperties, 'SharedCityBadge' );
+      if(!empty($ibadge->issued_badges_evidence)) {
+        $index = 0;
+        
+        $evidenceChunk = $modx->getOption( 'tpl', $scriptProperties, 'SharedCityBadgeEarnedBadge' );
+        $evidenceTabChunk = $modx->getOption( 'tpl', $scriptProperties, 'SharedCityBadgeEarnedBadgeTab' );
+
+        $evidence_tabs = '';
+        $evidence_panels = '';
+        foreach($ibadge->issued_badges_evidence as $issued_badge) {
+          $evidence_body = '';
+          foreach($issued_badge->evidences as $evidence) {
+            $evidence_url = $evidence->url;
+            //var_dump($evidence);
+            //var_dump($issued_badge->badge_type);
+            if($issued_badge->badge_type === "challenge") {
+              $evidence_body .= '<a target="_blank" href="'.$site_url.'/shared-challenge-badge?ibh='.$issued_badge->shared_badge_hash.'" class="button small radius">View the submission ></a>';
+            } else {
+              $evidence_url = filter_var($evidence_url, FILTER_SANITIZE_STRING);
+              //var_dump($evidence_url);
+              if(strlen($evidence_url) > 0) {
+                $evidence_body .= '<a target="_blank" href="'.$evidence_url.'" class="button small radius">View the submission ></a>';  
+              }
+              
+            }
+          }
+          $issued_badge->index = $index;
+          $issued_badge->submission_links = $evidence_body;
+          $issued_badge->index = $index;
+          
+          if ($index===0) {
+            $issued_badge->active = "active";
+          } else {
+            $issued_badge->active = "";
+          }
+
+          $earned_on = new DateTime($issued_badge->awarded_at);
+          $issued_badge->earned_on = $earned_on->format("M j, o");
+
+
+          //var_dump($issued_badge);
+          $evidence_tabs .= $modx->getChunk($evidenceTabChunk, (array) $issued_badge);
+          $evidence_panels .= $modx->getChunk($evidenceChunk, (array) $issued_badge);
+
+          $index += 1;
+        }
+
+        $badge_details["evidence_panels"] = $evidence_panels;
+        $badge_details["evidence_tabs"] = $evidence_tabs;
+        //var_dump($badge_details);
+      }
+
+      $contents = $modx->getChunk($contentsChunk, $badge_details);
        
     } else {
       if(!empty($ibadge->evidences)) {

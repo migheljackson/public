@@ -93,7 +93,9 @@ if  ($show_issued_badges) {
 				$modx->setPlaceholder("evidence",$evidenceHtml);
 				$badge["evidence"] = $evidenceHtml;
 			} {
-				if(!$badge_is_meta) {
+				if ($badge_is_challenge) {
+					$full_evidence_url = $site_url . "shared-challenge-badge?ibh=".$issued_badge_hash;
+				} else if(!$badge_is_meta) {
 					$full_evidence_url = $site_url . "shared-org-badge?ibh=".$issued_badge_hash;
 				} else {
 

@@ -71,8 +71,9 @@ if  ($show_issued_badges) {
 				$evidenceHtml ="<strong>Evidence:</strong><p class=''>";
 				if ($badge_is_challenge) {
 						$evidence_url = $ibadge["evidences"][0]["url"];
-						$evidenceHtml .= "<a target='_blank' href='". $full_evidence_url . "'>View Evidence Submission</a><br/>";
 						$full_evidence_url = $site_url . "shared-challenge-badge?ibh=".$issued_badge_hash;
+						$evidenceHtml .= "<a target='_blank' href='". $full_evidence_url . "'>View Evidence Submission</a><br/>";
+						
 				}
 				else if (!$badge_is_meta) {
 					foreach($ibadge["evidences"] as $evidence) {

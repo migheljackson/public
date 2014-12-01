@@ -39,13 +39,20 @@ if(!isset($shared_badge_hash)) {
     $earned_on = new DateTime($ibadge->awarded_at);
     $badge_details["earned_on"] = $earned_on->format("M j, o");
     
+    $omgtDetails = array();
+    $site_name = $modx->getOption('site_name');
+    $omgtDetails["page_title"] = $ibadge->badge_details->name;
+    $omgtDetails["page_url"] = $modx->makeUrl($id, '', '', 'full');
+    $omgtDetails["page_image_url"] = $ibadge->badge_image_url;
+    $omgtDetails["page_description"] = $ibadge->badge_details->description;
+    $omgtDetails["site_name"] = $site_name;
 
-    /*
+
     $ogmtChunk = $modx->getOption( 'tpl', $scriptProperties, 'OpenGraphMetaTags' );
-    $ogmt_content=  $modx->getChunk($ogmtChunk, $share_options);
+    $ogmt_content=  $modx->getChunk($ogmtChunk, $omgtDetails);
     $modx->regClientStartupHTMLBlock($ogmt_content);
     
-    */
+    
     //var_dump($ibadge->result->badge_details);
     // build contents for each badge type
     if ($ibadge->badge_details->badge_type ==="challenge") {

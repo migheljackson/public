@@ -14,7 +14,7 @@ ul.inline li {display:inline-block;margin-right:12px;}
   <div class="small-12 large-6 large-centered columns">
     <h5 class="text-center">[[+name]]</h5>
     <div class="small-centered small-6 columns text-center">
-      <img style="max-height:225px" src="[[+image_url]]" title="[[+name]]" alt="[[+name]] class="th">
+      <img style="max-height:225px;" src="[[+image_url]]" title="[[+name]]" alt="[[+name]]" class="th">
     </div>
     <div class="info-tip text-center rounded small-centered small-6 large-centered large-5 columns"><p>[[+issue_count]] learners earned this badge</p></div>
   </div>

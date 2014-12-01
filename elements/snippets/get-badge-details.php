@@ -48,11 +48,12 @@ if(COL::is_signed_in()) {
 // $modx->setPlaceholders($badge);
 //get user if available
 //var_dump($show_issued_badges);
-if ($show_issued_badges) {
+if  ($show_issued_badges) {
 	$user_is_over_13 = COL::_get_is_over_13();
 	
 	$issueDateHtml = '';
 	$site_url = $modx->getOption('site_url');
+	$site_name = $modx->getOption('site_name');
 	//var_dump($sbadge);
 	if($sbadge["issued_badges"]) {
 		$evidence_url = "";
@@ -85,6 +86,8 @@ if ($show_issued_badges) {
 					foreach($ibadge["evidences"] as $evidence) {
 						$evidenceHtml .= "<a href='/badge-details?id=".$evidence["awarded_badge_id"]."'><img src='". $evidence["url"] . "' class='badge-mini'/></a>";
 					}
+
+					$full_evidence_url = $site_url . "shared-city-badge?ibh=".$issued_badge_hash;
 				}
 
 				$modx->setPlaceholder("evidence",$evidenceHtml);
@@ -92,7 +95,9 @@ if ($show_issued_badges) {
 			} {
 				if(!$badge_is_meta) {
 					$full_evidence_url = $site_url . "shared-org-badge?ibh=".$issued_badge_hash;
-				}
+				} else {
+
+				}	$full_evidence_url = $site_url . "shared-city-badge?ibh=".$issued_badge_hash;
 			}
 		}
 		 // leaving these out of the condition to handle the other types of badges to share
@@ -113,7 +118,7 @@ if ($show_issued_badges) {
 				  //$site_url . "shared-challenge-badge?h=".."&b=".$_REQUEST["id"]."&e=" . urlencode($evidence_url);
 
 			} else if($badge_is_meta) {
-
+				$share_options['share_url'] = $full_evidence_url;
 			} else {
 				$share_options['share_url'] = $full_evidence_url;
 			}	
@@ -126,6 +131,12 @@ if ($show_issued_badges) {
 		} else {
 			$page_sub_header =  '';//'<div class="small-12 left playlists"><h5>'.$sbadge["name"].'</h5></div>';
 		}
+		$share_options["page_title"] = $sbadge["name"];
+		$share_options["page_url"] = $share_options["share_url"];
+		$share_options["page_image_url"] = $share_options["image_url"];
+		$share_options["page_description"] = $badge["description"];
+		$share_options["site_name"] = $site_name;
+
 		$ogmtChunk = $modx->getOption( 'tpl', $scriptProperties, 'OpenGraphMetaTags' );
 		$ogmt_content=  $modx->getChunk($ogmtChunk, $share_options);
 		$modx->regClientStartupHTMLBlock($ogmt_content);

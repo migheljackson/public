@@ -1,9 +1,9 @@
-<meta property="og:title" content="[[+facebook_title]]" />
-<meta property="og:type" content="Sharing Widgets" />
-<meta property="og:url" content="[[+share_url]]456" />
-<meta property="og:image" content="http://sharethis.com/images/logo.jpg" />
-<meta property="og:description" content="Sharing is great!" />
-<meta property="og:site_name" content="ShareThis" />
+<meta property="og:title" content="[[+page_title]]" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="[[+page_url]]" />
+<meta property="og:image" content="[[+page_image_url]]" />
+<meta property="og:description" content="[[+page_description]]" />
+<meta property="og:site_name" content="[[+site_name]]" />
 <!--<meta property="og:title" content="[[+facebook_title]]" /> 
 <meta property="og:type" content="page" />
 <meta property="og:url" content="[[+share_url]]" /> 

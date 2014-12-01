@@ -7,9 +7,7 @@
 <style>
 ul.inline li {display:inline-block;margin-right:12px;}
 </style>
-<div class="small-12 left playlists">
-  <h3><strong>EXPLORE</strong></h3>
-</div>  
+[[+page_sub_header]]  
 <div class="small-12 left resume clearfix">
   <div class="small-12 large-6 large-centered columns">
     <h5 class="text-center">[[+name]]</h5>

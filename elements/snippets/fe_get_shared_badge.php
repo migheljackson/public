@@ -167,10 +167,10 @@ if(!isset($shared_badge_hash)) {
         
     }
 
-    /*
+    
     // cache the content
     $modx->cacheManager->set( $cache_key, $contents, 720000 ); // set for 200 hours
-     */
+     
     return $contents;
     
     

@@ -87,10 +87,11 @@ if(!empty($catIdList)) {
 	
 }
 
+$show_issued_badges = false; 
 // check if a user is logged in
 if(COL::is_signed_in()) {
 
-	$badgeMeta = COL::get_badge($_REQUEST["id"]);
+	$badgeMeta = COL::get_badge($badge["id"]);
 	$badgeMeta = json_decode(json_encode($badgeMeta), true);
 	$sbadge = $badgeMeta['result'];
 	
@@ -187,6 +188,9 @@ if  ($show_issued_badges) {
 		} else {
 			$page_sub_header =  '';//'<div class="small-12 left playlists"><h5>'.$sbadge["name"].'</h5></div>';
 		}
+
+		$modx->setPlaceHolder('page_sub_header', $page_sub_header);
+		
 		$share_options["page_title"] = $sbadge["name"];
 		$share_options["page_url"] = $share_options["share_url"];
 		$share_options["page_image_url"] = $share_options["image_url"];

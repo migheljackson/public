@@ -39,7 +39,7 @@ if(!isset($shared_badge_hash)) {
     $omgtDetails["page_url"] = $url;
     $omgtDetails["page_image_url"] = $modx->cacheManager->get( $page_image_url_ck );
     $omgtDetails["page_description"] = $modx->cacheManager->get( $page_description_ck );
-    $omgtDetails["site_name"] = $site_name
+    $omgtDetails["site_name"] = $site_name;
 
 
     $ogmtChunk = $modx->getOption( 'tpl', $scriptProperties, 'OpenGraphMetaTags' );
@@ -64,18 +64,32 @@ if(!isset($shared_badge_hash)) {
     
     $omgtDetails = array();
 
-    $page_description = $ibadge->user_detail." earned the ".$sbadge["name"]." badge through @ChicagoCityofLearning. #CCOL connects me with fun programs around the city and online activities that let me explore my interest. It’s just for youth and you can join CCOL for free.";// $ibadge->badge_details->description;
+    $page_description = $ibadge->user_detail." earned the ".$ibadge->badge_details->name." badge. " . $ibadge->badge_details->description;
     
-    $omgtDetails["page_title"] = $ibadge->badge_details->name;
+    $omgtDetails["page_title"] = $ibadge->user_detail." earned the ".$sbadge["name"]." badge. ";
     $omgtDetails["page_url"] = $url;
     $omgtDetails["page_image_url"] = $ibadge->badge_image_url;
-    $omgtDetails["page_description"] = 
+    $omgtDetails["page_description"] = $page_description;
     $omgtDetails["site_name"] = $site_name;
 
+    $content_options = array('page_description', 'page_title');
+
+    $m = new Mustache_Engine;
+    $social_args = array('badge_name' => $ibadge->badge_details->name, 'user_detail' => $ibadge->user_detail );
+    foreach ($content_options as $content_key) {
+      # code...
+      $content_template = $modx->getOption('badge_share_'.$content_key);
+      
+      if(isset($content_template) && !empty($content_template)) {
+        $omgtDetails[$content_key] = $m->render($content_template, $social_args);
+      } 
+    }
+    
+
     //cache the og tags
-    $modx->cacheManager->set( $page_title_ck, $ibadge->badge_details->name, 720000 ); // set for 200 hours
+    $modx->cacheManager->set( $page_title_ck, $omgtDetails["page_title"], 720000 ); // set for 200 hours
     $modx->cacheManager->set( $page_image_url_ck, $ibadge->badge_image_url, 720000 ); // set for 200 hours
-    $modx->cacheManager->set( $page_description_ck, $contents, 720000 ); // set for 200 hours
+    $modx->cacheManager->set( $page_description_ck, $omgtDetails["page_description"], 720000 ); // set for 200 hours
 
     $ogmtChunk = $modx->getOption( 'tpl', $scriptProperties, 'OpenGraphMetaTags' );
     $ogmt_content=  $modx->getChunk($ogmtChunk, $omgtDetails);

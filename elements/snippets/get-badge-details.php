@@ -118,7 +118,6 @@ if  ($show_issued_badges) {
 		foreach ($content_options as $content_key) {
 			# code...
 			$content_template = $modx->getOption('badge_share_'.$content_key);
-			var_dump($content_key);
 			if(isset($content_template) && !empty($content_template)) {
 				$share_options[$content_key] = $m->render($content_template, $social_args);
 			} else {

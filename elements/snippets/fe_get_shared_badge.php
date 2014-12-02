@@ -12,17 +12,40 @@ require_once $core_path.'col-library/col.php';
 
 // get the shared badge hash and check the cache to see if its loaded
 $shared_badge_hash = $_REQUEST["ibh"];
+
 if(!isset($shared_badge_hash)) {
   return "There was an error with this page. Are you sure the url is correct?";
 } else {
-
+  $site_url = $modx->getOption('site_url');
+  $url = $site_url.$_REQUEST["q"].'?ibh='.$shared_badge_hash;
+  $site_name = $modx->getOption('site_name');
+  
   // check for the hash in the cache
   $cache_key = 'sb_'.$shared_badge_hash;
+
+  
+  $page_title_ck = $cache_key."_page_title"; 
+  $page_image_url_ck = $cache_key."_page_image_url"; 
+  $page_description_ck = $cache_key."_page_description"; 
 
   // check if url has cache key
   $cached_str = $modx->cacheManager->get( $cache_key );
   
   if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
+    // load the open graph details here
+    $omgtDetails = array();
+    
+    $omgtDetails["page_title"] = $modx->cacheManager->get( $page_title_ck );
+    $omgtDetails["page_url"] = $url;
+    $omgtDetails["page_image_url"] = $modx->cacheManager->get( $page_image_url_ck );
+    $omgtDetails["page_description"] = $modx->cacheManager->get( $page_description_ck );
+    $omgtDetails["site_name"] = $site_name
+
+
+    $ogmtChunk = $modx->getOption( 'tpl', $scriptProperties, 'OpenGraphMetaTags' );
+    $ogmt_content=  $modx->getChunk($ogmtChunk, $omgtDetails);
+    $modx->regClientStartupHTMLBlock($ogmt_content);
+
     // if so return cached value
     return $cached_str;
   } else {
@@ -40,13 +63,19 @@ if(!isset($shared_badge_hash)) {
     $badge_details["earned_on"] = $earned_on->format("M j, o");
     
     $omgtDetails = array();
-    $site_name = $modx->getOption('site_name');
+
+    $page_description = $ibadge->user_detail." earned the ".$sbadge["name"]." badge through @ChicagoCityofLearning. #CCOL connects me with fun programs around the city and online activities that let me explore my interest. It’s just for youth and you can join CCOL for free.";// $ibadge->badge_details->description;
+    
     $omgtDetails["page_title"] = $ibadge->badge_details->name;
-    $omgtDetails["page_url"] = $modx->makeUrl($id, '', '', 'full');
+    $omgtDetails["page_url"] = $url;
     $omgtDetails["page_image_url"] = $ibadge->badge_image_url;
-    $omgtDetails["page_description"] = $ibadge->badge_details->description;
+    $omgtDetails["page_description"] = 
     $omgtDetails["site_name"] = $site_name;
 
+    //cache the og tags
+    $modx->cacheManager->set( $page_title_ck, $ibadge->badge_details->name, 720000 ); // set for 200 hours
+    $modx->cacheManager->set( $page_image_url_ck, $ibadge->badge_image_url, 720000 ); // set for 200 hours
+    $modx->cacheManager->set( $page_description_ck, $contents, 720000 ); // set for 200 hours
 
     $ogmtChunk = $modx->getOption( 'tpl', $scriptProperties, 'OpenGraphMetaTags' );
     $ogmt_content=  $modx->getChunk($ogmtChunk, $omgtDetails);

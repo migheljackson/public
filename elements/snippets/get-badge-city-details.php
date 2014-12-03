@@ -55,7 +55,7 @@ if(count($badge["rule_sets"]) == 1) {
 		$rule_list_html = count($ruleset["rules"])==1 ? "<ul class='inline'>" : "<ul style='list-style:none;margin-left:0' >";		
 		// rule based on category
 		foreach($rule["from_categories"] as $category) {
-			$rule_list_html .= '<li class="rule-box"><p class="badge-title">' . $category["name"]  . '</p><a class="rule-link" href="digital-badge-library?catId=' . $category['id'] . '">View badges</a></li>'; 
+			$rule_list_html .= '<li class="rule-box"><p class="badge-title">' . $category["name"]  . '</p><a class="rule-link" href="digital-badge-library?catId=' . $category['id'] . '#badge-results-box">View badges</a></li>'; 
 			$catIdList[] = $category['id'];
 		}
 		

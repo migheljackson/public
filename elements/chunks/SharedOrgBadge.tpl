@@ -45,7 +45,7 @@
       
       
       <div class="small-12 columns">  
-        <h6><strong>Earned by participate in:</strong></h6>
+        <h6><strong>Earned by participating in:</strong></h6>
         <div class="small-12 left" style="outline:1px solid #ccc;">
           <div class="medium-6 large-2 left">
           <div class="small-centered small-12 show-for-small columns">

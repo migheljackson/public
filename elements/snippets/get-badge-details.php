@@ -48,6 +48,7 @@ if(COL::is_signed_in()) {
 // $modx->setPlaceholders($badge);
 //get user if available
 //var_dump($show_issued_badges);
+$activity_id_earned = '';
 if  ($show_issued_badges) {
 	$user_is_over_13 = COL::_get_is_over_13();
 	
@@ -61,6 +62,7 @@ if  ($show_issued_badges) {
 		foreach($sbadge["issued_badges"] as $ibadge) {
 			$user_detail = $ibadge["user_detail"];
 			$issued_badge_hash = $ibadge["shared_badge_hash"];
+			$activity_id_earned = $ibadge["link_id"];
 			if(empty($issueDateHtml)) {	
 				$date = new DateTime($ibadge["awarded_at"]);
 				$issueDateHtml='<p class=""><strong>Date issued:</strong> '.$date->format('m/d/Y').'</p>';
@@ -209,27 +211,45 @@ if (!$badge_is_meta && !$badge_is_challenge) {
 $modx->setPlaceholder("page_sub_header",$page_sub_header);
 
 // load activities
-if(count($badge["activities"])>0) {
+if(count($badge["activities"])>0 ) {
 	$badgeActivity = $modx->getOption( 'tpl', $scriptProperties, 'BadgeActivity');
+	if (!$show_issued_badges) {
+		$activityHtml = "<p><strong>Earn by participating in:</strong></p>";
+	} else {
+		$activityHtml = "<p><strong>Earned by participating in:</strong></p>";
+	}
 	
-	$activityHtml = "<p><strong>Earn by participating in:</strong></p>";
 	$today = new DateTime("now");
+	$render = !$show_issued_badges;
 	foreach($badge["activities"] as $activity) {
-		$programDate = new DateTime($activity["end_date"]);
-		if(isset($activity["end_date"]) && $activity["end_date"]!="" ) {
-			$activity["expiredProgram"] = $programDate < $today ? "" : "style='display:none'";
-			$activity["activeProgram"] = $programDate > $today ? "" : "style='display:none'";
-		} else{
-			$activity["expiredProgram"] = "style='display:none'";
-			$activity["activeProgram"]  = "";
-		}
-		if($activity["activity_type"]=="Pathway") {
-			
-			$activity["link"] = "challenges?id=" . substr($activity["id"],8);
+		
+
+		if ($show_issued_badges)  {
+		  if( $activity["id"]===$activity_id_earned) {
+			$render = true;
+
 		} else {
-			$activity["link"] = "workshop-detail?id=" . $activity["id"];
+			$render = false;
 		}
-		$activityHtml .=  $modx->getChunk($badgeActivity, $activity);
+		}
+		if ($render) {
+			$programDate = new DateTime($activity["end_date"]);
+			if(isset($activity["end_date"]) && $activity["end_date"]!="" ) {
+				$activity["expiredProgram"] = $programDate < $today ? "" : "style='display:none'";
+				$activity["activeProgram"] = $programDate > $today ? "" : "style='display:none'";
+			} else{
+				$activity["expiredProgram"] = "style='display:none'";
+				$activity["activeProgram"]  = "";
+			}
+			if($activity["activity_type"]=="Pathway") {
+				
+				$activity["link"] = "challenges?id=" . substr($activity["id"],8);
+			} else {
+				$activity["link"] = "workshop-detail?id=" . $activity["id"];
+			}
+			$activityHtml .=  $modx->getChunk($badgeActivity, $activity);
+		}
+		
 		//var_dump($activity);
 	}
 	$modx->setPlaceholder("activityList", $activityHtml);

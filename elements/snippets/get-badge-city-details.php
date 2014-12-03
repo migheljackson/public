@@ -34,7 +34,6 @@ $modx->setPlaceholder("dyn_page_title",$seoTitle);
 
 if(count($badge["rule_sets"]) == 1) {
 	$ruleset = $badge["rule_sets"][0];
-	var_dump($ruleset);
 	
 	$badgeRequiredCount = 0;
 	$ruleSetComplete = '<div class="panel small-12 columns">';

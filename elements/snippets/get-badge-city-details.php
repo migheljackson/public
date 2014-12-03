@@ -34,35 +34,37 @@ $modx->setPlaceholder("dyn_page_title",$seoTitle);
 
 if(count($badge["rule_sets"]) == 1) {
 	$ruleset = $badge["rule_sets"][0];
+	var_dump($ruleset);
 	
 	$badgeRequiredCount = 0;
 	$ruleSetComplete = '<div class="panel small-12 columns">';
 	$ruleComplete = "";
-	$ruleCount = count($ruleset["rules"]);
-	$classSize = floor(12/$ruleCount);
+	$ruleCount = count($ruleset["rules"]); // four rules to each container
+	$classSize = $ruleCount<5 ? floor(12/$ruleCount) : 3;
 	$catIdList = array();
 	foreach($ruleset["rules"] as $rule){
 		// count total badges required all rules
 		$badgeRequiredCount += $rule["number_badges"];
 		
+		
 		// display each rule
 		$ruleBadgeRequired=$rule["number_badges"];
-		$ruleBadgeHtml = "<div class='small-". $classSize ." column'>";
+		$ruleBadgeHtml = "<div class='rule small-". $classSize ." column' >";
 		if(count($ruleset["rules"])>1) {
 			$ruleBadgeHtml .= "<span class='counter'>".$ruleBadgeRequired . "</span> badges in:" ;
 		}
 		$rule_list_html = count($ruleset["rules"])==1 ? "<ul class='inline'>" : "<ul style='list-style:none;margin-left:0' >";		
 		// rule based on category
 		foreach($rule["from_categories"] as $category) {
-			$rule_list_html .= '<li><p class="badge-title">' . $category["name"]  . '</p><a href="digital-badge-library?catId=' . $category['id'] . '">View badges</a></li>'; 
+			$rule_list_html .= '<li class="rule-box"><p class="badge-title">' . $category["name"]  . '</p><a class="rule-link" href="digital-badge-library?catId=' . $category['id'] . '">View badges</a></li>'; 
 			$catIdList[] = $category['id'];
 		}
 		
 		// rule based on type
 		if($rule["of_type"] != 0) {
 			$badgeType = $rule["of_type"];
-			$rule_list_html .= '<li><p class="badge-title">' . $badgeTypes[$badgeType]  . '</p><a href="#">View badges</a></li>'; 
-			// var_dump($category["name"]);
+			$link = $badgeTypes[$badgeType]=="self-paced" ? "Pathway" : "ScheduledProgram";
+			$rule_list_html .= '<li class="rule-box"><p class="badge-title">' . $badgeTypes[$badgeType]  . '</p><a class="rule-link" href="explore/?result_type=' . $link . '">View badges</a></li>'; 
 		}
 		$rule_list_html .= "</ul>";
 		//echo $rule_list_html;

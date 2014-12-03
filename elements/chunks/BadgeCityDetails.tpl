@@ -6,6 +6,7 @@
 
 <style>
 ul.inline li {display:inline-block;margin-right:12px;}
+
 </style>
 <div class="small-12 left playlists">
   <h3><strong>EXPLORE</strong></h3>
@@ -48,3 +49,6 @@ ul.inline li {display:inline-block;margin-right:12px;}
 	    </div>
 	  </div>
 	</div>
+	<script>
+	$(".rule:last" ).addClass("end");
+	</script>

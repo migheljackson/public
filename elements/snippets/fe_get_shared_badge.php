@@ -30,7 +30,7 @@ if(!isset($shared_badge_hash)) {
 
   // check if url has cache key
   $cached_str = $modx->cacheManager->get( $cache_key );
-  var_dump($site_name);
+  //var_dump($site_name);
   if ( isset( $cached_str ) && !isset( $_REQUEST["reset_cache"] ) ) {
     // load the open graph details here
     $omgtDetails = array();
@@ -53,7 +53,7 @@ if(!isset($shared_badge_hash)) {
     // load the badge 
     $ibadge_result = COL::getIssuedBadgeByHash($shared_badge_hash);
     $ibadge = $ibadge_result->result;
-    var_dump($ibadge);
+    //var_dump($ibadge);
 
     $badge_details = array('username' => $ibadge->user_detail, );
     $badge_details["badge"] = $ibadge->badge_details;

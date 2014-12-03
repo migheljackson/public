@@ -222,15 +222,17 @@ if(count($badge["activities"])>0 ) {
 	$today = new DateTime("now");
 	$render = !$show_issued_badges;
 	foreach($badge["activities"] as $activity) {
-		
-
+		//var_dump($activity["id"]);
+		//var_dump($activity_id_earned);
 		if ($show_issued_badges)  {
-		  if( $activity["id"]===$activity_id_earned) {
-			$render = true;
+			if( $activity["id"]===$activity_id_earned) {
+				$render = true;
+			} else if ($badge_is_challenge) {
 
-		} else {
-			$render = false;
-		}
+			  $render = true;
+			} else {
+				$render = false;
+			}
 		}
 		if ($render) {
 			$programDate = new DateTime($activity["end_date"]);

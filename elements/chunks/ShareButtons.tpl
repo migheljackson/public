@@ -1,4 +1,4 @@
- <div id="share_buttons" class="" style="margin: 0 auto;width: 450px;" data-a2a-url="[[+share_url]]"> 
+ <div id="share_buttons" class="" style="" data-a2a-url="[[+share_url]]"> 
  <p style="float: left;">[[+share_label]]</p>  
 
 <span class='st_facebook_large' displayText='Facebook'></span>

@@ -1,5 +1,5 @@
 <!--
-@name badgeCityDetails
+@name BadgeCityDetails
 @description source for workshop details view
 -->
 
@@ -35,6 +35,7 @@ ul.inline li {display:inline-block;margin-right:12px;}
       
     </div>
   </div>
+  [[+earned_badges]]
 	<div class="small-12 clearfix left">
 	  <div class="central-panel badge-panel small-12 left">
 	    <div class="row">
@@ -47,6 +48,7 @@ ul.inline li {display:inline-block;margin-right:12px;}
 	    </div>
 	  </div>
 	</div>
+</div>
 	<script>
 	$(".rule:last" ).addClass("end");
 	</script>

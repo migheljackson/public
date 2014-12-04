@@ -58,6 +58,7 @@ if(!isset($shared_badge_hash)) {
     $badge_details = array('username' => $ibadge->user_detail, );
     $badge_details["badge"] = $ibadge->badge_details;
     $badge_details["badge_url"] = $ibadge->badge_image_url;
+    $badge_details["badge_name"] = $ibadge->badge_name;
     //var_dump($ibadge);
     $earned_on = new DateTime($ibadge->awarded_at);
     $badge_details["earned_on"] = $earned_on->format("M j, o");
@@ -156,7 +157,7 @@ if(!isset($shared_badge_hash)) {
 
           $index += 1;
         }
-
+        
         $badge_details["evidence_panels"] = $evidence_panels;
         $badge_details["evidence_tabs"] = $evidence_tabs;
         //var_dump($badge_details);

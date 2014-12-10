@@ -20,6 +20,7 @@ $badgeList = "";
 
 foreach ($allBadgesResults['hits']['hits'] as $badgeItem) {
 	$badge = $badgeItem['_source'];
+	$activity_html="";
 	if(count($badge["activities"]) > 0) {
 		$counter==1;
 		$activity_label = count($badge["activities"]) > 1 ? "DO THESE ACTIVITIES" : "DO THIS ACTIVITY";

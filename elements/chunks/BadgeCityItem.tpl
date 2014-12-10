@@ -7,7 +7,7 @@
     </div>
     <div class="columns item-content" style="height:170px;overflow:hidden">
       <h5>[[+name]]</h5>
-      <p>[[+blurb]]</p>
+      <p>[[+description]]</p>
     </div>
     <a href="badge-details?id=[[+id]]&ref=bad-lib" class="button radius" style="position:absolute; bottom:10px; left:10px; right:10px">LEARN MORE</a>
   </div>

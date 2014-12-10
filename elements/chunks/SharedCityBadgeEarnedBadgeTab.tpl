@@ -1,0 +1,1 @@
+<dd class="[[+active]]"><a href="#panel[[+index]]"><img src="[[+badge_image_url]]" alt="[[+badge_name]]" class="th show-for-medium-up" style="max-width: 100px;max-height: 100px;"><p class="show-for-small"><small>[[+badge_name]]</small></p></a></dd>

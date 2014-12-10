@@ -20,7 +20,8 @@
     "require": {
         "php": ">=5.3",
         "elasticsearch/elasticsearch": "~1.0",
-	"dbtlr/php-airbrake": "dev-master"
+	   "dbtlr/php-airbrake": "dev-master",
+       "mustache/mustache": "2.7.0"
     },
     "extra": {
         "package_name": "col_public",

@@ -39,7 +39,7 @@
         </div>
         <br>
         <div class="small-centered small-12 large-10 columns">
-            <ul id="badge_items" class="small-block-grid-2 large-block-grid-8 text-center">
+            <ul id="badge_items" class="small-block-grid-3 large-block-grid-6 text-center">
                 [[+badge_items]]
             </ul>
         </div>

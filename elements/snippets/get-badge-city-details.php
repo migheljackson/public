@@ -246,6 +246,8 @@ $modx->setPlaceholders($badge);
 $badge["totalBadgeRequirement"] = $totalBadgeRequirement;
 $badge["ruleSetHtml"] = $ruleSetComplete;
 $badge["activityHtml"] = $activityHtml;
+$badge["informal_description"]
+	= $badge["informal_description"]=="" ? $badge["description"] : $badge["informal_description"];
 
 // $modx->setPlaceholder("totalBadgeRequirement", $totalBadgeRequirement);
 // $modx->setPlaceholder("ruleSetHtml", $ruleSetComplete);

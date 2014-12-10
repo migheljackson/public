@@ -81,7 +81,7 @@ if(!empty($catIdList)) {
     $activityTile = $modx->getOption( 'tpl', $scriptProperties, 'TileItem' );
     $activityHtml = "";
     foreach($activities["hits"]["hits"] as $activitySource) {
-        var_dump($activitySource["_source"]);
+        // var_dump($activitySource["_source"]);
         $activity = $activitySource["_source"];
         $link = $activity["activity_type"]=="ScheduledProgram" ? "workshop-detail?ref=bad-lib&id=" : "challenges?ref=related&id=";
         $activity["link"] = $link;

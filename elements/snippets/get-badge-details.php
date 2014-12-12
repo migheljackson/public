@@ -213,10 +213,11 @@ $modx->setPlaceholder("page_sub_header",$page_sub_header);
 // load activities
 if(count($badge["activities"])>0 ) {
 	$badgeActivity = $modx->getOption( 'tpl', $scriptProperties, 'BadgeActivity');
+	$earnBy = $badge_is_challenge==true ? "completing" : "participating in";
 	if (!$show_issued_badges) {
-		$activityHtml = "<p><strong>Earn by participating in:</strong></p>";
+		$activityHtml = "<p><strong>Earn by " . $earnBy . ":</strong></p>";
 	} else {
-		$activityHtml = "<p><strong>Earned by participating in:</strong></p>";
+		$activityHtml = "<p><strong>Earned by " . $earnBy . ":</strong></p>";
 	}
 	
 	$today = new DateTime("now");

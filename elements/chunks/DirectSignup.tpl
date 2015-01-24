@@ -40,13 +40,13 @@
           <h4 class="text-center">Your Info</h4>
           <div class="small-12 large-centered large-6 columns">
             <span style="display:none" id="error_name" class="error_message"></span>
-            <label for="name">
-              <input name="full_name" id="name" type="text" placeholder="First & last name" value="[[+full_name]]" >
-            </label>
+            <label for="name" class="bold">First & Last Name</label>
+            <input name="full_name" id="name" type="text" placeholder="First & last name" value="[[+full_name]]" >
+            
             <div class="row">
               <input type="hidden" id="preset_dob" value="[[+date_of_birth]]">
               <div class="small-12 large-12 columns">
-                <span >Your Birthdate</span>
+                <label for="birthmonth" class="bold">Your Birthdate</label>
               </div>
               <span style="display:none" id="error_birthdate" class="error_message"></span>
               <span style="display:none" id="error_birthmonth" class="error_message"></span>
@@ -145,7 +145,7 @@
             </div>
             <div id="code_entered" class="small-12" style="display:none">Sweet! Your account claim code <span id="claim_code_entered"></span> has been successfully verified.</div>
             <div id="code_select" class="small-12 link">
-	            <label>Do you have a claim code?</label>
+	            <label class="bold">Do you have a claim code?</label>
 	            <select id="claim_code_select">
 	            	<option value="">Select One</option>
 	            	<option value="yes">Yes</option>
@@ -168,7 +168,6 @@
                 <a id="btn_step1" class="button small expand radius next-step">Continue Sign Up</a><br><br>
               </div>
             </div>
-            
           </div>
         </div>
       </div>
@@ -191,19 +190,18 @@
           <h4 class="text-center">Parent/Legal guardian info</h4>
           <div class="small-12 large-centered large-6 columns">
             <span style="display:none" id="error_guardian_email_address" class="error_message"></span>
-            <label for="email">
-              <input name="guardian_email_address" id="guardian_email_address" type="text" placeholder="Legal Guardian E-Mail" value="[[+guardian_email_address]]">
-            </label>
+            <label for="email" class="bold">Your parent/legal guardian - Email</label>
+            <input name="guardian_email_address" id="guardian_email_address" type="text" placeholder="Legal Guardian E-Mail" value="[[+guardian_email_address]]">
             <span style="display:none" id="error_guardian_phone" class="error_message"></span>
-            <label for="phone">
-              <input name="guardian_phone" id="guardian_phone" type="text" placeholder="Legal Guardian Phone Number" value="[[+guardian_phone]]">
-            </label>
+            <label for="phone" class="bold">Your parent/legal guardian -  Phone number</label>
+            <span style="font-size:.8em">Your parent or guardian will get text messages about your achievements.</span>
+            <input name="guardian_phone" id="guardian_phone" type="text" placeholder="Legal Guardian Phone Number" value="[[+guardian_phone]]">
             <div class="small-12 columns link" data-reveal-id="why_parent_info">
               <a href="#">Why do we ask this?</a><br>
             </div>
             <div class="row">
               <div class="small-12 large-6 columns">
-                <a id="skip_guardian_info" href="#" class="button small secondary expand radius">I don't have either</a>
+                <a id="skip_guardian_info" href="#" class="button small secondary expand radius" style="background: #EEE; color: #DD8F68">I don't have either</a>
               </div>
               <div class="small-12 large-6 columns">
                 <a id="save_guardian_info"  href="#" class="button small expand radius next-step">Continue Sign Up</a>
@@ -280,18 +278,36 @@
               <input name="email_address" id="email_address" type="text" placeholder="E-mail address" value="[[+email_address]]">
             </label>
             <span style="display:none" id="error_zipcode" class="error_message"></span>
-            <label for="zip">
+            <label for="zip" class="bold">Your Zip code - Optional</label>
               <input name="zipcode" type="text" placeholder="Zip code">
             </label>
               
             <span style="display:none" id="error_username" class="error_message"></span>
-            <label for="user">
-              <input type="text" name="username" id="username" placeholder="User name">
-            </label>
+            <label for="user" class="bold">Create your username</label>
+            <input type="text" name="username" id="username" placeholder="Username">
+            
             <span style="display:none" id="error_password" class="error_message"></span>
-            <label for="pass">
-              <input type="password"  id="password" name="password" placeholder="Password">
-            </label>
+            <div class="small-8 large-6 column" style="padding-left:0; margin-left:0">
+	            <label for="pass" class="bold">Create your password
+	              <input type="password"  id="password" name="password" placeholder="Password">
+	            </label>
+            </div>
+            <div class="small-12 large-6 columns" style="padding-right:0; padding-left:0;padding-top: 21px;">
+              <div class="small-7 large-5 columns" style="padding-left:0">
+                <div class="switch tiny round">
+                  <input id="z1" name="switch-z" value="show" type="radio">
+                  <label for="z1" onclick=""></label>
+                  <input id="z" name="switch-z" type="radio" value="hide" checked>
+                  <label for="z" onclick=""></label>
+                  
+                  <span></span>
+                </div>
+                
+              </div>
+              <div class="small-8 large-7 columns" style="padding-left:0; padding-right:0;">
+                <p style="font-size:0.8em">Show password</p>
+              </div>
+            </div>
             <div class="row" style="">
               <div class="small-12 columns">
                 <div class="progress small-12 large-7 columns radius">
@@ -299,23 +315,6 @@
                 </div>
                 <div class="small-12 large-5 columns">
                   <a id="generate_password" href="#" class="link generate">Generate password</a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="small-12 columns">
-                  <div class="small-4 large-2 columns">
-                    <div class="switch tiny round">
-                      <input id="z1" name="switch-z" value="show" type="radio">
-                      <label for="z1" onclick=""></label>
-                      <input id="z" name="switch-z" type="radio" value="hide" checked>
-                      <label for="z" onclick=""></label>
-                      
-                      <span></span>
-                    </div>
-                  </div>
-                  <div class="small-8 large-10 columns">
-                    <p>Show password</p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -340,6 +339,7 @@
 <script type="text/javascript">
 var over_13 = false;
 var current_step = 1;
+ga('col.send', 'event', 'Signup', 'step', '1');
 var go_to_step = function(step_num) {
 
   var $target = $('section[data-step-title="step-'+step_num+'"]'),

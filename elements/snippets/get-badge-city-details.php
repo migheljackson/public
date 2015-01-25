@@ -77,13 +77,13 @@ if(count($badge["rule_sets"]) == 1) {
 
 if(!empty($catIdList)) {
     $activities = COL::search("", $catIdList, 4, 100, null, array(), 0, 15, null, null, null, "ScheduledProgram,Pathway");
-    // //////var_dump($activities);
+    var_dump($activities);
     $activityTile = $modx->getOption( 'tpl', $scriptProperties, 'TileItem' );
     $activityHtml = "";
     foreach($activities["hits"]["hits"] as $activitySource) {
         // var_dump($activitySource["_source"]);
         $activity = $activitySource["_source"];
-        $link = $activity["activity_type"]=="ScheduledProgram" ? "workshop-detail?ref=bad-lib&id=" : "challenges?ref=related&id=";
+        $link = $activitySource["_type"]=="ScheduledProgram" ? "workshop-detail?ref=bad-lib&id=" : "challenges?ref=related&id=";
         $activity["link"] = $link;
         $activity["id"] = substr($activity["id"],8);
         $activityHtml .= $modx->getChunk($activityTile, $activity);

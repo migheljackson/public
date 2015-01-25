@@ -18,7 +18,7 @@
       [[+description]]
     </div>
     <div class="columns main-action clearfix">
-      <a href="/challenges?id=5406152291069c2a4700000c&amp;ref=playlist-learn-more" class="button expand radius action">LEARN MORE</a>
+      <a href="[[+link]][[+id]]" title="[[+name]]" class="button expand radius action">LEARN MORE</a>
     </div>  
   </div>        
 </li>

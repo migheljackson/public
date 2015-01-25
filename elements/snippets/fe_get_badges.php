@@ -12,6 +12,8 @@ require_once $core_path.'col-library/col.php';
 
 $metaBadgesResults = COL::getMetaBadges();
 
+
+
 $catId = isset($_REQUEST["catId"]) ? $_REQUEST["catId"] : 0;
 $allBadgesResults = COL::getAllBadges(0, $catId);
 // $allBadgesResults = COL::getAllBadges();
@@ -33,8 +35,10 @@ $relatedTpl = $modx->getOption( 'tpl', $scriptProperties, 'BadgeCityItem' );
 $cityBadgeList = "";
 foreach ($metaBadgesResults['hits']['hits'] as $badgeItem ) {
         $badge = $badgeItem['_source'];
-        $badge["blurb"] = substr($badge['blurb'],0,80) . "...";
-        $cityBadgeList .= $modx->getChunk( $relatedTpl, $badge );
+        if($badge["publish_state"]=="published") {
+	        $badge["blurb"] = substr($badge['blurb'],0,80) . "...";
+	        $cityBadgeList .= $modx->getChunk( $relatedTpl, $badge );
+        }
 }
 
 $modx->setPlaceholder("cityBadgeTotal", $metaBadgesResults['hits']['total']);

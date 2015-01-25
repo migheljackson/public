@@ -79,11 +79,12 @@ if(!empty($catIdList)) {
     $activities = COL::search("", $catIdList, 4, 100, null, array(), 0, 15, null, null, null, "ScheduledProgram,Pathway");
     $activityTile = $modx->getOption( 'tpl', $scriptProperties, 'TileItem' );
     $activityHtml = "";
-    foreach($activities["hits"]["hits"] as $activitySource) {
+	foreach($activities["hits"]["hits"] as $activitySource) {
         $activity = $activitySource["_source"];
+        // var_dump($activitySource);
         $link = $activitySource["_type"]=="ScheduledProgram" ? "workshop-detail?ref=bad-lib&id=" : "challenges?ref=related&id=";
         $activity["link"] = $link;
-        $activity["id"] = substr($activity["id"],8);
+        $activity["id"] = $activitySource["_type"]=="ScheduledProgram" ? $activity["id"] : substr($activity["id"],8);
         $activityHtml .= $modx->getChunk($activityTile, $activity);
     }
     

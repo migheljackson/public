@@ -7,6 +7,4 @@
     <input name="sq" type="text" />
   </input>
   <input type="submit">
-
-
 </form>

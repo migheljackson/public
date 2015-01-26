@@ -70,15 +70,7 @@ $modx->setplaceholder( "badge-items", $badge_summary_details );
 $playlist_media_items = "";
 $first_shown = false;
 foreach ( $playlist->playlist_media as $item ) {
-  $style_show = "";// "display:none;";
-  /*if (!$first_shown) {
-    $style_show = "";
-    $first_shown = true;
-  } else {
-    
-  }*/
-    
-
+  $style_show = "";
   if ($item->playlist_medium->media_type == 1) {
     $playlist_media_items .= '<div class="item" style="'.$style_show.'">'.$item->playlist_medium->data.'</div>';
   } else {

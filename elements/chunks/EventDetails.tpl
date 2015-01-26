@@ -3,8 +3,6 @@
 @description source for event details view
 -->
 
-[[!setSelectedPageClass? &page=`explore-body`]]
-[[!fe_getevent]]
   <div class="row banner" id="workshop-pg" style="max-width:100%">
     <div class="large-12 columns mini-wrapper" style="">
       <h3 class="pg-title">EXPLORE</h3>

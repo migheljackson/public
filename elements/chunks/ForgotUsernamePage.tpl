@@ -2,21 +2,6 @@
 @name ForgotUsernamePage
 @description Page for the Direct Sign up into COL
 -->
-[[!fe_get_securityquestions]]
-<style>
-.step {
-position: absolute;
-height: 100%;
-width: 100%;
-display: none;
-}
-.selected_answer {
-border: 5px solid;
-border-radius: 27px;
-border-color: yellow;
-background-color: yellow;
-}
-</style>
 <form id="request_username" type="post" action="fe-do-request-username" class="form-horizontal" style="position:relative;min-height:600px;">
   <section class="step active" data-step-title="step-1" style="display:block;">
     <div class="sign-up-page">

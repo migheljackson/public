@@ -2,10 +2,8 @@
 @name PlaylistDetailPage
 @description source for event details view
 -->
-<!--<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>-->
-<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.2/owl.carousel.min.css"/>
-[[!fe_get_playlist? &playlist_id=`[[+playlist_id]]`]]
 
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.2/owl.carousel.min.css"/>
 				<!-- playlist start -->
 				<div class="small-12 columns playlists">
 					<h3>PLAYLIST</h3>
@@ -94,16 +92,6 @@
       ],
  
   });
-					
-					/*
-						$('#playlist_media').slick({
-							nextArrow: '.orbit-next',
-							prevArray: '.orbit-prev',		
-							//vertical: true
-							onBeforeChange: function(){  $('#playlist_media div').show(); }					
-						});
-					*/
-					});
-				</script>
-
-				<!-- playlist end -->
+});
+</script>
+<!-- playlist end -->

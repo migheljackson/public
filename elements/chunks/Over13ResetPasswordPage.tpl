@@ -3,21 +3,6 @@
 @description Page for the Direct Sign up into COL
 -->
 
-<style>
-.step {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    display: none;
-}
-
-.selected_answer {
-  border: 5px solid; 
-  border-radius: 27px; 
-  border-color: yellow; 
-  background-color: yellow;
-}
-</style>
 [[!fe_set_password_reset_parameters]]
 <form id="reset_password_form" type="post" action="process-signup" class="form-horizontal" style="position:relative;min-height:600px;">
    <section class="step active" data-step-title="step-4" style="display:block;">

@@ -2,41 +2,30 @@
 @name ChooseAvatar
 @description Page for the Direct Sign up into COL
 -->
-[[!fe_get_presetavatars]]
 
-<style>
-
-.selected_answer {
-  border: 5px solid; 
-  border-radius: 27px; 
-  border-color: yellow; 
-  background-color: yellow;
-}
-</style>
 <div class="sign-up-page">
     <div class="row" id="avatar_setup">
         <div class="small-12 large-centered large-9 columns">
             <h2 id="page_header"  class="text-center">[[+page_header]]</h2>
-            
             <hr>
             <h4 class="text-center">Select your avatar</h4>
             <div class="small-12 large-centered large-6 columns">
-            <form id="set_avatar" action="#">
-            <ul class="avatar small-block-grid-4 columns">
-                [[+avatar_items]]
-            </ul>
-           
-            <div id="next_steps" class="row" style="display:none;">
-            <div class="small-12 large-12 columns">
-                <a href="/explore" class="button small expand radius next-step">[[+exploring_label]]</a>
-            </div>
-            </div>
-            </form>
+	            <form id="set_avatar" action="#">
+		            <ul class="avatar small-block-grid-4 columns">
+		                [[+avatar_items]]
+		            </ul>
+		           
+		            <div id="next_steps" class="row" style="display:none;">
+			            <div class="small-12 large-12 columns">
+			                <a href="/explore" class="button small expand radius next-step">[[+exploring_label]]</a>
+			            </div>
+		            </div>
+	            </form>
             </div>
         </div>
     </div>
     <div id="custom_questions" class="row"  style="display:none;">
-<div class="small-12 large-centered large-9 columns">
+		<div class="small-12 large-centered large-9 columns">
             <h2 id="page_header"  class="text-center">ALMOST DONE......</h2>
             <hr>
             <h4 class="text-center">Answer a few more questions so that we can learn more about you.<i>They are optional.</i></h4>
@@ -44,7 +33,7 @@
               <div class="row">
                 <div class="small-12 large-centered large-9 columns">
                 [[+custom_questions]]
-              </div>
+              	</div>
               </div>
               <div class="small-12 large-6 columns">
                 <a id="custom_question_answers_submit" href="#" class="button small expand radius next-step">Submit & start exploring activities</a>
@@ -55,8 +44,7 @@
                 <a id="custom_question_answers_skip" href="#" class="">Skip this and start exploring activities now ></a>
               </div>
             </form>
-            
-            
+    	</div>
     </div>
 </div>
 

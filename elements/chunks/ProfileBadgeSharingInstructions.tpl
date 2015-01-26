@@ -5,6 +5,6 @@
       <strong>
         Where do I share my badge? 
       </strong>
-      <p>Click “view badge” so that you can choose which badge(s) you want share.</p>
+      <p>Click view badge so that you can choose which badge(s) you want share.</p>
     </div>
   </div>

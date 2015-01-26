@@ -5,17 +5,6 @@
           <ul class="filter-block">
             <li><p style="color:#37BDD6">[[+hit_count]] Results </p></li>
             <li><p style="color:#37BDD6">Filter by</p></li>
-            <!--<li>
-              <a href="#" data-dropdown="start-time" class="button secondary filter dropdown">Communities</a><br>
-              <ul id="start-time" data-dropdown-content class="f-dropdown">
-                <li><a href="#">Central</a></li>
-                <li><a href="#">North</a></li>
-                <li><a href="#">Northeast</a></li>
-                <li><a href="#">South</a></li>
-                <li><a href="#">Southeast</a></li>
-                <li><a href="#">West</a></li>
-              </ul>
-            </li>-->
             <li>
               <a href="#" data-dropdown="price_options" class="button secondary dropdown" style="background-color:#FFF">Price</a><br>
               <ul id="price_options" data-dropdown-content class="f-dropdown">

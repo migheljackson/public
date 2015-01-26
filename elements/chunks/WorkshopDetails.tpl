@@ -2,9 +2,6 @@
 @name workshopDetails
 @description source for workshop details view
 -->
-
-[[!setSelectedPageClass? &page=`explore-body`]]
-[[!fe_getworkshop]]
 <style>
 .badge-mini {height:75px;}
 .program-logo {max-height:120px}

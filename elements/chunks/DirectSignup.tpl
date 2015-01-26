@@ -339,9 +339,8 @@
 <script type="text/javascript">
 var over_13 = false;
 var current_step = 1;
-ga('col.send', 'event', 'Signup', 'step', '1');
 var go_to_step = function(step_num) {
-
+  ga('col.send', 'event', 'Signup', 'step', step_num);
   var $target = $('section[data-step-title="step-'+step_num+'"]'),
             $other = $target.siblings('.active');
         $other.fadeOut().removeClass('active');
@@ -641,6 +640,7 @@ $(function() {
   $('#birthday').mask('00/00');
 });
 $(document).ready(function() {
+  ga('col.send', 'event', 'Signup', 'step', '1');
   $('.roadblock').click(function(){
     if ($(this).is(':checked') ) {
       $("#create_account").removeAttr("disabled");

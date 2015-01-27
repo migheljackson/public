@@ -4,7 +4,7 @@
 -->
 [[!fe_get_username_parameter]]
 [[!fe_do_iremix_signout]]
-<section class="step" data-step-title="step-1">
+<section class="step" data-step-title="step-1" style="display:block">
 <div class="sign-up-page">
     <div class="row">
         <div class="small-12 large-centered large-9 columns">

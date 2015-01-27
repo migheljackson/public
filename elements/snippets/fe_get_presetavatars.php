@@ -11,6 +11,11 @@
 $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'components/col_public/' );
 require_once $core_path.'col-library/col.php';
 
+if (!COL::is_signed_in()) {
+	header('Location: sign-in');
+	die();
+}
+
 $response = COL::system_get('/preset_avatars.json');
 
 $paChunk = $modx->getOption( 'tpl', $scriptProperties, 'AvatarListItem' );

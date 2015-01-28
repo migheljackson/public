@@ -1,5 +1,4 @@
 <li>
-  <!-- ITEM -->
   <div class="set clearfix">
     <div class="row set-item">
       <div class="small-12 large-5 columns featured-item-logo">

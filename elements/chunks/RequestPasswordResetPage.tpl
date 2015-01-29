@@ -2,7 +2,7 @@
 @name RequestPasswordResetPage
 @description Page for the Direct Sign up into COL
 -->
-<section class="step" data-step-title="step-recover-password-1">
+<section class="step" data-step-title="step-recover-password-1" style="display:block">
 <div class="sign-up-page">
     <div class="row">
         <div class="small-12 large-centered large-9 columns">

@@ -580,6 +580,11 @@ class COL {
 
   private static function connect() {
     $params = array();
+    $params['connectionParams'] = array();
+    $params['connectionParams']['auth'] = array('chicago','1a987bb601cb343484df468df42ba275ca665f1d1ee38af6', 'Basic');
+    $params['guzzleOptions'] = array(
+      \Guzzle\Http\Client::SSL_CERT_AUTHORITY => false
+    );
     
     //$searchServers = array("gopher.col-engine.c66.me:9200");
     //$searchServers = array("bobcat.staging-col-engine-b.staging.c66.me:9200");

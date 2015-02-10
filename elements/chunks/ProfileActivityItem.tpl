@@ -8,6 +8,6 @@
 </div>
 <div class="small-6 large-7 columns">
 <p class="workshop-name">[[+name]]<br>[[+start_date]] - [[+end_date]]</p>
-<a href="workshops?id=[[+id]]" class="profile-link">View details</a>
+<a href="workshop-detail?id=[[+id]]" class="profile-link">View details</a>
 </div>
 </div>

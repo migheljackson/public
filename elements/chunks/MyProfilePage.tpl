@@ -12,7 +12,7 @@
         </div>
         <br>
         <h4 class="text-center">[[+username]]</h4>
-        <p class="text-center "><a href="my-account" class="link">View my account</a>&nbsp;/&nbsp;<a href="my-account#claim_codes_link" class="link">Enter my claim codes</a></p>
+        <p class="text-center "><a href="my-account" class="link">Update my account</a>&nbsp;/&nbsp;<a href="my-account#claim_codes_link" class="link">Enter my claim codes</a></p>
     </div>
     <div class="clearfix"></div>
 </div>

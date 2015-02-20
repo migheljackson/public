@@ -11,6 +11,7 @@
 $core_path = $modx->getOption( 'col_public.core_path', '', MODX_CORE_PATH.'components/col_public/' );
 require_once $core_path.'col-library/col.php';
 require_once $core_path.'col-library/col_scheduled_program.php';
+require_once $core_path.'col-library/col_org.php';
 
 
 if(!isset($scheduled_id)) {
@@ -58,6 +59,7 @@ $workshop['price'] = $workshop['price']==0 ? "FREE" : "$";
 $relatedItemCountMax = 5;
 $relatedTpl = $modx->getOption( 'tpl', $scriptProperties, 'WorkshopRelatedWorkshops' );
 $relatedItemTpl = $modx->getOption( 'tpl', $scriptProperties, 'WorkshopRelatedItem' );
+$scheduledItemInfoTileTpl = $modx->getOption( 'tpl', $scriptProperties, 'scheduledItemInfoTile' );
 
 $lat = $workshop["latitude"];
 $long = $workshop["longitude"];
@@ -253,6 +255,19 @@ if($workshop['meeting_type']=="workshop"){
 	$mapHtml = '<li style="[[+hide_map]]"><h4 class="event-block-title center">map</h4><div id="map-canvas" class="event-block small-map clearfix"></div></li>';
 	$workshop['mapHtml'] = $mapHtml;
 }
+
+$org_search= COL_Org::getOrgById( $workshop["org_id"] );
+$org = $org_search["_source"];
+
+$org_logo_url = $org['logo_url'];
+
+if(!empty($org_logo_url)){
+  $workshop['org_logo_html'] = "<img class=\"small-org-logo\" src=\"$org_logo_url\" />";
+}
+$workshop['org_url'] = $org["url"];
+$scheduledItemInfo = $modx->getChunk( $scheduledItemInfoTileTpl , $workshop );
+$modx->setPlaceholder( 'scheduledItemInfoTile', $scheduledItemInfo );
+
 
 $seoTitle = $workshop['name'] . " by " . $workshop['org_name'];
 $modx->setPlaceholder("dyn_page_title",$seoTitle);

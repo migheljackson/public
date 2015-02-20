@@ -57,27 +57,7 @@
           </li>
           [[+mapHtml]]
           [[+nearbyHtml]]
-          <li>
-            <h4 class="event-block-title center">workshop info</h4>
-            <div class="event-block clearfix">
-              <div class="row">
-                <div class="small-6 large-12 columns">
-                  <p style="color: #35BDD3;">[[+price]]</p>
-                  <p>Registration Deadline: [[+registration_deadline]]</p>
-                  <p>Recommended Ages: [[+min_age]]&mdash;[[+max_age]]</p>
-                  <ul class="work-cat">
-                    [[+categoryHtml]]
-                  </ul>
-                </div>
-                <hr/>
-              </div>
-              <div class="row">              
-                  <div class="small-6 large-12 columns">
-                    <p>Organization</p>
-                    <p>[[+org_name]]</p>
-                  </div>
-                </div>
-            </li>
+            [[+scheduledItemInfoTile]]
             [[+contactHtml]]
             [[+relatedCategoryHtml]]
           </ul>

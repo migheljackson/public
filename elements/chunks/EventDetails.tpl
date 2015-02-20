@@ -41,7 +41,7 @@
                   <p style="margin-left:33px">[[+weekdays]]</p>
                 </div>
               </div>
-              <div class="row">              
+              <div class="row">
                 <div class="small-11 small-offset-1 large-offset-1 large-11 column">
                   <img src="/assets/images/map-icon.png" class="left" style="padding-top:10px">
                   <p style="margin-left:33px">[[+location_name]]</p>
@@ -51,27 +51,7 @@
               </div>
             </div>
           </li>
-          <li>
-            <h4 class="event-block-title center">event info</h4>
-            <div class="event-block clearfix">
-              <div class="row">
-                <div class="small-6 large-12 columns">
-                  <p style="color: #35BDD3;">[[+price]]</p>
-                  <p>Registration Deadline: [[+registration_deadline]]</p>
-                  <p>Recommended Ages: [[+min_age]]&mdash;[[+max_age]]</p>
-                  <ul class="work-cat">
-                    [[+categoryHtml]]
-                  </ul>
-                </div>
-                <hr/>
-              </div>
-              <div class="row">              
-                  <div class="small-6 large-12 columns">
-                    <p>Organization</p>
-                    <p>[[+org_name]]</p>
-                  </div>
-                </div>
-            </li>
+            [[+scheduledItemInfoTile]]
             [[+contactHtml]]
           </ul>
           <div class="row" style="margin-bottom:15px;">
@@ -93,10 +73,10 @@
               <div style="width:100%;text-align: center;"><a href="explore" class="large button radius center" style="text-align:center;">KEEP EXPLORING</a></div>
               <br/>
           </div>
-        </div>  
-    </div>    
+        </div>
+    </div>
     <br/>
-    
+
     <script type="text/javascript" data-cfasync="false"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ5b_ROG8eqS9bogFLE1A7R8T3fBbc6Sw&sensor=false">
     </script>
